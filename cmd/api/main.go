@@ -15,11 +15,11 @@ func main() {
 		port = "8080"
 	}
 
-	// mux is the HTTP request router. It maps paths like GET /health to handler functions.
+	// mux는 HTTP 요청 라우터다. GET /health 같은 경로를 handler 함수로 연결한다.
 	mux := http.NewServeMux()
 	httpapi.RegisterHealthRoutes(mux)
 
-	// http.Server owns the network address, router, and basic timeout settings for the API process.
+	// http.Server는 API 프로세스의 주소, 라우터, 기본 timeout 설정을 가진다.
 	server := &http.Server{
 		Addr:              ":" + port,
 		Handler:           mux,
