@@ -46,3 +46,28 @@ docker compose up -d
 ## Roadmap
 
 The private study plan repository tracks detailed daily learning plans and retrospectives. This public repository contains only implementation artifacts intended for portfolio review.
+
+## Project Structure
+
+```text
+cmd/api/                  API server entrypoint
+internal/httpapi/          HTTP handlers and route registration
+internal/platform/database PostgreSQL connection helper
+migrations/                SQL migration files
+docker-compose.yml         Local PostgreSQL environment
+```
+
+## Run PostgreSQL
+
+```bash
+docker compose up -d
+docker compose ps
+```
+
+## Database Schema
+
+The first schema contains three core tables:
+
+- `merchants`: merchant profile
+- `invoices`: payment request created by a merchant
+- `payments`: payment attempt and on-chain transaction information
