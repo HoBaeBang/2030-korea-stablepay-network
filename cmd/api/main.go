@@ -37,6 +37,7 @@ func main() {
 	// http.NewServeMux()는 *http.ServeMux, 즉 ServeMux 구조체의 포인터를 반환한다.
 	mux := http.NewServeMux()
 	httpapi.RegisterHealthRoutes(mux)
+	httpapi.RegisterMerchantRoutes(mux, db)
 
 	// &http.Server{...}는 Server 구조체 값을 만들고, 그 값의 메모리 주소를 포인터로 가져온다.
 	server := &http.Server{

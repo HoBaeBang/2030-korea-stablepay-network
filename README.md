@@ -71,3 +71,20 @@ The first schema contains three core tables:
 - `merchants`: merchant profile
 - `invoices`: payment request created by a merchant
 - `payments`: payment attempt and on-chain transaction information
+
+
+## Merchant API
+
+Create merchant:
+
+```bash
+curl -i -X POST http://localhost:8080/merchants \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Cafe Korea","email":"owner@cafe.example"}'
+```
+
+Expected status:
+
+```text
+201 Created
+```

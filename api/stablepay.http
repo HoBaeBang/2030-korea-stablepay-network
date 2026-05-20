@@ -1,0 +1,32 @@
+### Health check
+GET http://localhost:8080/health
+
+### Create merchant
+POST http://localhost:8080/merchants
+Content-Type: application/json
+{
+  "name": "Cafe Korea",
+  "email": "owner@cafe.example"
+}
+
+###
+# curl -i -X POST http://localhost:8080/merchants
+#  -H "Content-Type: application/json"
+#  -d '{"name":"","email":"owner2@cafe.example"}'
+POST http://localhost:8080/merchants
+Content-Type: application/json
+{
+  "name": "",
+  "email": "owner2@cafe.example"
+}
+
+###
+
+
+### Create invoice
+POST http://localhost:8080/merchants/{{merchantId}}/invoices
+Content-Type: application/json
+{
+  "amount": 10000000,
+  "currency": "USDC"
+}
