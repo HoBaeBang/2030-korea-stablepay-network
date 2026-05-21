@@ -39,6 +39,7 @@ func main() {
 	httpapi.RegisterHealthRoutes(mux)
 	httpapi.RegisterMerchantRoutes(mux, db)
 	httpapi.RegisterInvoiceRoutes(mux, db)
+	httpapi.RegisterPaymentRoutes(mux, db)
 
 	// &http.Server{...}는 Server 구조체 값을 만들고, 그 값의 메모리 주소를 포인터로 가져온다.
 	server := &http.Server{

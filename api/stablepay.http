@@ -1,32 +1,54 @@
 ### Health check
-GET http://localhost:8080/health
+GET http://localhost:8080/healthz
 
 ### Create merchant
 POST http://localhost:8080/merchants
 Content-Type: application/json
+
 {
   "name": "Cafe Korea",
   "email": "owner@cafe.example"
 }
 
-###
-# curl -i -X POST http://localhost:8080/merchants
-#  -H "Content-Type: application/json"
-#  -d '{"name":"","email":"owner2@cafe.example"}'
-POST http://localhost:8080/merchants
+### Create invoice
+POST http://localhost:8080/merchants/mer_예시값/invoices
 Content-Type: application/json
+
 {
-  "name": "",
-  "email": "owner2@cafe.example"
+  "amount": 10000,
+  "currency": "USDC"
 }
 
-###
-
-
-### Create invoice
-POST http://localhost:8080/merchants/{{merchantId}}/invoices
+### Create payment
+POST http://localhost:8080/invoices/inv_예시값/payments
 Content-Type: application/json
+
 {
-  "amount": 10000000,
+  "amount": 10000,
   "currency": "USDC"
+}
+
+### Detect on-chain payment
+PATCH http://localhost:8080/payments/pay_예시값/status
+Content-Type: application/json
+
+{
+  "status": "ONCHAIN_DETECTED",
+  "transaction_hash": "0xabc123"
+}
+
+### Finalize payment
+PATCH http://localhost:8080/payments/pay_예시값/status
+Content-Type: application/json
+
+{
+  "status": "FINALIZED"
+}
+
+### Invalid transition example
+PATCH http://localhost:8080/payments/pay_예시값/status
+Content-Type: application/json
+
+{
+  "status": "PENDING"
 }
