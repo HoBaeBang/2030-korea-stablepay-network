@@ -94,6 +94,7 @@ api/
 docs/
   api/                                   API 실행 문서
   architecture/                          시스템 아키텍처 문서
+  roadmap/                               Phase 2 확장 로드맵
 
 cmd/
   api/
@@ -161,6 +162,8 @@ curl http://localhost:8080/health
 
 시스템이 어떤 구조로 확장될지는 [docs/architecture/target-architecture.md](docs/architecture/target-architecture.md)에서 확인할 수 있습니다.
 
+Phase 2 구현 순서와 확장 전략은 [docs/roadmap/phase-2-roadmap.md](docs/roadmap/phase-2-roadmap.md)에서 확인할 수 있습니다.
+
 ## 테스트
 
 ```bash
@@ -206,14 +209,17 @@ Phase 1이 결제 백엔드 MVP라면, Phase 2는 거래소/월렛/블록체인 
 예정된 확장 방향:
 
 ```text
-1. Ledger and Settlement
-2. Deposit and Withdrawal
+1. Blockchain Backend Core
+2. Ledger and Settlement
 3. Blockchain Event Indexer
-4. Wallet and Key Security
-5. Rust Signer Lab
-6. Rust Chain Prototype
-7. Devnet and Operations
+4. Deposit and Withdrawal
+5. Wallet and Key Security
+6. Rust Signer Lab
+7. Rust Chain Prototype
+8. Devnet and Operations
 ```
+
+구체적인 순서와 이유는 [Phase 2 Roadmap](docs/roadmap/phase-2-roadmap.md)에 정리되어 있습니다.
 
 ## 포트폴리오 관점
 
