@@ -64,9 +64,6 @@ Content-Type: application/json
   "email": "owner@cafe.example"
 }
 
-
-// 결제 요청서 API
-
 ### [결제 요청서 API] 결제 요청서 생성
 // 요청 주소:
 // POST /merchants/{merchantId}/invoices
@@ -115,7 +112,6 @@ Content-Type: application/json
 }
 
 
-// 결제 API
 
 ### [결제 API] 결제 생성
 // 요청 주소:
@@ -181,9 +177,6 @@ Content-Type: application/json
 {
   "status": "FINALIZED"
 }
-
-
-// 실패 예시 API
 
 ### [실패 예시] 허용되지 않는 결제 상태 전이
 // 요청 주소:
