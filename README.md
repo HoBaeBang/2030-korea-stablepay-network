@@ -91,6 +91,10 @@ PENDING -> FINALIZED
 api/
   stablepay.http                         HTTP client 실행 예시
 
+docs/
+  api/                                   API 실행 문서
+  architecture/                          시스템 아키텍처 문서
+
 cmd/
   api/
     main.go                              API server entrypoint
@@ -154,6 +158,8 @@ curl http://localhost:8080/health
 | `PATCH` | `/payments/{paymentId}/status` | payment 상태 변경 |
 
 자세한 실행 순서는 [docs/api/README.md](docs/api/README.md)를 보고, 직접 호출할 때는 [api/stablepay.http](api/stablepay.http)를 사용합니다.
+
+시스템이 어떤 구조로 확장될지는 [docs/architecture/target-architecture.md](docs/architecture/target-architecture.md)에서 확인할 수 있습니다.
 
 ## 테스트
 
