@@ -15,15 +15,13 @@
 
 단계는 다음처럼 나눈다.
 
-```text
-Phase 1
-Stablecoin Payment Gateway Backend
+```mermaid
+flowchart LR
+    P1["Phase 1<br/>Stablecoin Payment Gateway Backend<br/>스테이블코인 결제 백엔드"]
+    P2["Phase 2<br/>Blockchain Finance Backend<br/>원장, 정산, 입출금, 인덱서"]
+    P3["Phase 3<br/>Rust Signer, Chain Prototype, Devnet<br/>서명기, 체인 프로토타입, 개발 네트워크"]
 
-Phase 2
-Blockchain Finance Backend
-
-Phase 3
-Rust Signer, Chain Prototype, Devnet
+    P1 --> P2 --> P3
 ```
 
 각 단계의 의미:
@@ -43,63 +41,43 @@ Phase 3
 
 현재 구현은 Phase 1 MVP다.
 
-```text
-Client or HTTP Tool
-        |
-        v
-Go HTTP API Server
-        |
-        v
-HTTP Handler
-        |
-        v
-Domain Service
-        |
-        v
-Repository
-        |
-        v
-PostgreSQL
+```mermaid
+flowchart TD
+    Client["Client or HTTP Tool<br/>curl, .http, browser"]
+    Server["Go HTTP API Server"]
+    Handler["HTTP Handler"]
+    Service["Domain Service"]
+    Repository["Repository"]
+    Database[("PostgreSQL")]
+
+    Client --> Server --> Handler --> Service --> Repository --> Database
 ```
 
 현재 구현된 주요 흐름:
 
-```text
-Merchant 생성
-        |
-        v
-Invoice 생성
-        |
-        v
-Payment 생성
-        |
-        v
-Payment 상태 변경
+```mermaid
+flowchart TD
+    Merchant["Merchant 생성<br/>가맹점 등록"]
+    Invoice["Invoice 생성<br/>결제 요청서 발행"]
+    Payment["Payment 생성<br/>결제 추적 시작"]
+    Status["Payment 상태 변경<br/>결제 진행 상태 관리"]
+
+    Merchant --> Invoice --> Payment --> Status
 ```
 
 현재 Payment 상태 흐름:
 
-```text
-PENDING
-   |
-   v
-ONCHAIN_DETECTED
-   |
-   v
-FINALIZED
-   |
-   v
-SETTLED
+```mermaid
+stateDiagram-v2
+    [*] --> PENDING
+    PENDING --> ONCHAIN_DETECTED
+    ONCHAIN_DETECTED --> FINALIZED
+    FINALIZED --> SETTLED
+    PENDING --> FAILED
+    ONCHAIN_DETECTED --> FAILED
 ```
 
-실패 흐름:
-
-```text
-PENDING or ONCHAIN_DETECTED
-        |
-        v
-FAILED
-```
+실패 흐름은 `PENDING` 또는 `ONCHAIN_DETECTED` 상태에서 `FAILED`로 이동하는 경우다.
 
 현재는 실제 블록체인 RPC와 연결되어 있지 않다.
 
@@ -172,43 +150,32 @@ payment/
 
 ## Phase 1 Runtime Architecture
 
-현재 런타임 기준으로 보면 구조는 다음과 같다.
+현재 런타임 기준으로 보면 구조는 다음과 같다. 이 다이어그램은 현재 구현된 Phase 1 코드 기준이다.
 
-```text
-                       +----------------------+
-                       | HTTP Client          |
-                       | curl, .http, browser |
-                       +----------+-----------+
-                                  |
-                                  v
-                       +----------------------+
-                       | cmd/api/main.go      |
-                       | server startup       |
-                       +----------+-----------+
-                                  |
-                                  v
-                       +----------------------+
-                       | http.ServeMux        |
-                       | route dispatch       |
-                       +----------+-----------+
-                                  |
-                 +----------------+----------------+
-                 |                |                |
-                 v                v                v
-        +----------------+ +---------------+ +----------------+
-        | merchant API   | | invoice API   | | payment API    |
-        +-------+--------+ +-------+-------+ +-------+--------+
-                |                  |                 |
-                v                  v                 v
-        +----------------+ +---------------+ +----------------+
-        | merchant svc   | | invoice svc   | | payment svc    |
-        +-------+--------+ +-------+-------+ +-------+--------+
-                |                  |                 |
-                v                  v                 v
-        +------------------------------------------------------+
-        | PostgreSQL                                           |
-        | merchants, invoices, payments                        |
-        +------------------------------------------------------+
+```mermaid
+flowchart TD
+    Client["HTTP Client<br/>curl, .http, browser"]
+    Main["cmd/api/main.go<br/>server startup"]
+    Mux["http.ServeMux<br/>route dispatch"]
+
+    subgraph API["HTTP API Layer"]
+        MerchantAPI["merchant API"]
+        InvoiceAPI["invoice API"]
+        PaymentAPI["payment API"]
+    end
+
+    subgraph Service["Domain Service Layer"]
+        MerchantService["merchant service"]
+        InvoiceService["invoice service"]
+        PaymentService["payment service"]
+    end
+
+    DB[("PostgreSQL<br/>merchants, invoices, payments")]
+
+    Client --> Main --> Mux
+    Mux --> MerchantAPI --> MerchantService --> DB
+    Mux --> InvoiceAPI --> InvoiceService --> DB
+    Mux --> PaymentAPI --> PaymentService --> DB
 ```
 
 `http.ServeMux`는 HTTP 요청을 알맞은 handler로 보내는 분배기다.
@@ -225,30 +192,22 @@ POST /merchants
 
 ## Phase 2 Target Architecture
 
-Phase 2에서는 API로 사람이 직접 payment 상태를 바꾸는 구조에서 벗어나, 온체인 이벤트를 읽어 payment 상태를 자동으로 변경하는 구조로 확장한다.
+Phase 2에서는 API로 사람이 직접 payment 상태를 바꾸는 구조에서 벗어나, 온체인 이벤트를 읽어 payment 상태를 자동으로 변경하는 구조로 확장한다. 아래 다이어그램은 아직 구현된 구조가 아니라 목표 구조다.
 
-```text
-Customer Wallet
-      |
-      | stablecoin transfer
-      v
-Blockchain Network
-      |
-      | block, transaction, event
-      v
-Blockchain Event Indexer
-      |
-      | detected transaction
-      v
-StablePay Go Backend
-      |
-      | update payment status
-      v
-PostgreSQL
-      |
-      | settlement data
-      v
-Merchant Settlement
+```mermaid
+flowchart TD
+    Wallet["Customer Wallet<br/>고객 지갑"]
+    Chain["Blockchain Network<br/>stablecoin transfer"]
+    Indexer["Blockchain Event Indexer<br/>block, transaction, event 읽기"]
+    Backend["StablePay Go Backend<br/>payment 상태 변경"]
+    DB[("PostgreSQL<br/>payment, ledger, settlement data")]
+    Settlement["Merchant Settlement<br/>가맹점 정산"]
+
+    Wallet -->|"stablecoin transfer"| Chain
+    Chain -->|"block, transaction, event"| Indexer
+    Indexer -->|"detected transaction"| Backend
+    Backend -->|"update payment status"| DB
+    DB -->|"settlement data"| Settlement
 ```
 
 Phase 2에서 추가될 주요 구성요소:
@@ -275,35 +234,29 @@ Wallet and Key Security
 
 Phase 2의 핵심 변화:
 
-```text
-현재
-사람이 PATCH API로 payment 상태 변경
+```mermaid
+flowchart LR
+    Current["현재<br/>사람이 PATCH API로 payment 상태 변경"]
+    Future["미래<br/>Indexer가 블록체인을 읽고 payment 상태 변경"]
 
-미래
-Indexer가 블록체인을 읽고 payment 상태 변경
+    Current --> Future
 ```
 
 ## Phase 3 Target Architecture
 
-Phase 3에서는 Rust를 이용해 블록체인에 더 가까운 영역을 다룬다.
+Phase 3에서는 Rust를 이용해 블록체인에 더 가까운 영역을 다룬다. Go 백엔드는 운영 백엔드의 중심으로 두고, Rust는 서명기와 체인 실험 영역에 붙이는 방향이다.
 
-```text
-StablePay Go Backend
-        |
-        | signing request
-        v
-Rust Signer Service
-        |
-        | signed transaction
-        v
-Blockchain Network or Devnet
-        |
-        | blocks, transactions
-        v
-Indexer
-        |
-        v
-StablePay Go Backend
+```mermaid
+flowchart TD
+    Backend["StablePay Go Backend"]
+    Signer["Rust Signer Service<br/>transaction 서명"]
+    Network["Blockchain Network or Devnet"]
+    Indexer["Indexer<br/>blocks, transactions 읽기"]
+
+    Backend -->|"signing request"| Signer
+    Signer -->|"signed transaction"| Network
+    Network -->|"blocks, transactions"| Indexer
+    Indexer -->|"detected event"| Backend
 ```
 
 Rust를 사용하는 후보 영역:
@@ -402,11 +355,12 @@ Payment가 `FINALIZED`가 되었다고 해서 바로 모든 처리가 끝난 것
 
 현재 API는 외부 클라이언트가 직접 호출하는 HTTP API다.
 
-```text
-External Client
-      |
-      v
-StablePay HTTP API
+```mermaid
+flowchart TD
+    External["External Client"]
+    API["StablePay HTTP API"]
+
+    External --> API
 ```
 
 미래에는 API를 두 종류로 나눌 수 있다.
