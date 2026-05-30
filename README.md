@@ -95,6 +95,7 @@ docs/
   api/                                   API 실행 문서
   architecture/                          시스템 아키텍처 문서
   roadmap/                               Phase 2 확장 로드맵
+  portfolio/                             포트폴리오 범위와 검증 문서
 
 cmd/
   api/
@@ -164,6 +165,8 @@ curl http://localhost:8080/health
 
 Phase 2 구현 순서와 확장 전략은 [docs/roadmap/phase-2-roadmap.md](docs/roadmap/phase-2-roadmap.md)에서 확인할 수 있습니다.
 
+포트폴리오에서 보여주려는 범위는 [docs/portfolio/project-scope.md](docs/portfolio/project-scope.md), 로컬 검증 절차는 [docs/portfolio/verification.md](docs/portfolio/verification.md)에 정리되어 있습니다.
+
 ## 테스트
 
 ```bash
@@ -176,6 +179,8 @@ go test ./...
 - Invoice 생성 검증
 - Payment 생성 검증
 - Payment 상태 전이 검증
+
+자세한 로컬 검증 절차는 [docs/portfolio/verification.md](docs/portfolio/verification.md)를 참고합니다.
 
 ## 현재 한계
 
@@ -235,4 +240,6 @@ Phase 1이 결제 백엔드 MVP라면, Phase 2는 거래소/월렛/블록체인 
 - Service/repository separation
 - Unit testing
 - Blockchain payment domain understanding
+
+상세한 포트폴리오 범위와 면접 설명 포인트는 [docs/portfolio/project-scope.md](docs/portfolio/project-scope.md)에 정리되어 있습니다.
 
