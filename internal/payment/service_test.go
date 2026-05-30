@@ -136,6 +136,9 @@ func TestCanTransition(t *testing.T) {
 		{name: "FINALIZED에서 SETTLED는 허용된다", from: StatusFinalized, to: StatusSettled, want: true},
 		{name: "FINALIZED에서 PENDING은 차단된다", from: StatusFinalized, to: StatusPending, want: false},
 		{name: "SETTLED에서 FAILED는 차단된다", from: StatusSettled, to: StatusFailed, want: false},
+		{name: "PENDING에서 FINALIZED는 차단된다", from: StatusPending, to: StatusFinalized, want: false},
+		{name: "FAILED에서 PENDING은 차단된다", from: StatusFailed, to: StatusPending, want: false},
+		{name: "SETTLED에서 FINALIZED는 차단된다", from: StatusSettled, to: StatusFinalized, want: false},
 	}
 
 	for _, tt := range tests {
