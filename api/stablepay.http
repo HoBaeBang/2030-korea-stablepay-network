@@ -2,21 +2,76 @@
 
 # StablePay API 실행 예시
 #
-# 사용 순서:
-# 1. Health check로 서버가 켜져 있는지 확인한다.
-# 2. Create merchant를 실행하고 응답의 id 값을 merchantId에 복사한다.
-# 3. Create invoice를 실행하고 응답의 id 값을 invoiceId에 복사한다.
-# 4. Create payment를 실행하고 응답의 id 값을 paymentId에 복사한다.
-# 5. Detect on-chain payment, Finalize payment 순서로 상태를 변경한다.
+# 이 파일은 로컬에서 API를 직접 호출해보는 HTTP 클라이언트 예시다.
+# IntelliJ IDEA, GoLand, VS Code REST Client 같은 도구에서 요청 단위로 실행할 수 있다.
+#
+# 전체 사용 순서:
+# 1. 서버 상태 확인 API로 서버가 켜져 있는지 확인한다.
+# 2. 가맹점 생성 API를 실행하고 응답 JSON의 id 값을 아래 merchantId 변수에 복사한다.
+# 3. 결제 요청서 생성 API를 실행하고 응답 JSON의 id 값을 아래 invoiceId 변수에 복사한다.
+# 4. 결제 생성 API를 실행하고 응답 JSON의 id 값을 아래 paymentId 변수에 복사한다.
+# 5. 결제 상태 변경 API로 PENDING -> ONCHAIN_DETECTED -> FINALIZED 흐름을 확인한다.
+#
+# 변수 설명:
+# baseUrl
+# = API 서버 주소다. 기본값은 로컬 서버인 http://localhost:8080 이다.
+#
+# merchantId
+# = POST /merchants 응답의 id 값이다.
+# = 예: "id": "mer_1779283381135248000" 이면 mer_1779283381135248000 을 복사한다.
+#
+# invoiceId
+# = POST /merchants/{merchantId}/invoices 응답의 id 값이다.
+# = 예: "id": "inv_1779283381135248000" 이면 inv_1779283381135248000 을 복사한다.
+#
+# paymentId
+# = POST /invoices/{invoiceId}/payments 응답의 id 값이다.
+# = 예: "id": "pay_1779283381135248000" 이면 pay_1779283381135248000 을 복사한다.
 
 @merchantId = mer_응답에서_복사
 @invoiceId = inv_응답에서_복사
 @paymentId = pay_응답에서_복사
 
-### 1. Health check
+
+# ============================================================
+# 서버 상태 API
+# ============================================================
+
+### [서버 상태 API] 서버가 정상 실행 중인지 확인
+# 요청 주소:
+# GET /health
+#
+# 사용 목적:
+# API 서버가 켜져 있고 요청을 받을 수 있는 상태인지 확인한다.
+#
+# 예상 응답:
+# {
+#   "status": "ok",
+#   "service": "stablepay-api"
+# }
 GET {{baseUrl}}/health
 
-### 2. Create merchant
+
+# ============================================================
+# 가맹점 API
+# ============================================================
+
+### [가맹점 API] 가맹점 생성
+# 요청 주소:
+# POST /merchants
+#
+# 사용 목적:
+# StablePay를 사용할 가맹점을 생성한다.
+#
+# 요청 JSON 설명:
+# name
+# = 가맹점 이름이다. 예: Cafe Korea
+#
+# email
+# = 가맹점 대표 이메일이다. 올바른 이메일 형식이어야 한다.
+#
+# 실행 후 해야 할 일:
+# 응답 JSON의 id 값을 merchantId 변수에 복사한다.
 POST {{baseUrl}}/merchants
 Content-Type: application/json
 
@@ -25,7 +80,30 @@ Content-Type: application/json
   "email": "owner@cafe.example"
 }
 
-### 3. Create invoice
+
+# ============================================================
+# 결제 요청서 API
+# ============================================================
+
+### [결제 요청서 API] 결제 요청서 생성
+# 요청 주소:
+# POST /merchants/{merchantId}/invoices
+#
+# 경로 변수(path variable) 설명:
+# merchantId
+# = 어떤 가맹점이 결제 요청서를 만드는지 나타내는 값이다.
+# = POST /merchants 응답의 id 값을 사용한다.
+#
+# 요청 JSON 설명:
+# amount
+# = 결제 금액이다. 현재 예시에서는 가장 작은 통화 단위라고 생각하면 된다.
+# = 예: 10000 USDC는 실제 서비스라면 100.00 USDC 또는 0.01 단위 처리 등 정책에 따라 달라질 수 있다.
+#
+# currency
+# = 결제 통화다. 현재 실습에서는 USDC만 정상 케이스로 사용한다.
+#
+# 실행 후 해야 할 일:
+# 응답 JSON의 id 값을 invoiceId 변수에 복사한다.
 POST {{baseUrl}}/merchants/{{merchantId}}/invoices
 Content-Type: application/json
 
@@ -34,7 +112,25 @@ Content-Type: application/json
   "currency": "USDC"
 }
 
-### 4. Create invoice with expiration
+### [결제 요청서 API] 만료 시간이 있는 결제 요청서 생성
+# 요청 주소:
+# POST /merchants/{merchantId}/invoices
+#
+# 경로 변수(path variable) 설명:
+# merchantId
+# = 결제 요청서를 생성할 가맹점 id다.
+#
+# 요청 JSON 설명:
+# amount
+# = 결제 금액이다.
+#
+# currency
+# = 결제 통화다.
+#
+# expires_at
+# = 결제 요청서 만료 시각이다.
+# = ISO 8601 형식의 UTC 시간 문자열을 사용한다.
+# = 예: 2026-06-30T15:00:00Z
 POST {{baseUrl}}/merchants/{{merchantId}}/invoices
 Content-Type: application/json
 
@@ -44,7 +140,31 @@ Content-Type: application/json
   "expires_at": "2026-06-30T15:00:00Z"
 }
 
-### 5. Create payment
+
+# ============================================================
+# 결제 API
+# ============================================================
+
+### [결제 API] 결제 생성
+# 요청 주소:
+# POST /invoices/{invoiceId}/payments
+#
+# 경로 변수(path variable) 설명:
+# invoiceId
+# = 어떤 결제 요청서에 대한 결제를 만들지 나타내는 값이다.
+# = POST /merchants/{merchantId}/invoices 응답의 id 값을 사용한다.
+#
+# 요청 JSON 설명:
+# amount
+# = 실제 결제하려는 금액이다.
+# = invoice의 amount와 맞아야 정상적인 결제 흐름으로 볼 수 있다.
+#
+# currency
+# = 실제 결제하려는 통화다.
+# = 현재 실습에서는 USDC를 사용한다.
+#
+# 실행 후 해야 할 일:
+# 응답 JSON의 id 값을 paymentId 변수에 복사한다.
 POST {{baseUrl}}/invoices/{{invoiceId}}/payments
 Content-Type: application/json
 
@@ -53,7 +173,23 @@ Content-Type: application/json
   "currency": "USDC"
 }
 
-### 6. Detect on-chain payment
+### [결제 API] 온체인 결제 감지 상태로 변경
+# 요청 주소:
+# PATCH /payments/{paymentId}/status
+#
+# 경로 변수(path variable) 설명:
+# paymentId
+# = 상태를 변경할 payment id다.
+# = POST /invoices/{invoiceId}/payments 응답의 id 값을 사용한다.
+#
+# 요청 JSON 설명:
+# status
+# = 다음 결제 상태다.
+# = ONCHAIN_DETECTED는 블록체인에서 transaction이 감지됐다는 뜻이다.
+#
+# transaction_hash
+# = 블록체인 transaction hash다.
+# = ONCHAIN_DETECTED 상태로 변경할 때 필요하다.
 PATCH {{baseUrl}}/payments/{{paymentId}}/status
 Content-Type: application/json
 
@@ -62,7 +198,21 @@ Content-Type: application/json
   "transaction_hash": "0xabc123"
 }
 
-### 7. Finalize payment
+### [결제 API] 결제 확정 상태로 변경
+# 요청 주소:
+# PATCH /payments/{paymentId}/status
+#
+# 경로 변수(path variable) 설명:
+# paymentId
+# = 상태를 변경할 payment id다.
+#
+# 요청 JSON 설명:
+# status
+# = 다음 결제 상태다.
+# = FINALIZED는 블록체인 결제가 충분히 확정됐다는 뜻이다.
+#
+# 상태 전이 흐름:
+# PENDING -> ONCHAIN_DETECTED -> FINALIZED
 PATCH {{baseUrl}}/payments/{{paymentId}}/status
 Content-Type: application/json
 
@@ -70,7 +220,20 @@ Content-Type: application/json
   "status": "FINALIZED"
 }
 
-### 8. Invalid transition example
+
+# ============================================================
+# 실패 예시 API
+# ============================================================
+
+### [실패 예시] 허용되지 않는 결제 상태 전이
+# 요청 주소:
+# PATCH /payments/{paymentId}/status
+#
+# 실패 이유:
+# 이미 ONCHAIN_DETECTED 또는 FINALIZED로 진행된 결제를 PENDING으로 되돌리는 것은 허용하지 않는다.
+#
+# 확인 포인트:
+# 결제 상태 전이는 아무 방향으로나 바꿀 수 있는 값 변경이 아니라, 도메인 규칙을 따라야 한다.
 PATCH {{baseUrl}}/payments/{{paymentId}}/status
 Content-Type: application/json
 
@@ -78,7 +241,19 @@ Content-Type: application/json
   "status": "PENDING"
 }
 
-### 9. Invalid merchant email example
+### [실패 예시] 잘못된 가맹점 이메일
+# 요청 주소:
+# POST /merchants
+#
+# 실패 이유:
+# email 값이 이메일 형식이 아니다.
+#
+# 요청 JSON 설명:
+# name
+# = 가맹점 이름이다.
+#
+# email
+# = 가맹점 이메일이다. invalid-email은 @와 domain이 없어서 실패한다.
 POST {{baseUrl}}/merchants
 Content-Type: application/json
 
@@ -87,7 +262,24 @@ Content-Type: application/json
   "email": "invalid-email"
 }
 
-### 10. Unsupported currency example
+### [실패 예시] 지원하지 않는 결제 통화
+# 요청 주소:
+# POST /invoices/{invoiceId}/payments
+#
+# 실패 이유:
+# 현재 실습 API는 USDC를 정상 결제 통화로 사용한다.
+# KRW는 스테이블코인 결제 통화가 아니므로 실패 예시로 사용한다.
+#
+# 경로 변수(path variable) 설명:
+# invoiceId
+# = 결제를 생성하려는 결제 요청서 id다.
+#
+# 요청 JSON 설명:
+# amount
+# = 결제 금액이다.
+#
+# currency
+# = 결제 통화다. 이 예시에서는 실패를 확인하기 위해 KRW를 사용한다.
 POST {{baseUrl}}/invoices/{{invoiceId}}/payments
 Content-Type: application/json
 
