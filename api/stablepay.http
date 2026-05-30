@@ -1,8 +1,23 @@
-### Health check
-GET http://localhost:8080/healthz
+@baseUrl = http://localhost:8080
 
-### Create merchant
-POST http://localhost:8080/merchants
+# StablePay API 실행 예시
+#
+# 사용 순서:
+# 1. Health check로 서버가 켜져 있는지 확인한다.
+# 2. Create merchant를 실행하고 응답의 id 값을 merchantId에 복사한다.
+# 3. Create invoice를 실행하고 응답의 id 값을 invoiceId에 복사한다.
+# 4. Create payment를 실행하고 응답의 id 값을 paymentId에 복사한다.
+# 5. Detect on-chain payment, Finalize payment 순서로 상태를 변경한다.
+
+@merchantId = mer_응답에서_복사
+@invoiceId = inv_응답에서_복사
+@paymentId = pay_응답에서_복사
+
+### 1. Health check
+GET {{baseUrl}}/health
+
+### 2. Create merchant
+POST {{baseUrl}}/merchants
 Content-Type: application/json
 
 {
@@ -10,8 +25,8 @@ Content-Type: application/json
   "email": "owner@cafe.example"
 }
 
-### Create invoice
-POST http://localhost:8080/merchants/mer_예시값/invoices
+### 3. Create invoice
+POST {{baseUrl}}/merchants/{{merchantId}}/invoices
 Content-Type: application/json
 
 {
@@ -19,8 +34,18 @@ Content-Type: application/json
   "currency": "USDC"
 }
 
-### Create payment
-POST http://localhost:8080/invoices/inv_예시값/payments
+### 4. Create invoice with expiration
+POST {{baseUrl}}/merchants/{{merchantId}}/invoices
+Content-Type: application/json
+
+{
+  "amount": 25000,
+  "currency": "USDC",
+  "expires_at": "2026-06-30T15:00:00Z"
+}
+
+### 5. Create payment
+POST {{baseUrl}}/invoices/{{invoiceId}}/payments
 Content-Type: application/json
 
 {
@@ -28,8 +53,8 @@ Content-Type: application/json
   "currency": "USDC"
 }
 
-### Detect on-chain payment
-PATCH http://localhost:8080/payments/pay_예시값/status
+### 6. Detect on-chain payment
+PATCH {{baseUrl}}/payments/{{paymentId}}/status
 Content-Type: application/json
 
 {
@@ -37,18 +62,36 @@ Content-Type: application/json
   "transaction_hash": "0xabc123"
 }
 
-### Finalize payment
-PATCH http://localhost:8080/payments/pay_예시값/status
+### 7. Finalize payment
+PATCH {{baseUrl}}/payments/{{paymentId}}/status
 Content-Type: application/json
 
 {
   "status": "FINALIZED"
 }
 
-### Invalid transition example
-PATCH http://localhost:8080/payments/pay_예시값/status
+### 8. Invalid transition example
+PATCH {{baseUrl}}/payments/{{paymentId}}/status
 Content-Type: application/json
 
 {
   "status": "PENDING"
+}
+
+### 9. Invalid merchant email example
+POST {{baseUrl}}/merchants
+Content-Type: application/json
+
+{
+  "name": "Invalid Merchant",
+  "email": "invalid-email"
+}
+
+### 10. Unsupported currency example
+POST {{baseUrl}}/invoices/{{invoiceId}}/payments
+Content-Type: application/json
+
+{
+  "amount": 10000,
+  "currency": "KRW"
 }

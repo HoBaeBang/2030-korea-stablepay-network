@@ -153,7 +153,7 @@ curl http://localhost:8080/health
 | `POST` | `/invoices/{invoiceId}/payments` | invoice에 대한 payment 생성 |
 | `PATCH` | `/payments/{paymentId}/status` | payment 상태 변경 |
 
-자세한 실행 예시는 [api/stablepay.http](api/stablepay.http)를 참고합니다.
+자세한 실행 순서는 [docs/api/README.md](docs/api/README.md)를 보고, 직접 호출할 때는 [api/stablepay.http](api/stablepay.http)를 사용합니다.
 
 ## 테스트
 
