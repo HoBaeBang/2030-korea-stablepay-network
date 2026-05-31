@@ -49,16 +49,21 @@ Rust는 바로 메인 언어를 대체하는 포지션이 아니라, signer와 c
 
 Phase 2에서 추가로 보여주려는 역량:
 
-| 역량 | 목표 |
-| --- | --- |
-| Ledger | 돈의 이동을 원장 기록으로 남기는 구조 이해 |
-| Settlement | 가맹점 정산 금액 계산과 정산 상태 관리 |
-| Blockchain Event Indexer | 온체인 이벤트를 읽고 결제 상태를 자동 변경 |
-| Deposit/Withdrawal | 입금/출금 상태 machine과 ledger 연동 |
-| Wallet/Key Security | 개인키를 직접 DB에 저장하지 않는 보안 경계 설계 |
-| Idempotency | 중복 이벤트가 들어와도 상태가 깨지지 않게 처리 |
-| Reconciliation | DB 상태와 온체인 상태를 다시 대조하는 운영 개념 |
-| Rust Signer | Rust로 transaction 서명 컴포넌트 실험 |
+아래 표는 영어 용어를 먼저 외우기보다, 한글 의미와 프로젝트에서 쓰이는 목표를 함께 이해하기 위한 기준이다.
+
+| 역량 | 한글 의미 | 목표 |
+| --- | --- | --- |
+| Ledger | 원장 | 돈의 이동을 원장 기록으로 남기는 구조 이해 |
+| Settlement | 정산 | 가맹점에게 지급할 금액을 계산하고 정산 상태를 관리 |
+| Blockchain Event Indexer | 블록체인 이벤트 인덱서 | 온체인 이벤트를 읽고 결제 상태를 자동 변경 |
+| Deposit | 입금 | 외부 지갑에서 시스템으로 들어오는 자산 흐름 이해 |
+| Withdrawal | 출금 | 시스템에서 외부 지갑으로 나가는 자산 흐름 이해 |
+| Wallet | 지갑 | 블록체인 주소와 자산 보관/전송 기준 이해 |
+| Key Security | 키 보안 | 개인키를 직접 DB에 저장하지 않는 보안 경계 설계 |
+| Idempotency | 멱등성 | 중복 이벤트가 들어와도 상태가 깨지지 않게 처리 |
+| Reconciliation | 대사 | DB 상태와 온체인 상태를 다시 대조하는 운영 개념 |
+| Finality | 최종성 | 블록체인 거래가 되돌아가기 어려운 상태인지 판단 |
+| Rust Signer | Rust 서명기 | Rust로 transaction 서명 컴포넌트 실험 |
 
 ## 현재 구현된 기능
 
