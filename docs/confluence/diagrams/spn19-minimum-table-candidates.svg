@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="430" viewBox="0 0 1100 430" role="img" aria-labelledby="title desc">
+  <title id="title">Minimum Table Candidates For Ledger And Settlement</title>
+  <desc id="desc">Minimum Table Candidates For Ledger And Settlement diagram for SPN-19 Day 2 Ledger and Settlement learning</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155" />
+    </marker>
+    <filter id="shadow" x="-8%" y="-8%" width="116%" height="116%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.09"/>
+    </filter>
+  </defs>
+  <rect x="0" y="0" width="1100" height="430" fill="#f8fafc"/>
+  <text x="40" y="48" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="24" font-weight="700" fill="#0f172a">Minimum Table Candidates For Ledger And Settlement</text>
+  
+<rect x="45" y="88" width="475" height="270" rx="18" fill="#ffffff" stroke="#16a34a" stroke-width="1.6"/>
+<text x="67" y="122" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="16" font-weight="700" fill="#16a34a">Ledger 최소 후보</text>
+<rect x="85" y="145" width="180" height="58" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
+<text x="175" y="174" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">ledger_accounts</text>
+<rect x="300" y="145" width="180" height="58" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
+<text x="390" y="174" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">ledger_transactions</text>
+<rect x="190" y="250" width="180" height="58" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
+<text x="280" y="279" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">ledger_entries</text>
+<line x1="265" y1="174" x2="300" y2="174" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="390" y1="203" x2="300" y2="250" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="175" y1="203" x2="245" y2="250" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+
+<rect x="575" y="88" width="475" height="270" rx="18" fill="#ffffff" stroke="#d97706" stroke-width="1.6"/>
+<text x="597" y="122" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="16" font-weight="700" fill="#d97706">Settlement 최소 후보</text>
+<rect x="635" y="145" width="170" height="58" rx="12" fill="#fef3c7" stroke="#d97706" stroke-width="2" filter="url(#shadow)"/>
+<text x="720" y="174" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">settlements</text>
+<rect x="850" y="145" width="160" height="58" rx="12" fill="#fef3c7" stroke="#d97706" stroke-width="2" filter="url(#shadow)"/>
+<text x="930" y="174" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">settlement_items</text>
+<rect x="735" y="250" width="170" height="58" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+<text x="820" y="269" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">payments</text>
+<text x="820" y="291" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">FINALIZED</text>
+<line x1="805" y1="174" x2="850" y2="174" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="820" y1="250" x2="910" y2="203" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+
+</svg>
