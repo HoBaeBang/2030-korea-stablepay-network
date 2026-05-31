@@ -65,6 +65,156 @@ Phase 2에서 추가로 보여주려는 역량:
 | Finality | 최종성 | 블록체인 거래가 되돌아가기 어려운 상태인지 판단 |
 | Rust Signer | Rust 서명기 | Rust로 transaction 서명 컴포넌트 실험 |
 
+### 핵심 용어 상세 설명
+
+#### Ledger, 원장
+
+원장은 돈의 이동을 믿을 수 있게 기록하는 장부다.
+
+단순히 현재 잔액만 저장하는 것이 아니라, 왜 잔액이 바뀌었는지를 기록한다.
+
+예를 들어 잔액만 저장하면 아래처럼 보인다.
+
+```text
+merchant_balance = 10 USDC
+```
+
+하지만 원장은 잔액이 생긴 이유를 기록한다.
+
+```text
+고객 결제 발생
+Customer Account        -10 USDC
+Merchant Pending        +10 USDC
+```
+
+이렇게 기록하면 나중에 다음 질문에 답할 수 있다.
+
+```text
+이 돈은 어디서 왔는가?
+어떤 payment 때문에 생겼는가?
+중복으로 들어온 돈은 아닌가?
+정산할 수 있는 돈인가?
+장애가 났을 때 어디까지 처리됐는가?
+```
+
+우리 프로젝트에서 Ledger는 `Payment`가 `FINALIZED` 된 뒤 돈의 이동을 남기는 기능으로 이어진다.
+
+즉, `Payment`는 결제 상태를 추적하고, `Ledger`는 돈의 이동 기록을 남긴다.
+
+```text
+Payment
+= 결제가 어디까지 진행됐는가?
+
+Ledger
+= 돈이 어느 계정에서 어느 계정으로 이동했는가?
+```
+
+#### Idempotency, 멱등성
+
+멱등성은 같은 요청이나 같은 이벤트가 여러 번 들어와도 최종 결과가 한 번 처리한 것과 같게 유지되는 성질이다.
+
+영어로는 `Idempotency`라고 한다.
+
+예를 들어 블록체인 이벤트 인덱서가 같은 transaction을 두 번 읽을 수 있다.
+
+```text
+1번째 이벤트 수신:
+transaction_hash = 0xabc123
+payment 상태를 ONCHAIN_DETECTED로 변경
+
+2번째 이벤트 수신:
+transaction_hash = 0xabc123
+이미 처리한 이벤트이므로 다시 돈을 증가시키지 않음
+```
+
+멱등성이 없으면 같은 결제가 두 번 처리될 수 있다.
+
+```text
+잘못된 결과:
+고객은 10 USDC를 한 번 보냈다.
+시스템은 이벤트를 두 번 처리했다.
+가맹점 잔액이 20 USDC 증가했다.
+```
+
+멱등성이 있으면 이렇게 막는다.
+
+```text
+정상 결과:
+고객은 10 USDC를 한 번 보냈다.
+같은 이벤트가 두 번 들어왔다.
+시스템은 transaction_hash 또는 event_id를 기준으로 한 번만 처리했다.
+가맹점 잔액은 10 USDC만 증가했다.
+```
+
+우리 프로젝트에서 멱등성은 다음 기능으로 이어진다.
+
+```text
+transaction_hash unique 처리
+blockchain_event_id 중복 방지
+같은 payment 상태 변경 요청 중복 방지
+ledger entry 중복 생성 방지
+```
+
+#### Blockchain Event Indexer, 블록체인 이벤트 인덱서
+
+블록체인 이벤트 인덱서는 블록체인 네트워크를 계속 읽으면서 우리 서비스와 관련 있는 transaction이나 event를 찾아내는 작업자다.
+
+일반 사용자가 API를 호출해서 `Payment` 상태를 바꾸는 것이 아니라, 인덱서가 블록체인을 읽고 자동으로 상태를 바꾸는 구조를 만든다.
+
+현재 Phase 1에서는 사람이 직접 호출한다.
+
+```text
+PATCH /payments/{paymentId}/status
+status = ONCHAIN_DETECTED
+```
+
+Phase 2에서는 인덱서가 이 일을 맡는다.
+
+```text
+Blockchain Network
+-> block 읽기
+-> transaction 읽기
+-> 우리 결제 주소와 금액에 맞는 transaction 찾기
+-> payment 상태를 ONCHAIN_DETECTED로 변경
+-> 충분히 확정되면 FINALIZED로 변경
+```
+
+역할을 순서로 보면 다음과 같다.
+
+```text
+1. 마지막으로 읽은 block height를 기억한다.
+2. 다음 block을 읽는다.
+3. block 안의 transaction/event를 확인한다.
+4. 우리 시스템의 invoice/payment와 관련 있는지 매칭한다.
+5. 관련 있으면 blockchain_events 테이블에 저장한다.
+6. payment 상태를 변경한다.
+7. 같은 이벤트가 다시 들어와도 한 번만 처리한다.
+```
+
+우리 프로젝트에서 Blockchain Event Indexer는 다음 기능으로 이어진다.
+
+```text
+blockchain_events 테이블
+indexer checkpoint 저장
+transaction_hash 기반 payment 매칭
+PENDING -> ONCHAIN_DETECTED 자동 전이
+ONCHAIN_DETECTED -> FINALIZED 자동 전이
+중복 이벤트 방지
+```
+
+정리하면 다음과 같다.
+
+```text
+Ledger
+= 돈의 이동을 기록하는 장부
+
+Idempotency
+= 같은 이벤트가 여러 번 들어와도 한 번만 처리되게 하는 성질
+
+Blockchain Event Indexer
+= 블록체인을 읽고 우리 결제 상태를 자동으로 바꾸는 작업자
+```
+
 ## 현재 구현된 기능
 
 현재 구현된 기능은 Phase 1 MVP다.
