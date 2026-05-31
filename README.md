@@ -96,6 +96,7 @@ docs/
   architecture/                          시스템 아키텍처 문서
   roadmap/                               Phase 2 확장 로드맵
   portfolio/                             포트폴리오 범위와 검증 문서
+  domain/                                Phase 2 도메인 학습 문서
 
 cmd/
   api/
@@ -166,6 +167,8 @@ curl http://localhost:8080/health
 Phase 2 구현 순서와 확장 전략은 [docs/roadmap/phase-2-roadmap.md](docs/roadmap/phase-2-roadmap.md)에서 확인할 수 있습니다.
 
 포트폴리오에서 보여주려는 범위는 [docs/portfolio/project-scope.md](docs/portfolio/project-scope.md), 로컬 검증 절차는 [docs/portfolio/verification.md](docs/portfolio/verification.md)에 정리되어 있습니다.
+
+Phase 2 도메인 전체 지도는 [docs/domain/phase-2-domain-map.md](docs/domain/phase-2-domain-map.md)에 정리되어 있습니다.
 
 ## 테스트
 
