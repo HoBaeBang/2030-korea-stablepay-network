@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="260" viewBox="0 0 980 260" role="img" aria-labelledby="title desc">
+  <title id="title">Project Phase Overview</title>
+  <desc id="desc">Project Phase Overview diagram for 2030 KOREA StablePay Network documentation</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155" />
+    </marker>
+    <filter id="shadow" x="-8%" y="-8%" width="116%" height="116%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect x="0" y="0" width="980" height="260" rx="0" fill="#f8fafc"/>
+  <text x="36" y="46" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="24" font-weight="700" fill="#0f172a">Project Phase Overview</text>
+  
+<rect x="60" y="105" width="190" height="82" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+<text x="155" y="136" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Phase 1</text>
+<text x="155" y="158" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Payment Gateway MVP</text>
+<rect x="295" y="105" width="190" height="82" rx="10" fill="#cffafe" stroke="#0891b2" stroke-width="2" filter="url(#shadow)"/>
+<text x="390" y="136" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Domain Foundation</text>
+<text x="390" y="158" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">도메인 기초 학습</text>
+<rect x="530" y="105" width="190" height="82" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
+<text x="625" y="136" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Phase 2</text>
+<text x="625" y="158" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Blockchain Finance Backend</text>
+<rect x="765" y="105" width="160" height="82" rx="10" fill="#ede9fe" stroke="#7c3aed" stroke-width="2" filter="url(#shadow)"/>
+<text x="845" y="136" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Phase 3</text>
+<text x="845" y="158" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Rust / Chain</text>
+<line x1="250" y1="146" x2="295" y2="146" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="485" y1="146" x2="530" y2="146" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="720" y1="146" x2="765" y2="146" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+
+</svg>

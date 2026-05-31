@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="240" viewBox="0 0 720 240" role="img" aria-labelledby="title desc">
+  <title id="title">Phase 1 Payment Flow</title>
+  <desc id="desc">Phase 1 Payment Flow diagram for 2030 KOREA StablePay Network documentation</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155" />
+    </marker>
+    <filter id="shadow" x="-8%" y="-8%" width="116%" height="116%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect x="0" y="0" width="720" height="240" rx="0" fill="#f8fafc"/>
+  <text x="36" y="46" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="24" font-weight="700" fill="#0f172a">Phase 1 Payment Flow</text>
+  
+<rect x="70" y="105" width="160" height="76" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+<text x="150" y="133" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Merchant</text>
+<text x="150" y="155" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">가맹점</text>
+<rect x="280" y="105" width="160" height="76" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+<text x="360" y="133" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Invoice</text>
+<text x="360" y="155" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">결제 요청서</text>
+<rect x="490" y="105" width="160" height="76" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+<text x="570" y="133" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Payment</text>
+<text x="570" y="155" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">결제 상태</text>
+<line x1="230" y1="143" x2="280" y2="143" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="255" y="135" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">creates</text>
+<line x1="440" y1="143" x2="490" y2="143" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="465" y="135" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">tracks</text>
+
+</svg>

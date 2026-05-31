@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="560" viewBox="0 0 1040 560" role="img" aria-labelledby="title desc">
+  <title id="title">Phase 1 Runtime Architecture</title>
+  <desc id="desc">Phase 1 Runtime Architecture diagram for 2030 KOREA StablePay Network documentation</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155" />
+    </marker>
+    <filter id="shadow" x="-8%" y="-8%" width="116%" height="116%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect x="0" y="0" width="1040" height="560" rx="0" fill="#f8fafc"/>
+  <text x="36" y="46" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="24" font-weight="700" fill="#0f172a">Phase 1 Runtime Architecture</text>
+  
+<rect x="60" y="120" width="160" height="70" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+<text x="140" y="145" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">HTTP Client</text>
+<text x="140" y="167" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">curl / .http</text>
+<rect x="280" y="120" width="170" height="70" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+<text x="365" y="145" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">cmd/api</text>
+<text x="365" y="167" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">server startup</text>
+<rect x="510" y="120" width="170" height="70" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+<text x="595" y="145" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">ServeMux</text>
+<text x="595" y="167" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">route dispatch</text>
+<line x1="220" y1="155" x2="280" y2="155" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="450" y1="155" x2="510" y2="155" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<rect x="95" y="290" width="180" height="64" rx="10" fill="#cffafe" stroke="#0891b2" stroke-width="2" filter="url(#shadow)"/>
+<text x="185" y="322" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Merchant API</text>
+<rect x="330" y="290" width="180" height="64" rx="10" fill="#cffafe" stroke="#0891b2" stroke-width="2" filter="url(#shadow)"/>
+<text x="420" y="322" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Invoice API</text>
+<rect x="565" y="290" width="180" height="64" rx="10" fill="#cffafe" stroke="#0891b2" stroke-width="2" filter="url(#shadow)"/>
+<text x="655" y="322" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Payment API</text>
+<rect x="800" y="290" width="180" height="64" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
+<text x="890" y="322" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">PostgreSQL</text>
+<line x1="560" y1="190" x2="185" y2="290" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="595" y1="190" x2="420" y2="290" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="630" y1="190" x2="655" y2="290" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="275" y1="322" x2="800" y2="322" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="510" y1="322" x2="800" y2="322" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="745" y1="322" x2="800" y2="322" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+
+</svg>

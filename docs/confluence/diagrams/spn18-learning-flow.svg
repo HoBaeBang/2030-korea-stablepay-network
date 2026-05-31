@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="270" viewBox="0 0 1050 270" role="img" aria-labelledby="title desc">
+  <title id="title">SPN-18 Learning Flow</title>
+  <desc id="desc">SPN-18 Learning Flow diagram for 2030 KOREA StablePay Network documentation</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155" />
+    </marker>
+    <filter id="shadow" x="-8%" y="-8%" width="116%" height="116%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect x="0" y="0" width="1050" height="270" rx="0" fill="#f8fafc"/>
+  <text x="36" y="46" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="24" font-weight="700" fill="#0f172a">SPN-18 Learning Flow</text>
+  
+<rect x="45" y="105" width="150" height="82" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+<text x="120" y="136" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Phase 1</text>
+<text x="120" y="158" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Payment MVP</text>
+<rect x="235" y="105" width="170" height="82" rx="10" fill="#cffafe" stroke="#0891b2" stroke-width="2" filter="url(#shadow)"/>
+<text x="320" y="136" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">SPN-18</text>
+<text x="320" y="158" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Domain Map</text>
+<rect x="445" y="105" width="160" height="82" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
+<text x="525" y="136" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Day 2</text>
+<text x="525" y="158" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Ledger / Settlement</text>
+<rect x="645" y="105" width="160" height="82" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2" filter="url(#shadow)"/>
+<text x="725" y="136" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Day 3</text>
+<text x="725" y="158" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Wallet / 입출금</text>
+<rect x="845" y="105" width="160" height="82" rx="10" fill="#ede9fe" stroke="#7c3aed" stroke-width="2" filter="url(#shadow)"/>
+<text x="925" y="136" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Day 4-5</text>
+<text x="925" y="158" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Indexer / Scope</text>
+<line x1="195" y1="146" x2="235" y2="146" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="405" y1="146" x2="445" y2="146" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="605" y1="146" x2="645" y2="146" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="805" y1="146" x2="845" y2="146" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+
+</svg>

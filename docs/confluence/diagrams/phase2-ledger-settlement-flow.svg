@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="850" height="250" viewBox="0 0 850 250" role="img" aria-labelledby="title desc">
+  <title id="title">Finalized Payment To Settlement</title>
+  <desc id="desc">Finalized Payment To Settlement diagram for 2030 KOREA StablePay Network documentation</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155" />
+    </marker>
+    <filter id="shadow" x="-8%" y="-8%" width="116%" height="116%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect x="0" y="0" width="850" height="250" rx="0" fill="#f8fafc"/>
+  <text x="36" y="46" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="24" font-weight="700" fill="#0f172a">Finalized Payment To Settlement</text>
+  
+<rect x="55" y="105" width="170" height="76" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+<text x="140" y="133" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Payment</text>
+<text x="140" y="155" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">FINALIZED</text>
+<rect x="270" y="105" width="170" height="76" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
+<text x="355" y="133" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Ledger Entry</text>
+<text x="355" y="155" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">돈의 이동 기록</text>
+<rect x="485" y="105" width="170" height="76" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
+<text x="570" y="133" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Settlement</text>
+<text x="570" y="155" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">정산 계산</text>
+<rect x="700" y="105" width="110" height="76" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2" filter="url(#shadow)"/>
+<text x="755" y="133" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Paid</text>
+<text x="755" y="155" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">지급</text>
+<line x1="225" y1="143" x2="270" y2="143" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="440" y1="143" x2="485" y2="143" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="655" y1="143" x2="700" y2="143" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+
+</svg>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="330" viewBox="0 0 1080 330" role="img" aria-labelledby="title desc">
+  <title id="title">Withdrawal State</title>
+  <desc id="desc">Withdrawal State diagram for 2030 KOREA StablePay Network documentation</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155" />
+    </marker>
+    <filter id="shadow" x="-8%" y="-8%" width="116%" height="116%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect x="0" y="0" width="1080" height="330" rx="0" fill="#f8fafc"/>
+  <text x="36" y="46" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="24" font-weight="700" fill="#0f172a">Withdrawal State</text>
+  
+<rect x="45" y="120" width="135" height="64" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+<text x="112.5" y="152" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">REQUESTED</text>
+<rect x="220" y="120" width="125" height="64" rx="10" fill="#cffafe" stroke="#0891b2" stroke-width="2" filter="url(#shadow)"/>
+<text x="282.5" y="152" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">APPROVED</text>
+<rect x="385" y="120" width="110" height="64" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
+<text x="440" y="152" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">SIGNED</text>
+<rect x="535" y="120" width="155" height="64" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
+<text x="612.5" y="152" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">BROADCASTED</text>
+<rect x="730" y="120" width="140" height="64" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
+<text x="800" y="152" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">CONFIRMED</text>
+<rect x="190" y="245" width="125" height="50" rx="10" fill="#ffe4e6" stroke="#e11d48" stroke-width="2" filter="url(#shadow)"/>
+<text x="252.5" y="270" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">REJECTED</text>
+<rect x="525" y="245" width="115" height="50" rx="10" fill="#ffe4e6" stroke="#e11d48" stroke-width="2" filter="url(#shadow)"/>
+<text x="582.5" y="270" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">FAILED</text>
+<line x1="180" y1="152" x2="220" y2="152" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="345" y1="152" x2="385" y2="152" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="495" y1="152" x2="535" y2="152" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="690" y1="152" x2="730" y2="152" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="112" y1="184" x2="215" y2="245" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="283" y1="184" x2="540" y2="245" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="440" y1="184" x2="570" y2="245" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+
+</svg>
