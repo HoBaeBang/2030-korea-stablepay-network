@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="720" viewBox="0 0 1160 720" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="780" viewBox="0 0 1280 780" role="img" aria-labelledby="title desc">
   <title id="title">Phase 2 Domain Map</title>
   <desc id="desc">Phase 2 Domain Map diagram for 2030 KOREA StablePay Network documentation</desc>
   <defs>
@@ -7,76 +7,91 @@
       <path d="M0,0 L0,6 L9,3 z" fill="#334155" />
     </marker>
     <filter id="shadow" x="-8%" y="-8%" width="116%" height="116%">
-      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.10"/>
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.09"/>
     </filter>
   </defs>
-  <rect x="0" y="0" width="1160" height="720" rx="0" fill="#f8fafc"/>
-  <text x="36" y="46" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="24" font-weight="700" fill="#0f172a">Phase 2 Domain Map</text>
+  <rect x="0" y="0" width="1280" height="780" fill="#f8fafc"/>
+  <text x="40" y="48" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="24" font-weight="700" fill="#0f172a">Phase 2 Domain Map</text>
   
-<rect x="55" y="110" width="170" height="76" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
-<text x="140" y="138" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Merchant</text>
-<text x="140" y="160" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">가맹점</text>
-<rect x="285" y="110" width="170" height="76" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
-<text x="370" y="138" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Invoice</text>
-<text x="370" y="160" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">결제 요청서</text>
-<rect x="515" y="110" width="170" height="76" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
-<text x="600" y="138" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Payment</text>
-<text x="600" y="160" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">결제 상태</text>
-<rect x="745" y="110" width="170" height="76" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
-<text x="830" y="138" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Ledger</text>
-<text x="830" y="160" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">원장</text>
-<rect x="975" y="110" width="140" height="76" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
-<text x="1045" y="138" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Settlement</text>
-<text x="1045" y="160" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">정산</text>
-<line x1="225" y1="148" x2="285" y2="148" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
-<text x="255" y="140" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">create</text>
-<line x1="455" y1="148" x2="515" y2="148" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
-<text x="485" y="140" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">track</text>
-<line x1="685" y1="148" x2="745" y2="148" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
-<text x="715" y="140" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">record</text>
-<line x1="915" y1="148" x2="975" y2="148" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
-<text x="945" y="140" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">calculate</text>
+<rect x="40" y="82" width="1200" height="170" rx="18" fill="#ffffff" stroke="#2563eb" stroke-width="1.6"/>
+<text x="62" y="116" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="16" font-weight="700" fill="#2563eb">1. 결제 생성과 정산 흐름</text>
+<rect x="80" y="142" width="160" height="72" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+<text x="160" y="168" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">Merchant</text>
+<text x="160" y="190" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">가맹점</text>
+<rect x="290" y="142" width="160" height="72" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+<text x="370" y="168" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">Invoice</text>
+<text x="370" y="190" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">결제 요청서</text>
+<rect x="500" y="142" width="160" height="72" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+<text x="580" y="168" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">Payment</text>
+<text x="580" y="190" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">결제 상태</text>
+<rect x="740" y="142" width="160" height="72" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
+<text x="820" y="168" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">Ledger</text>
+<text x="820" y="190" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">원장 기록</text>
+<rect x="980" y="142" width="180" height="72" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
+<text x="1070" y="168" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">Settlement</text>
+<text x="1070" y="190" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">가맹점 정산</text>
+<line x1="240" y1="178" x2="290" y2="178" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="265" y="169" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">create</text>
+<line x1="450" y1="178" x2="500" y2="178" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="475" y="169" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">track</text>
+<line x1="660" y1="178" x2="740" y2="178" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="700" y="169" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">FINALIZED</text>
+<line x1="900" y1="178" x2="980" y2="178" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="940" y="169" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">calculate</text>
 
-<rect x="55" y="315" width="170" height="76" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2" filter="url(#shadow)"/>
-<text x="140" y="343" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Customer Wallet</text>
-<text x="140" y="365" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">고객 지갑</text>
-<rect x="285" y="315" width="190" height="76" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2" filter="url(#shadow)"/>
-<text x="380" y="343" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Blockchain Network</text>
-<text x="380" y="365" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">블록체인</text>
-<rect x="535" y="315" width="210" height="76" rx="10" fill="#cffafe" stroke="#0891b2" stroke-width="2" filter="url(#shadow)"/>
-<text x="640" y="343" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Event Indexer</text>
-<text x="640" y="365" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">이벤트 인덱서</text>
-<line x1="225" y1="353" x2="285" y2="353" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
-<text x="255" y="345" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">stablecoin transfer</text>
-<line x1="475" y1="353" x2="535" y2="353" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
-<text x="505" y="345" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">block / tx / event</text>
-<line x1="635" y1="315" x2="600" y2="186" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
-<text x="617.5" y="242.5" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">status update</text>
+<rect x="40" y="290" width="1200" height="170" rx="18" fill="#ffffff" stroke="#0891b2" stroke-width="1.6"/>
+<text x="62" y="324" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="16" font-weight="700" fill="#0891b2">2. 온체인 감지 흐름</text>
+<rect x="80" y="350" width="180" height="72" rx="12" fill="#fef3c7" stroke="#d97706" stroke-width="2" filter="url(#shadow)"/>
+<text x="170" y="376" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">Customer Wallet</text>
+<text x="170" y="398" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">고객 지갑</text>
+<rect x="320" y="350" width="190" height="72" rx="12" fill="#fef3c7" stroke="#d97706" stroke-width="2" filter="url(#shadow)"/>
+<text x="415" y="376" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">Blockchain</text>
+<text x="415" y="398" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">Network</text>
+<rect x="570" y="350" width="200" height="72" rx="12" fill="#cffafe" stroke="#0891b2" stroke-width="2" filter="url(#shadow)"/>
+<text x="670" y="376" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">Event Indexer</text>
+<text x="670" y="398" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">이벤트 인덱서</text>
+<rect x="830" y="350" width="190" height="72" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+<text x="925" y="376" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">Payment Update</text>
+<text x="925" y="398" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">상태 자동 변경</text>
+<rect x="1050" y="367" width="140" height="38" rx="18" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+<text x="1120" y="391" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="13" font-weight="700" fill="#0f172a">PENDING -&gt; FINALIZED</text>
+<line x1="260" y1="386" x2="320" y2="386" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="290" y="377" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">stablecoin transfer</text>
+<line x1="510" y1="386" x2="570" y2="386" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="540" y="377" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">block / tx / event</text>
+<line x1="770" y1="386" x2="830" y2="386" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="800" y="377" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">matched event</text>
+<line x1="1020" y1="386" x2="1050" y2="386" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
 
-<rect x="145" y="535" width="160" height="76" rx="10" fill="#ede9fe" stroke="#7c3aed" stroke-width="2" filter="url(#shadow)"/>
-<text x="225" y="563" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Deposit</text>
-<text x="225" y="585" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">입금</text>
-<rect x="380" y="535" width="160" height="76" rx="10" fill="#ede9fe" stroke="#7c3aed" stroke-width="2" filter="url(#shadow)"/>
-<text x="460" y="563" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Withdrawal</text>
-<text x="460" y="585" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">출금</text>
-<rect x="615" y="535" width="160" height="76" rx="10" fill="#ffe4e6" stroke="#e11d48" stroke-width="2" filter="url(#shadow)"/>
-<text x="695" y="563" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Wallet</text>
-<text x="695" y="585" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">지갑</text>
-<rect x="850" y="535" width="170" height="76" rx="10" fill="#ffe4e6" stroke="#e11d48" stroke-width="2" filter="url(#shadow)"/>
-<text x="935" y="563" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Key Security</text>
-<text x="935" y="585" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">키 보안</text>
-<rect x="645" y="425" width="170" height="76" rx="10" fill="#ffe4e6" stroke="#e11d48" stroke-width="2" filter="url(#shadow)"/>
-<text x="730" y="453" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Rust Signer</text>
-<text x="730" y="475" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600" fill="#0f172a">Rust 서명기</text>
-<line x1="225" y1="535" x2="770" y2="186" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
-<text x="497.5" y="352.5" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">credit</text>
-<line x1="460" y1="535" x2="770" y2="186" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
-<text x="615" y="352.5" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">debit</text>
-<line x1="775" y1="573" x2="850" y2="573" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
 
-<line x1="890" y1="535" x2="815" y2="465" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
-<text x="852.5" y="492" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">sign</text>
-<line x1="645" y1="463" x2="475" y2="353" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
-<text x="560" y="400" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">signed tx</text>
+<rect x="40" y="498" width="1200" height="210" rx="18" fill="#ffffff" stroke="#7c3aed" stroke-width="1.6"/>
+<text x="62" y="532" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="16" font-weight="700" fill="#7c3aed">3. 입출금, 지갑, 키 보안 흐름</text>
+<rect x="80" y="565" width="150" height="72" rx="12" fill="#ede9fe" stroke="#7c3aed" stroke-width="2" filter="url(#shadow)"/>
+<text x="155" y="591" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">Deposit</text>
+<text x="155" y="613" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">입금</text>
+<rect x="285" y="565" width="170" height="72" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
+<text x="370" y="591" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">Ledger Credit</text>
+<text x="370" y="613" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">입금 원장 기록</text>
+<rect x="520" y="565" width="170" height="72" rx="12" fill="#ede9fe" stroke="#7c3aed" stroke-width="2" filter="url(#shadow)"/>
+<text x="605" y="591" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">Withdrawal</text>
+<text x="605" y="613" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">출금 요청</text>
+<rect x="755" y="565" width="170" height="72" rx="12" fill="#ffe4e6" stroke="#e11d48" stroke-width="2" filter="url(#shadow)"/>
+<text x="840" y="591" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">Key Security</text>
+<text x="840" y="613" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">키 보안 경계</text>
+<rect x="990" y="565" width="170" height="72" rx="12" fill="#ffe4e6" stroke="#e11d48" stroke-width="2" filter="url(#shadow)"/>
+<text x="1075" y="591" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">Rust Signer</text>
+<text x="1075" y="613" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="650" fill="#0f172a">서명 컴포넌트</text>
+<rect x="285" y="655" width="170" height="36" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="370" y="679" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="13" font-weight="700" fill="#0f172a">자산 유입 기록</text>
+<rect x="755" y="655" width="170" height="36" rx="18" fill="#ffe4e6" stroke="#e11d48" stroke-width="1.5"/>
+<text x="840" y="679" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="13" font-weight="700" fill="#0f172a">개인키 직접 노출 방지</text>
+<line x1="230" y1="601" x2="285" y2="601" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+<line x1="455" y1="601" x2="520" y2="601" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="487.5" y="592" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">balance</text>
+<line x1="690" y1="601" x2="755" y2="601" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="722.5" y="592" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">approval</text>
+<line x1="925" y1="601" x2="990" y2="601" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="957.5" y="592" text-anchor="middle" font-family="Arial, 'Apple SD Gothic Neo', sans-serif" font-size="12" fill="#475569">sign</text>
 
 </svg>
