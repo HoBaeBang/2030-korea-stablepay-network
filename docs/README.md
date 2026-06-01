@@ -34,6 +34,10 @@
 | 도메인 학습 | [docs/domain/ledger-and-settlement-concepts.md](domain/ledger-and-settlement-concepts.md) | [Ledger와 Settlement 개념 학습](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/4948055) |
 | 실습 가이드 | [docs/domain/ledger-and-settlement-practice-guide.md](domain/ledger-and-settlement-practice-guide.md) | [Ledger와 Settlement 실습 가이드](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5013640) |
 | 검증 가이드 | [docs/domain/ledger-and-settlement-verification-guide.md](domain/ledger-and-settlement-verification-guide.md) | [Ledger와 Settlement 검증문제와 답변가이드](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/4948076) |
+| 도메인 학습 | [docs/domain/deposit-withdrawal-wallet-key-security-basic-learning.md](domain/deposit-withdrawal-wallet-key-security-basic-learning.md) | [Deposit, Withdrawal, Wallet, Key Security 기초 학습](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5046787) |
+| 도메인 학습 | [docs/domain/deposit-withdrawal-wallet-key-security-concepts.md](domain/deposit-withdrawal-wallet-key-security-concepts.md) | [Deposit, Withdrawal, Wallet, Key Security 개념 학습](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5144688) |
+| 실습 가이드 | [docs/domain/wallet-deposit-withdrawal-practice-guide.md](domain/wallet-deposit-withdrawal-practice-guide.md) | [Wallet, Deposit, Withdrawal 실습 가이드](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5406724) |
+| 검증 가이드 | [docs/domain/deposit-withdrawal-wallet-key-security-verification-guide.md](domain/deposit-withdrawal-wallet-key-security-verification-guide.md) | [Deposit, Withdrawal, Wallet, Key Security 검증문제와 답변가이드](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5373973) |
 
 ## 현재 주의할 점
 
