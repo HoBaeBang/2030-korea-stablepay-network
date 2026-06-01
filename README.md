@@ -160,6 +160,8 @@ curl http://localhost:8080/health
 | `POST` | `/invoices/{invoiceId}/payments` | invoice에 대한 payment 생성 |
 | `PATCH` | `/payments/{paymentId}/status` | payment 상태 변경 |
 
+전체 문서 목록과 Confluence 매핑은 [docs/README.md](docs/README.md)에서 확인합니다.
+
 자세한 실행 순서는 [docs/api/README.md](docs/api/README.md)를 보고, 직접 호출할 때는 [api/stablepay.http](api/stablepay.http)를 사용합니다.
 
 시스템이 어떤 구조로 확장될지는 [docs/architecture/target-architecture.md](docs/architecture/target-architecture.md)에서 확인할 수 있습니다.
@@ -169,6 +171,8 @@ Phase 2 구현 순서와 확장 전략은 [docs/roadmap/phase-2-roadmap.md](docs
 포트폴리오에서 보여주려는 범위는 [docs/portfolio/project-scope.md](docs/portfolio/project-scope.md), 로컬 검증 절차는 [docs/portfolio/verification.md](docs/portfolio/verification.md)에 정리되어 있습니다.
 
 Phase 2 도메인 전체 지도는 [docs/domain/phase-2-domain-map.md](docs/domain/phase-2-domain-map.md)에 정리되어 있습니다.
+
+Ledger와 Settlement 학습 자료는 [docs/domain/ledger-and-settlement-basic-learning.md](docs/domain/ledger-and-settlement-basic-learning.md)에서 시작합니다.
 
 ## 테스트
 
