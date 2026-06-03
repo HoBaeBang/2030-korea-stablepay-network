@@ -12,6 +12,14 @@
 
 실습은 `개념 이해 -> 차이 정리 -> 보안 경계 정리 -> 직접 문서화` 순서로 진행합니다.
 
+## 참고 시퀀스
+
+아래 두 그림을 보면서 `docs/domain/wallet-deposit-withdrawal.md`에 Deposit과 Withdrawal 상태 흐름을 직접 정리합니다.
+
+![Deposit 실행 시퀀스](../confluence/diagrams/spn20-deposit-sequence.png)
+
+![Withdrawal 실행 시퀀스](../confluence/diagrams/spn20-withdrawal-sequence.png)
+
 ## 실습 목표
 
 `docs/domain/wallet-deposit-withdrawal.md` 파일을 직접 만들고, 다음 내용을 정리합니다.

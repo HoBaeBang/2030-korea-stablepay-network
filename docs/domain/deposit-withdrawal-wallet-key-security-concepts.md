@@ -22,6 +22,12 @@ Customer Wallet
 -> Internal Ledger Credit
 ```
 
+위 그림은 개념을 단순화한 흐름입니다. 더 정확히 말하면 `Deposit Address`는 서버 컴포넌트가 아니라, 블록체인 transaction/event 안에 들어있는 수신 주소입니다.
+
+### Deposit 실행 시퀀스
+
+![Deposit 실행 시퀀스](../confluence/diagrams/spn20-deposit-sequence.png)
+
 중요한 점은 사용자가 "입금했다"고 말하는 시점과 우리 시스템이 "입금으로 인정한다"고 판단하는 시점이 다를 수 있다는 것입니다.
 
 예를 들어 다음 확인이 필요할 수 있습니다.
@@ -54,6 +60,12 @@ REQUESTED
 -> BROADCASTED
 -> CONFIRMED
 ```
+
+### Withdrawal 실행 시퀀스
+
+![Withdrawal 실행 시퀀스](../confluence/diagrams/spn20-withdrawal-sequence.png)
+
+`SIGNED`는 내부 원장에 서명했다는 뜻이 아니라, 블록체인 네트워크에 제출할 transaction을 private key로 서명했다는 뜻입니다.
 
 상태 의미:
 

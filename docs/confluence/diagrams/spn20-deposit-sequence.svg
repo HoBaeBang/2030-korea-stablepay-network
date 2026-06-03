@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="650" viewBox="0 0 1280 650">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#475569"/>
+    </marker>
+    <style>
+      .page-title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+      .actor { font: 700 15px Arial, sans-serif; fill: #0f172a; }
+      .body { font: 500 13px Arial, sans-serif; fill: #334155; }
+      .step { font: 700 13px Arial, sans-serif; fill: #0f766e; }
+      .note { font: 600 14px Arial, sans-serif; fill: #475569; }
+      .small { font: 500 12px Arial, sans-serif; fill: #64748b; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="40" y="48" class="page-title">Deposit Sequence</text>
+  
+  
+  <rect x="40" y="90" width="170" height="72" rx="10" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+  <text x="125" y="120" text-anchor="middle" class="actor">사용자 지갑</text>
+  <text x="125" y="144" text-anchor="middle" class="body">외부 wallet</text>
+  
+  <rect x="280" y="90" width="190" height="72" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="375" y="120" text-anchor="middle" class="actor">블록체인</text>
+  <text x="375" y="144" text-anchor="middle" class="body">block / tx / event</text>
+  
+  <rect x="540" y="90" width="190" height="72" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="635" y="120" text-anchor="middle" class="actor">Event Indexer</text>
+  <text x="635" y="144" text-anchor="middle" class="body">RPC 조회/검증</text>
+  
+  <rect x="790" y="90" width="190" height="72" rx="10" fill="#ecfeff" stroke="#0891b2" stroke-width="2"/>
+  <text x="885" y="120" text-anchor="middle" class="actor">Deposit DB</text>
+  <text x="885" y="144" text-anchor="middle" class="body">입금 record</text>
+  
+  <rect x="1040" y="90" width="190" height="72" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="1135" y="120" text-anchor="middle" class="actor">Ledger</text>
+  <text x="1135" y="144" text-anchor="middle" class="body">credit 반영</text>
+
+  <line x1="125" y1="162" x2="125" y2="520" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="7 7"/>
+  <line x1="375" y1="162" x2="375" y2="520" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="7 7"/>
+  <line x1="635" y1="162" x2="635" y2="520" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="7 7"/>
+  <line x1="885" y1="162" x2="885" y2="520" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="7 7"/>
+  <line x1="1135" y1="162" x2="1135" y2="520" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="7 7"/>
+
+  
+  <line x1="125" y1="210" x2="375" y2="210" stroke="#475569" stroke-width="2.3" marker-end="url(#arrow)"/>
+  <text x="250" y="202" text-anchor="middle" class="step">1. deposit address로 USDC 전송</text>
+  
+  <line x1="375" y1="270" x2="375" y2="270" stroke="#475569" stroke-width="2.3" marker-end="url(#arrow)"/>
+  <text x="375" y="262" text-anchor="middle" class="step">2. block / transaction / event 기록</text>
+  
+  <line x1="635" y1="330" x2="375" y2="330" stroke="#475569" stroke-width="2.3" marker-start="url(#arrow)"/>
+  <text x="505" y="322" text-anchor="middle" class="step">3. RPC로 block, tx, event 조회</text>
+  
+  <line x1="635" y1="390" x2="635" y2="390" stroke="#475569" stroke-width="2.3" marker-end="url(#arrow)"/>
+  <text x="635" y="382" text-anchor="middle" class="step">4. to 주소, token, amount, tx hash 검증</text>
+  
+  <line x1="635" y1="450" x2="885" y2="450" stroke="#475569" stroke-width="2.3" marker-end="url(#arrow)"/>
+  <text x="760" y="442" text-anchor="middle" class="step">5. deposit record 저장</text>
+  
+  <line x1="885" y1="505" x2="1135" y2="505" stroke="#475569" stroke-width="2.3" marker-end="url(#arrow)"/>
+  <text x="1010" y="497" text-anchor="middle" class="step">6. ledger credit 반영</text>
+
+  <text x="40" y="585" class="note">Deposit Address는 서버 컴포넌트가 아니라, 블록체인 transaction/event 안의 수신 주소입니다.</text>
+  <text x="40" y="612" class="small">우리 시스템은 이미 온체인에 기록된 입금 후보를 RPC로 조회하고, 검증한 뒤 내부 DB와 Ledger에 반영합니다.</text>
+
+</svg>
