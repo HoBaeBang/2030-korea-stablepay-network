@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="600" viewBox="0 0 1280 600">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#475569"/>
+    </marker>
+    <style>
+      .page-title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+      .title { font: 700 16px Arial, sans-serif; fill: #0f172a; }
+      .body { font: 500 13px Arial, sans-serif; fill: #334155; }
+      .label { font: 700 13px Arial, sans-serif; fill: #0f766e; }
+      .note { font: 600 14px Arial, sans-serif; fill: #475569; }
+      .small { font: 500 12px Arial, sans-serif; fill: #64748b; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="40" y="48" class="page-title">Phase 2 First Implementation Decision Map</text>
+  
+      
+  <rect x="50" y="120" width="220" height="105" rx="10" fill="#ecfeff" stroke="#0891b2" stroke-width="2"/>
+  <text x="160" y="151" text-anchor="middle" class="title">Day 1</text>
+  <text x="160" y="175" text-anchor="middle" class="body">Phase 2 Domain Map</text>
+<text x="160" y="197" text-anchor="middle" class="body">전체 그림</text>
+      
+  <rect x="50" y="255" width="220" height="105" rx="10" fill="#ecfeff" stroke="#0891b2" stroke-width="2"/>
+  <text x="160" y="286" text-anchor="middle" class="title">Day 2</text>
+  <text x="160" y="310" text-anchor="middle" class="body">Ledger / Settlement</text>
+<text x="160" y="332" text-anchor="middle" class="body">돈의 이동</text>
+      
+  <rect x="50" y="390" width="220" height="80" rx="10" fill="#ecfeff" stroke="#0891b2" stroke-width="2"/>
+  <text x="160" y="421" text-anchor="middle" class="title">Day 3~4</text>
+  <text x="160" y="445" text-anchor="middle" class="body">Wallet / Indexer</text>
+<text x="160" y="467" text-anchor="middle" class="body">온체인 연결</text>
+
+      
+  <rect x="390" y="120" width="230" height="100" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="505" y="151" text-anchor="middle" class="title">Candidate A</text>
+  <text x="505" y="175" text-anchor="middle" class="body">Backend Core</text>
+<text x="505" y="197" text-anchor="middle" class="body">에러/설정/검증</text>
+      
+  <rect x="390" y="270" width="230" height="100" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="505" y="301" text-anchor="middle" class="title">Candidate B</text>
+  <text x="505" y="325" text-anchor="middle" class="body">Ledger Core</text>
+<text x="505" y="347" text-anchor="middle" class="body">계정/엔트리/테스트</text>
+      
+  <rect x="390" y="420" width="230" height="80" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="505" y="451" text-anchor="middle" class="title">Candidate C</text>
+  <text x="505" y="475" text-anchor="middle" class="body">Indexer Skeleton</text>
+<text x="505" y="497" text-anchor="middle" class="body">checkpoint/mock event</text>
+
+      
+  <rect x="760" y="135" width="230" height="110" rx="10" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+  <text x="875" y="166" text-anchor="middle" class="title">Decision Criteria</text>
+  <text x="875" y="190" text-anchor="middle" class="body">작게 끝까지 가능한가?</text>
+<text x="875" y="212" text-anchor="middle" class="body">테스트하기 쉬운가?</text>
+<text x="875" y="234" text-anchor="middle" class="body">다음 Sprint 기반인가?</text>
+      
+  <rect x="1040" y="145" width="200" height="95" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="1140" y="176" text-anchor="middle" class="title">Recommendation</text>
+  <text x="1140" y="200" text-anchor="middle" class="body">Sprint 2</text>
+<text x="1140" y="222" text-anchor="middle" class="body">Backend Core</text>
+      
+  <rect x="1040" y="320" width="200" height="95" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="1140" y="351" text-anchor="middle" class="title">Next</text>
+  <text x="1140" y="375" text-anchor="middle" class="body">Sprint 3</text>
+<text x="1140" y="397" text-anchor="middle" class="body">Ledger Core</text>
+
+      
+  <line x1="270" y1="172" x2="390" y2="170" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      
+  <line x1="270" y1="307" x2="390" y2="320" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      
+  <line x1="270" y1="430" x2="390" y2="460" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      
+  <line x1="620" y1="170" x2="760" y2="190" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      
+  <line x1="620" y1="320" x2="760" y2="190" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      
+  <line x1="620" y1="460" x2="760" y2="190" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      
+  <line x1="990" y1="190" x2="1040" y2="190" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      
+  <line x1="990" y1="205" x2="1040" y2="360" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      <text x="50" y="545" class="note">추천: 바로 Ledger/Indexer로 뛰기 전에, Sprint 2에서 Backend Core를 정리해 이후 기능이 붙을 패턴을 만든다.</text>
+    
+</svg>

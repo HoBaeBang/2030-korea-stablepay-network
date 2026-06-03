@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="360" viewBox="0 0 1180 360">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#475569"/>
+    </marker>
+    <style>
+      .page-title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+      .title { font: 700 16px Arial, sans-serif; fill: #0f172a; }
+      .body { font: 500 13px Arial, sans-serif; fill: #334155; }
+      .label { font: 700 13px Arial, sans-serif; fill: #0f766e; }
+      .note { font: 600 14px Arial, sans-serif; fill: #475569; }
+      .small { font: 500 12px Arial, sans-serif; fill: #64748b; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="40" y="48" class="page-title">SPN-22 Day 5 Learning Flow</text>
+  
+      
+  <rect x="50" y="110" width="230" height="130" rx="10" fill="#ecfeff" stroke="#0891b2" stroke-width="2"/>
+  <text x="165" y="141" text-anchor="middle" class="title">1. Day 1~4 복습</text>
+  <text x="165" y="165" text-anchor="middle" class="body">도메인 지도</text>
+<text x="165" y="187" text-anchor="middle" class="body">Ledger / Wallet / Indexer</text>
+      
+  <rect x="325" y="110" width="230" height="130" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="440" y="141" text-anchor="middle" class="title">2. 구현 후보 비교</text>
+  <text x="440" y="165" text-anchor="middle" class="body">Backend Core</text>
+<text x="440" y="187" text-anchor="middle" class="body">Ledger / Indexer</text>
+      
+  <rect x="600" y="110" width="230" height="130" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="715" y="141" text-anchor="middle" class="title">3. 첫 구현 결정</text>
+  <text x="715" y="165" text-anchor="middle" class="body">작게 끝까지</text>
+<text x="715" y="187" text-anchor="middle" class="body">vertical slice</text>
+      
+  <rect x="875" y="110" width="230" height="130" rx="10" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+  <text x="990" y="141" text-anchor="middle" class="title">4. Sprint 2 후보</text>
+  <text x="990" y="165" text-anchor="middle" class="body">Jira backlog</text>
+<text x="990" y="187" text-anchor="middle" class="body">완료 기준 정리</text>
+      
+  <line x1="280" y1="175" x2="325" y2="175" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      
+  <line x1="555" y1="175" x2="600" y2="175" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      
+  <line x1="830" y1="175" x2="875" y2="175" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      <text x="50" y="300" class="note">목표: 더 많이 구현하기보다, 지금 가장 먼저 구현할 얇은 범위를 정확히 결정한다.</text>
+    
+</svg>

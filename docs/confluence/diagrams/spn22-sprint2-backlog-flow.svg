@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="540" viewBox="0 0 1280 540">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#475569"/>
+    </marker>
+    <style>
+      .page-title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+      .title { font: 700 16px Arial, sans-serif; fill: #0f172a; }
+      .body { font: 500 13px Arial, sans-serif; fill: #334155; }
+      .label { font: 700 13px Arial, sans-serif; fill: #0f766e; }
+      .note { font: 600 14px Arial, sans-serif; fill: #475569; }
+      .small { font: 500 12px Arial, sans-serif; fill: #64748b; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="40" y="48" class="page-title">Sprint 2 Backlog Flow</text>
+  
+      
+  <rect x="60" y="120" width="220" height="100" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="170" y="151" text-anchor="middle" class="title">Goal</text>
+  <text x="170" y="175" text-anchor="middle" class="body">Backend Core</text>
+<text x="170" y="197" text-anchor="middle" class="body">실무형 기반 정리</text>
+      
+  <rect x="360" y="90" width="220" height="90" rx="10" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+  <text x="470" y="121" text-anchor="middle" class="title">Task 1</text>
+  <text x="470" y="145" text-anchor="middle" class="body">공통 에러 응답</text>
+<text x="470" y="167" text-anchor="middle" class="body">error envelope</text>
+      
+  <rect x="360" y="210" width="220" height="90" rx="10" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+  <text x="470" y="241" text-anchor="middle" class="title">Task 2</text>
+  <text x="470" y="265" text-anchor="middle" class="body">요청 Validation</text>
+<text x="470" y="287" text-anchor="middle" class="body">body/path 검증</text>
+      
+  <rect x="360" y="330" width="220" height="90" rx="10" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+  <text x="470" y="361" text-anchor="middle" class="title">Task 3</text>
+  <text x="470" y="385" text-anchor="middle" class="body">Config 정리</text>
+<text x="470" y="407" text-anchor="middle" class="body">env -> struct</text>
+
+      
+  <rect x="710" y="90" width="220" height="90" rx="10" fill="#ecfeff" stroke="#0891b2" stroke-width="2"/>
+  <text x="820" y="121" text-anchor="middle" class="title">Task 4</text>
+  <text x="820" y="145" text-anchor="middle" class="body">Logging</text>
+<text x="820" y="167" text-anchor="middle" class="body">요청/상태 로그</text>
+      
+  <rect x="710" y="210" width="220" height="90" rx="10" fill="#ecfeff" stroke="#0891b2" stroke-width="2"/>
+  <text x="820" y="241" text-anchor="middle" class="title">Task 5</text>
+  <text x="820" y="265" text-anchor="middle" class="body">API Boundary</text>
+<text x="820" y="287" text-anchor="middle" class="body">public/internal</text>
+      
+  <rect x="710" y="330" width="220" height="90" rx="10" fill="#ecfeff" stroke="#0891b2" stroke-width="2"/>
+  <text x="820" y="361" text-anchor="middle" class="title">Task 6</text>
+  <text x="820" y="385" text-anchor="middle" class="body">Test Pattern</text>
+<text x="820" y="407" text-anchor="middle" class="body">handler/service</text>
+
+      
+  <rect x="1030" y="200" width="210" height="115" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="1135" y="231" text-anchor="middle" class="title">Ready For</text>
+  <text x="1135" y="255" text-anchor="middle" class="body">Sprint 3 Ledger</text>
+<text x="1135" y="277" text-anchor="middle" class="body">Sprint 5 Indexer</text>
+      
+  <line x1="280" y1="170" x2="360" y2="135" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      
+  <line x1="280" y1="170" x2="360" y2="255" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      
+  <line x1="280" y1="170" x2="360" y2="375" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      
+  <line x1="580" y1="135" x2="710" y2="135" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      
+  <line x1="580" y1="255" x2="710" y2="255" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      
+  <line x1="580" y1="375" x2="710" y2="375" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      
+  <line x1="930" y1="135" x2="1030" y2="235" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      
+  <line x1="930" y1="255" x2="1030" y2="255" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      
+  <line x1="930" y1="375" x2="1030" y2="280" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      <text x="60" y="485" class="note">Sprint 2는 블록체인 기능을 직접 구현하기 전, 모든 후속 기능이 따라갈 백엔드 패턴을 만드는 Sprint다.</text>
+    
+</svg>

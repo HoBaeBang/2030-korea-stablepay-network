@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="500" viewBox="0 0 1240 500">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#475569"/>
+    </marker>
+    <style>
+      .page-title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+      .title { font: 700 16px Arial, sans-serif; fill: #0f172a; }
+      .body { font: 500 13px Arial, sans-serif; fill: #334155; }
+      .label { font: 700 13px Arial, sans-serif; fill: #0f766e; }
+      .note { font: 600 14px Arial, sans-serif; fill: #475569; }
+      .small { font: 500 12px Arial, sans-serif; fill: #64748b; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="40" y="48" class="page-title">Vertical Slice Scope</text>
+  
+      
+  <rect x="60" y="130" width="180" height="95" rx="10" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+  <text x="150" y="161" text-anchor="middle" class="title">Migration</text>
+  <text x="150" y="185" text-anchor="middle" class="body">DB schema</text>
+<text x="150" y="207" text-anchor="middle" class="body">필요 시</text>
+      
+  <rect x="290" y="130" width="180" height="95" rx="10" fill="#ecfeff" stroke="#0891b2" stroke-width="2"/>
+  <text x="380" y="161" text-anchor="middle" class="title">Domain</text>
+  <text x="380" y="185" text-anchor="middle" class="body">model</text>
+<text x="380" y="207" text-anchor="middle" class="body">state / rule</text>
+      
+  <rect x="520" y="130" width="180" height="95" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="610" y="161" text-anchor="middle" class="title">Repository</text>
+  <text x="610" y="185" text-anchor="middle" class="body">DB access</text>
+<text x="610" y="207" text-anchor="middle" class="body">query</text>
+      
+  <rect x="750" y="130" width="180" height="95" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="840" y="161" text-anchor="middle" class="title">Service</text>
+  <text x="840" y="185" text-anchor="middle" class="body">business rule</text>
+<text x="840" y="207" text-anchor="middle" class="body">transaction</text>
+      
+  <rect x="980" y="130" width="180" height="95" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="1070" y="161" text-anchor="middle" class="title">API / Test</text>
+  <text x="1070" y="185" text-anchor="middle" class="body">handler</text>
+<text x="1070" y="207" text-anchor="middle" class="body">검증</text>
+      
+  <line x1="240" y1="177" x2="290" y2="177" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      
+  <line x1="470" y1="177" x2="520" y2="177" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      
+  <line x1="700" y1="177" x2="750" y2="177" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      
+  <line x1="930" y1="177" x2="980" y2="177" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow)"/>
+  
+      <text x="60" y="305" class="note">Vertical slice는 한 기능을 DB부터 테스트까지 얇게 끝까지 연결하는 방식이다.</text>
+      <text x="60" y="335" class="small">Day 5에서 결정할 것은 거대한 Phase 2 전체가 아니라, 다음 Sprint에서 이 방식으로 끝낼 첫 조각이다.</text>
+      <text x="60" y="405" class="note">처음 추천 조각: Backend Core의 공통 에러 응답 + validation + 설정 구조 정리.</text>
+    
+</svg>
