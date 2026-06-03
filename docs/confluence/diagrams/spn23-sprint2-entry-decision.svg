@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="860" viewBox="0 0 1400 860">
+<rect width="1400" height="860" fill="#f8fafc"/>
+<text x="60" y="70" font-size="34" font-family="Arial, sans-serif" font-weight="700" fill="#111827">Sprint 2 진입 판단 흐름</text>
+<text x="60" y="112" font-size="18" font-family="Arial, sans-serif" fill="#6b7280">Day6 결과에 따라 바로 구현할지, 한 번 더 보강할지 결정한다.</text>
+<defs><marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M2,2 L10,6 L2,10 z" fill="#6b7280"/></marker></defs>
+<line x1="360" y1="250" x2="480" y2="250" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="760" y1="250" x2="880" y2="250" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="1010" y1="320" x2="900" y2="520" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="960" y1="320" x2="430" y2="520" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="80" y="180" width="280" height="140" rx="14" fill="#ffffff" stroke="#2563eb" stroke-width="3"/>
+<rect x="80" y="180" width="280" height="42" rx="14" fill="#2563eb"/>
+<rect x="80" y="202" width="280" height="20" fill="#2563eb"/>
+<text x="96" y="208" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">Day1~5 복습</text>
+<text x="96" y="242" font-size="18" font-family="Arial, sans-serif" fill="#111827">문서 재확인
+핵심 개념 요약</text>
+<rect x="480" y="180" width="280" height="140" rx="14" fill="#ffffff" stroke="#d97706" stroke-width="3"/>
+<rect x="480" y="180" width="280" height="42" rx="14" fill="#d97706"/>
+<rect x="480" y="202" width="280" height="20" fill="#d97706"/>
+<text x="496" y="208" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">약한 개념 표시</text>
+<text x="496" y="242" font-size="18" font-family="Arial, sans-serif" fill="#111827">모르는 용어
+헷갈리는 흐름
+질문 목록화</text>
+<rect x="880" y="180" width="280" height="140" rx="14" fill="#ffffff" stroke="#7c3aed" stroke-width="3"/>
+<rect x="880" y="180" width="280" height="42" rx="14" fill="#7c3aed"/>
+<rect x="880" y="202" width="280" height="20" fill="#7c3aed"/>
+<text x="896" y="208" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">준비도 판단</text>
+<text x="896" y="242" font-size="18" font-family="Arial, sans-serif" fill="#111827">Backend Core를
+시작해도 되는가?</text>
+<rect x="280" y="520" width="280" height="140" rx="14" fill="#ffffff" stroke="#dc2626" stroke-width="3"/>
+<rect x="280" y="520" width="280" height="42" rx="14" fill="#dc2626"/>
+<rect x="280" y="542" width="280" height="20" fill="#dc2626"/>
+<text x="296" y="548" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">보강 필요</text>
+<text x="296" y="582" font-size="18" font-family="Arial, sans-serif" fill="#111827">개념 보충
+작은 예제 추가
+백로그 보류</text>
+<rect x="760" y="520" width="280" height="140" rx="14" fill="#ffffff" stroke="#16a34a" stroke-width="3"/>
+<rect x="760" y="520" width="280" height="42" rx="14" fill="#16a34a"/>
+<rect x="760" y="542" width="280" height="20" fill="#16a34a"/>
+<text x="776" y="548" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">구현 시작</text>
+<text x="776" y="582" font-size="18" font-family="Arial, sans-serif" fill="#111827">Sprint 2 백로그 작성
+첫 PR 범위 확정</text>
+</svg>

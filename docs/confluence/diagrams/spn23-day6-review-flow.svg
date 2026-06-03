@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="860" viewBox="0 0 1400 860">
+<rect width="1400" height="860" fill="#f8fafc"/>
+<text x="60" y="70" font-size="34" font-family="Arial, sans-serif" font-weight="700" fill="#111827">SPN-23 Day 6 통합 복습 흐름</text>
+<text x="60" y="112" font-size="18" font-family="Arial, sans-serif" fill="#6b7280">Day1~Day5를 다시 연결하고 Sprint 2 구현 준비 상태를 판단한다.</text>
+<defs><marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M2,2 L10,6 L2,10 z" fill="#6b7280"/></marker></defs>
+<line x1="330" y1="255" x2="380" y2="255" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="650" y1="255" x2="700" y2="255" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="970" y1="255" x2="1020" y2="255" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="1155" y1="330" x2="1155" y2="500" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="1020" y1="575" x2="970" y2="575" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="60" y="180" width="270" height="150" rx="14" fill="#ffffff" stroke="#2563eb" stroke-width="3"/>
+<rect x="60" y="180" width="270" height="42" rx="14" fill="#2563eb"/>
+<rect x="60" y="202" width="270" height="20" fill="#2563eb"/>
+<text x="76" y="208" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">Day 1</text>
+<text x="76" y="242" font-size="18" font-family="Arial, sans-serif" fill="#111827">Phase 2 Domain Map
+전체 도메인 지도 복습</text>
+<rect x="380" y="180" width="270" height="150" rx="14" fill="#ffffff" stroke="#0f766e" stroke-width="3"/>
+<rect x="380" y="180" width="270" height="42" rx="14" fill="#0f766e"/>
+<rect x="380" y="202" width="270" height="20" fill="#0f766e"/>
+<text x="396" y="208" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">Day 2</text>
+<text x="396" y="242" font-size="18" font-family="Arial, sans-serif" fill="#111827">Ledger &amp; Settlement
+돈의 이동과 지급 묶음</text>
+<rect x="700" y="180" width="270" height="150" rx="14" fill="#ffffff" stroke="#7c3aed" stroke-width="3"/>
+<rect x="700" y="180" width="270" height="42" rx="14" fill="#7c3aed"/>
+<rect x="700" y="202" width="270" height="20" fill="#7c3aed"/>
+<text x="716" y="208" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">Day 3</text>
+<text x="716" y="242" font-size="18" font-family="Arial, sans-serif" fill="#111827">Deposit &amp; Withdrawal
+Wallet, Key Security</text>
+<rect x="1020" y="180" width="270" height="150" rx="14" fill="#ffffff" stroke="#d97706" stroke-width="3"/>
+<rect x="1020" y="180" width="270" height="42" rx="14" fill="#d97706"/>
+<rect x="1020" y="202" width="270" height="20" fill="#d97706"/>
+<text x="1036" y="208" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">Day 4</text>
+<text x="1036" y="242" font-size="18" font-family="Arial, sans-serif" fill="#111827">Event Indexer
+Checkpoint, Idempotency</text>
+<rect x="1020" y="500" width="270" height="150" rx="14" fill="#ffffff" stroke="#16a34a" stroke-width="3"/>
+<rect x="1020" y="500" width="270" height="42" rx="14" fill="#16a34a"/>
+<rect x="1020" y="522" width="270" height="20" fill="#16a34a"/>
+<text x="1036" y="528" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">Day 5</text>
+<text x="1036" y="562" font-size="18" font-family="Arial, sans-serif" fill="#111827">First Scope
+Sprint 2 후보 정리</text>
+<rect x="700" y="500" width="270" height="150" rx="14" fill="#ffffff" stroke="#dc2626" stroke-width="3"/>
+<rect x="700" y="500" width="270" height="42" rx="14" fill="#dc2626"/>
+<rect x="700" y="522" width="270" height="20" fill="#dc2626"/>
+<text x="716" y="528" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">Day 6</text>
+<text x="716" y="562" font-size="18" font-family="Arial, sans-serif" fill="#111827">Review Checkpoint
+구현 전 점검과 질문 정리</text>
+</svg>

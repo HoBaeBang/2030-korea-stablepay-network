@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="860" viewBox="0 0 1400 860">
+<rect width="1400" height="860" fill="#f8fafc"/>
+<text x="60" y="70" font-size="34" font-family="Arial, sans-serif" font-weight="700" fill="#111827">Phase 2 도메인 복습 지도</text>
+<text x="60" y="112" font-size="18" font-family="Arial, sans-serif" fill="#6b7280">Payment 상태만 보는 백엔드에서 Ledger, Settlement, Indexer, 입출금까지 확장한다.</text>
+<defs><marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M2,2 L10,6 L2,10 z" fill="#6b7280"/></marker></defs>
+<line x1="285" y1="280" x2="335" y2="280" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="560" y1="280" x2="610" y2="280" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="835" y1="280" x2="885" y2="280" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="1110" y1="280" x2="1160" y2="280" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="695" y1="590" x2="780" y2="590" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="895" y1="520" x2="995" y2="350" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="60" y="210" width="225" height="140" rx="14" fill="#ffffff" stroke="#7c3aed" stroke-width="3"/>
+<rect x="60" y="210" width="225" height="42" rx="14" fill="#7c3aed"/>
+<rect x="60" y="232" width="225" height="20" fill="#7c3aed"/>
+<text x="76" y="238" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">Blockchain</text>
+<text x="76" y="272" font-size="18" font-family="Arial, sans-serif" fill="#111827">Block
+Transaction
+Event / Log</text>
+<rect x="335" y="210" width="225" height="140" rx="14" fill="#ffffff" stroke="#d97706" stroke-width="3"/>
+<rect x="335" y="210" width="225" height="42" rx="14" fill="#d97706"/>
+<rect x="335" y="232" width="225" height="20" fill="#d97706"/>
+<text x="351" y="238" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">Indexer</text>
+<text x="351" y="272" font-size="18" font-family="Arial, sans-serif" fill="#111827">RPC 조회
+Checkpoint
+중복 방지</text>
+<rect x="610" y="210" width="225" height="140" rx="14" fill="#ffffff" stroke="#2563eb" stroke-width="3"/>
+<rect x="610" y="210" width="225" height="42" rx="14" fill="#2563eb"/>
+<rect x="610" y="232" width="225" height="20" fill="#2563eb"/>
+<text x="626" y="238" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">Payment</text>
+<text x="626" y="272" font-size="18" font-family="Arial, sans-serif" fill="#111827">PENDING
+ONCHAIN_DETECTED
+FINALIZED</text>
+<rect x="885" y="210" width="225" height="140" rx="14" fill="#ffffff" stroke="#0f766e" stroke-width="3"/>
+<rect x="885" y="210" width="225" height="42" rx="14" fill="#0f766e"/>
+<rect x="885" y="232" width="225" height="20" fill="#0f766e"/>
+<text x="901" y="238" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">Ledger</text>
+<text x="901" y="272" font-size="18" font-family="Arial, sans-serif" fill="#111827">돈의 이동 기록
+Account, Entry</text>
+<rect x="1160" y="210" width="225" height="140" rx="14" fill="#ffffff" stroke="#16a34a" stroke-width="3"/>
+<rect x="1160" y="210" width="225" height="42" rx="14" fill="#16a34a"/>
+<rect x="1160" y="232" width="225" height="20" fill="#16a34a"/>
+<text x="1176" y="238" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">Settlement</text>
+<text x="1176" y="272" font-size="18" font-family="Arial, sans-serif" fill="#111827">가맹점 지급 묶음
+정산 가능 금액</text>
+<rect x="470" y="520" width="225" height="140" rx="14" fill="#ffffff" stroke="#dc2626" stroke-width="3"/>
+<rect x="470" y="520" width="225" height="42" rx="14" fill="#dc2626"/>
+<rect x="470" y="542" width="225" height="20" fill="#dc2626"/>
+<text x="486" y="548" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">Wallet Flow</text>
+<text x="486" y="582" font-size="18" font-family="Arial, sans-serif" fill="#111827">Deposit
+Withdrawal
+Key Security</text>
+<rect x="780" y="520" width="225" height="140" rx="14" fill="#ffffff" stroke="#0f766e" stroke-width="3"/>
+<rect x="780" y="520" width="225" height="42" rx="14" fill="#0f766e"/>
+<rect x="780" y="542" width="225" height="20" fill="#0f766e"/>
+<text x="796" y="548" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">Ledger Link</text>
+<text x="796" y="582" font-size="18" font-family="Arial, sans-serif" fill="#111827">입출금 확정 후
+Ledger에 반영</text>
+</svg>

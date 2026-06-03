@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="860" viewBox="0 0 1400 860">
+<rect width="1400" height="860" fill="#f8fafc"/>
+<text x="60" y="70" font-size="34" font-family="Arial, sans-serif" font-weight="700" fill="#111827">Sprint 2 구현 전 준비도 체크</text>
+<text x="60" y="112" font-size="18" font-family="Arial, sans-serif" fill="#6b7280">모르는 것을 숨기지 않고 구현 전에 질문과 리스크로 분리한다.</text>
+<defs><marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M2,2 L10,6 L2,10 z" fill="#6b7280"/></marker></defs>
+<line x1="390" y1="240" x2="510" y2="240" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="810" y1="240" x2="930" y2="240" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="1080" y1="310" x2="1080" y2="510" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="930" y1="580" x2="810" y2="580" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="90" y="170" width="300" height="140" rx="14" fill="#ffffff" stroke="#2563eb" stroke-width="3"/>
+<rect x="90" y="170" width="300" height="42" rx="14" fill="#2563eb"/>
+<rect x="90" y="192" width="300" height="20" fill="#2563eb"/>
+<text x="106" y="198" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">개념 이해</text>
+<text x="106" y="232" font-size="18" font-family="Arial, sans-serif" fill="#111827">각 용어를 한 문장으로 설명
+Payment와 연결 가능</text>
+<rect x="510" y="170" width="300" height="140" rx="14" fill="#ffffff" stroke="#0f766e" stroke-width="3"/>
+<rect x="510" y="170" width="300" height="42" rx="14" fill="#0f766e"/>
+<rect x="510" y="192" width="300" height="20" fill="#0f766e"/>
+<text x="526" y="198" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">도메인 경계</text>
+<text x="526" y="232" font-size="18" font-family="Arial, sans-serif" fill="#111827">상태와 돈의 이동 구분
+On-chain / Off-chain 구분</text>
+<rect x="930" y="170" width="300" height="140" rx="14" fill="#ffffff" stroke="#16a34a" stroke-width="3"/>
+<rect x="930" y="170" width="300" height="42" rx="14" fill="#16a34a"/>
+<rect x="930" y="192" width="300" height="20" fill="#16a34a"/>
+<text x="946" y="198" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">구현 범위</text>
+<text x="946" y="232" font-size="18" font-family="Arial, sans-serif" fill="#111827">Vertical slice 선택
+작게 검증 가능해야 함</text>
+<rect x="930" y="510" width="300" height="140" rx="14" fill="#ffffff" stroke="#d97706" stroke-width="3"/>
+<rect x="930" y="510" width="300" height="42" rx="14" fill="#d97706"/>
+<rect x="930" y="532" width="300" height="20" fill="#d97706"/>
+<text x="946" y="538" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">질문 목록</text>
+<text x="946" y="572" font-size="18" font-family="Arial, sans-serif" fill="#111827">아직 약한 개념 기록
+다음 구현 전 확인</text>
+<rect x="510" y="510" width="300" height="140" rx="14" fill="#ffffff" stroke="#dc2626" stroke-width="3"/>
+<rect x="510" y="510" width="300" height="42" rx="14" fill="#dc2626"/>
+<rect x="510" y="532" width="300" height="20" fill="#dc2626"/>
+<text x="526" y="538" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">진입 판단</text>
+<text x="526" y="572" font-size="18" font-family="Arial, sans-serif" fill="#111827">시작 / 보류 / 보강
+Sprint 2 백로그 정리</text>
+</svg>
