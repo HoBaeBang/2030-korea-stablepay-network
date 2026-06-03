@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1340" height="690" viewBox="0 0 1340 690">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#475569"/>
+    </marker>
+    <style>
+      .page-title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+      .title { font: 700 16px Arial, sans-serif; fill: #0f172a; }
+      .body { font: 500 13px Arial, sans-serif; fill: #334155; }
+      .label { font: 700 13px Arial, sans-serif; fill: #0f766e; }
+      .note { font: 600 14px Arial, sans-serif; fill: #475569; }
+      .small { font: 500 12px Arial, sans-serif; fill: #64748b; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="40" y="48" class="page-title">Indexer Polling Sequence</text>
+  
+      
+  <rect x="40" y="90" width="170" height="72" rx="10" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+  <text x="125" y="120" text-anchor="middle" class="title">Scheduler</text>
+  <text x="125" y="144" text-anchor="middle" class="body">주기 실행</text>
+      
+  <rect x="260" y="90" width="180" height="72" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="350" y="120" text-anchor="middle" class="title">Indexer</text>
+  <text x="350" y="144" text-anchor="middle" class="body">worker process</text>
+      
+  <rect x="500" y="90" width="180" height="72" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="590" y="120" text-anchor="middle" class="title">Blockchain RPC</text>
+  <text x="590" y="144" text-anchor="middle" class="body">blocks / txs</text>
+      
+  <rect x="740" y="90" width="190" height="72" rx="10" fill="#ecfeff" stroke="#0891b2" stroke-width="2"/>
+  <text x="835" y="120" text-anchor="middle" class="title">Checkpoint DB</text>
+  <text x="835" y="144" text-anchor="middle" class="body">cursor 저장</text>
+      
+  <rect x="980" y="90" width="190" height="72" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="1075" y="120" text-anchor="middle" class="title">StablePay DB</text>
+  <text x="1075" y="144" text-anchor="middle" class="body">event / status</text>
+
+      <line x1="125" y1="162" x2="125" y2="555" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="7 7"/>
+      <line x1="350" y1="162" x2="350" y2="555" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="7 7"/>
+      <line x1="590" y1="162" x2="590" y2="555" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="7 7"/>
+      <line x1="835" y1="162" x2="835" y2="555" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="7 7"/>
+      <line x1="1075" y1="162" x2="1075" y2="555" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="7 7"/>
+
+      
+  <line x1="125" y1="210" x2="350" y2="210" stroke="#475569" stroke-width="2.3" marker-end="url(#arrow)"/>
+  <text x="237.5" y="202" text-anchor="middle" class="label">1. tick</text>
+      
+  <line x1="350" y1="265" x2="835" y2="265" stroke="#475569" stroke-width="2.3" marker-end="url(#arrow)"/>
+  <text x="592.5" y="257" text-anchor="middle" class="label">2. last_processed_height 조회</text>
+      
+  <line x1="350" y1="325" x2="590" y2="325" stroke="#475569" stroke-width="2.3" marker-end="url(#arrow)"/>
+  <text x="470" y="317" text-anchor="middle" class="label">3. 다음 block range 조회</text>
+      
+  <line x1="590" y1="385" x2="350" y2="385" stroke="#475569" stroke-width="2.3" marker-start="url(#arrow)"/>
+  <text x="470" y="377" text-anchor="middle" class="label">4. block / tx / event 반환</text>
+      
+  <line x1="350" y1="445" x2="350" y2="445" stroke="#475569" stroke-width="2.3" marker-end="url(#arrow)"/>
+  <text x="350" y="437" text-anchor="middle" class="label">5. parse / validate / idempotency check</text>
+      
+  <line x1="350" y1="505" x2="1075" y2="505" stroke="#475569" stroke-width="2.3" marker-end="url(#arrow)"/>
+  <text x="712.5" y="497" text-anchor="middle" class="label">6. deposit/payment/ledger 반영</text>
+      
+  <line x1="350" y1="560" x2="835" y2="560" stroke="#475569" stroke-width="2.3" marker-end="url(#arrow)"/>
+  <text x="592.5" y="552" text-anchor="middle" class="label">7. checkpoint 갱신</text>
+
+      <text x="40" y="635" class="note">중요: 이벤트 저장과 checkpoint 갱신 순서를 잘못 잡으면 이벤트를 놓치거나 두 번 반영할 수 있다.</text>
+    
+</svg>
