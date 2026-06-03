@@ -28,6 +28,8 @@ Customer Wallet
 
 ![Deposit 실행 시퀀스](../confluence/diagrams/spn20-deposit-sequence.png)
 
+Event Indexer는 블록체인 네트워크 내부에서 실행되는 것이 아니라, 우리 백엔드의 off-chain worker/indexer layer에서 실행되는 별도 프로세스입니다. 처음에는 일정 주기로 블록체인 RPC를 조회하는 polling 방식으로 구현하고, 이후 WebSocket subscription과 재처리/backfill을 섞은 hybrid 방식으로 확장할 수 있습니다.
+
 중요한 점은 사용자가 "입금했다"고 말하는 시점과 우리 시스템이 "입금으로 인정한다"고 판단하는 시점이 다를 수 있다는 것입니다.
 
 예를 들어 다음 확인이 필요할 수 있습니다.
