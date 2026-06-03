@@ -6,6 +6,12 @@
 
 오늘의 실습은 코드를 구현하는 것이 아니라, 이후 Deposit/Withdrawal/Wallet 구현에 들어가기 전 도메인 문서를 직접 작성하는 것입니다.
 
+## 실습 흐름
+
+![SPN-20 Day 3 실습 흐름](../confluence/diagrams/spn20-day3-learning-flow.png)
+
+실습은 `개념 이해 -> 차이 정리 -> 보안 경계 정리 -> 직접 문서화` 순서로 진행합니다.
+
 ## 실습 목표
 
 `docs/domain/wallet-deposit-withdrawal.md` 파일을 직접 만들고, 다음 내용을 정리합니다.

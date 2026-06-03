@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="410" viewBox="0 0 1260 410">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#475569"/>
+    </marker>
+    <style>
+      .page-title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+      .title { font: 700 17px Arial, sans-serif; fill: #0f172a; }
+      .body { font: 500 14px Arial, sans-serif; fill: #334155; }
+      .label { font: 700 13px Arial, sans-serif; fill: #0f766e; }
+      .note { font: 600 14px Arial, sans-serif; fill: #475569; }
+      .small { font: 500 12px Arial, sans-serif; fill: #64748b; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="40" y="48" class="page-title">Deposit Flow</text>
+  
+      
+  <rect x="40" y="125" width="190" height="120" rx="10" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+  <text x="135" y="157" text-anchor="middle" class="title">Customer Wallet</text>
+  <text x="135" y="187" text-anchor="middle" class="body">고객 외부 지갑</text>
+<text x="135" y="209" text-anchor="middle" class="body">자산 전송</text>
+      
+  <rect x="270" y="125" width="190" height="120" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="365" y="157" text-anchor="middle" class="title">Blockchain</text>
+  <text x="365" y="187" text-anchor="middle" class="body">Block / Tx</text>
+<text x="365" y="209" text-anchor="middle" class="body">Event 발생</text>
+      
+  <rect x="500" y="125" width="190" height="120" rx="10" fill="#ecfeff" stroke="#0891b2" stroke-width="2"/>
+  <text x="595" y="157" text-anchor="middle" class="title">Deposit Address</text>
+  <text x="595" y="187" text-anchor="middle" class="body">우리 시스템 주소</text>
+<text x="595" y="209" text-anchor="middle" class="body">받는 주소 검증</text>
+      
+  <rect x="730" y="125" width="190" height="120" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="825" y="157" text-anchor="middle" class="title">Event Indexer</text>
+  <text x="825" y="187" text-anchor="middle" class="body">온체인 이벤트 감지</text>
+<text x="825" y="209" text-anchor="middle" class="body">중복 처리 방지</text>
+      
+  <rect x="960" y="125" width="220" height="120" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="1070" y="157" text-anchor="middle" class="title">Internal Ledger</text>
+  <text x="1070" y="187" text-anchor="middle" class="body">확정 후 Credit</text>
+<text x="1070" y="209" text-anchor="middle" class="body">잔액 반영</text>
+      
+  <line x1="230" y1="185" x2="270" y2="185" stroke="#475569" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="250" y="175" text-anchor="middle" class="label">send</text>
+      
+  <line x1="460" y1="185" x2="500" y2="185" stroke="#475569" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="480" y="175" text-anchor="middle" class="label">receive</text>
+      
+  <line x1="690" y1="185" x2="730" y2="185" stroke="#475569" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="710" y="175" text-anchor="middle" class="label">detect</text>
+      
+  <line x1="920" y1="185" x2="960" y2="185" stroke="#475569" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="940" y="175" text-anchor="middle" class="label">credit</text>
+      <text x="40" y="315" class="note">입금은 우리 서버가 돈을 보내는 행위가 아니라, 이미 온체인에서 발생한 전송을 감지하고 내부 장부에 반영하는 흐름이다.</text>
+      <text x="40" y="342" class="small">중요 체크: transaction hash, 받는 주소, token, amount, confirmation/finality, idempotency.</text>
+    
+</svg>
