@@ -8,7 +8,7 @@ Day 5의 목표는 Day 1~4에서 학습한 도메인을 바탕으로 Phase 2의 
 
 ## 오늘의 큰 그림
 
-![SPN-22 Day 5 학습 흐름](../confluence/diagrams/spn22-day5-learning-flow.png)
+![SPN-22 Day 5 학습 흐름](../../confluence/diagrams/spn22-day5-learning-flow.png)
 
 Day 5는 새로운 도메인을 많이 추가로 배우는 날이 아닙니다. 지금까지 배운 내용을 바탕으로 "무엇을 먼저 만들 것인가"를 결정하는 날입니다.
 
@@ -24,9 +24,9 @@ Day 5는 새로운 도메인을 많이 추가로 배우는 날이 아닙니다. 
 
 | 순서 | 문서 | 목적 |
 | --- | --- | --- |
-| 1 | [Phase 2 첫 구현 범위 결정 개념 학습](phase-2-implementation-scope-concepts.md) | 출퇴근 시간에 읽을 핵심 개념 자료 |
-| 2 | [Phase 2 Study Summary 실습 가이드](phase-2-study-summary-practice-guide.md) | 퇴근 후 직접 작성할 문서 가이드 |
-| 3 | [Phase 2 첫 구현 범위 검증문제와 답변가이드](phase-2-implementation-scope-verification-guide.md) | 학습 후 스스로 확인할 문제와 답변 기준 |
+| 1 | [Phase 2 첫 구현 범위 결정 개념 학습](Phase_2_첫_구현범위_개념학습.md) | 출퇴근 시간에 읽을 핵심 개념 자료 |
+| 2 | [Phase 2 Study Summary 실습 가이드](Phase_2_Study_Summary_실습가이드.md) | 퇴근 후 직접 작성할 문서 가이드 |
+| 3 | [Phase 2 첫 구현 범위 검증문제와 답변가이드](Phase_2_첫_구현범위_검증문제_답변가이드.md) | 학습 후 스스로 확인할 문제와 답변 기준 |
 
 ## 오늘 꼭 잡아야 하는 문장
 
@@ -40,7 +40,7 @@ Phase 2의 첫 구현은 가장 멋진 기능이 아니라,
 
 퇴근 후 작업은 사용자가 직접 진행합니다.
 
-1. `docs/domain/phase-2-study-summary.md` 파일을 채운다.
+1. `docs/domain/05_구현범위와_Sprint2/Phase_2_Study_Summary_실습산출물.md` 파일을 채운다.
 2. Day 1~4에서 배운 핵심 도메인을 요약한다.
 3. Phase 2 첫 구현 후보 3개를 비교한다.
 4. 추천 첫 구현 작업 1개를 선택한다.

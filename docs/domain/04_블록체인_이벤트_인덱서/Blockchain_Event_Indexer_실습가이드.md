@@ -8,21 +8,21 @@
 
 ## 실습 흐름
 
-![SPN-21 Day 4 학습 흐름](../confluence/diagrams/spn21-day4-learning-flow.png)
+![SPN-21 Day 4 학습 흐름](../../confluence/diagrams/spn21-day4-learning-flow.png)
 
 ## 참고 다이어그램
 
-아래 그림을 보면서 `docs/domain/blockchain-event-indexer.md`를 직접 작성합니다.
+아래 그림을 보면서 `docs/domain/04_블록체인_이벤트_인덱서/Blockchain_Event_Indexer_실습산출물.md`를 직접 작성합니다.
 
-![Blockchain Event Indexer 실행 레이어](../confluence/diagrams/spn21-indexer-runtime-layer.png)
+![Blockchain Event Indexer 실행 레이어](../../confluence/diagrams/spn21-indexer-runtime-layer.png)
 
-![Indexer Polling Sequence](../confluence/diagrams/spn21-indexer-polling-sequence.png)
+![Indexer Polling Sequence](../../confluence/diagrams/spn21-indexer-polling-sequence.png)
 
-![Idempotency and Reconciliation](../confluence/diagrams/spn21-idempotency-reconciliation.png)
+![Idempotency and Reconciliation](../../confluence/diagrams/spn21-idempotency-reconciliation.png)
 
 ## 실습 목표
 
-`docs/domain/blockchain-event-indexer.md` 파일을 직접 만들고, 다음 내용을 정리합니다.
+`docs/domain/04_블록체인_이벤트_인덱서/Blockchain_Event_Indexer_실습산출물.md` 파일을 직접 만들고, 다음 내용을 정리합니다.
 
 1. Event Indexer의 역할
 2. Indexer가 읽는 온체인 데이터
@@ -44,7 +44,7 @@ git status
 새 파일을 만듭니다.
 
 ```shell
-touch docs/domain/blockchain-event-indexer.md
+touch docs/domain/04_블록체인_이벤트_인덱서/Blockchain_Event_Indexer_실습산출물.md
 ```
 
 ## 작성할 문서 구조
@@ -138,7 +138,7 @@ checkpoint만 믿으면 왜 위험할 수 있는가?
 ## 권장 커밋 메시지
 
 ```shell
-git add docs/domain/blockchain-event-indexer.md
+git add docs/domain/04_블록체인_이벤트_인덱서/Blockchain_Event_Indexer_실습산출물.md
 git commit -m "docs: SPN-21 블록체인 이벤트 인덱서 도메인 정리"
 git push
 ```

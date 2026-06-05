@@ -2,7 +2,7 @@
 
 이 문서는 Day 5 퇴근 후 실습에서 직접 채워 넣는 학습 산출물입니다.
 
-관련 가이드: [Phase 2 Study Summary 실습 가이드](phase-2-study-summary-practice-guide.md)
+관련 가이드: [Phase 2 Study Summary 실습 가이드](Phase_2_Study_Summary_실습가이드.md)
 
 ## 한 문장 요약
 

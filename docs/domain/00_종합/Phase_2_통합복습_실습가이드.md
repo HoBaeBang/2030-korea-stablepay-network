@@ -4,15 +4,15 @@
 
 이 문서는 퇴근 후 직접 진행할 Day 6 실습가이드입니다.
 
-오늘의 실습은 `docs/domain/phase-2-review-checkpoint.md` 파일을 직접 채우고, Sprint 2 Backend Core 구현을 시작할 준비가 되었는지 판단하는 것입니다.
+오늘의 실습은 `docs/domain/00_종합/Phase_2_Review_Checkpoint_실습산출물.md` 파일을 직접 채우고, Sprint 2 Backend Core 구현을 시작할 준비가 되었는지 판단하는 것입니다.
 
 ## 실습 흐름
 
-![SPN-23 Day 6 통합 복습 흐름](../confluence/diagrams/spn23-day6-review-flow.png)
+![SPN-23 Day 6 통합 복습 흐름](../../confluence/diagrams/spn23-day6-review-flow.png)
 
 ## 참고 다이어그램
 
-![Sprint 2 진입 판단 흐름](../confluence/diagrams/spn23-sprint2-entry-decision.png)
+![Sprint 2 진입 판단 흐름](../../confluence/diagrams/spn23-sprint2-entry-decision.png)
 
 ## 실습 목표
 
@@ -32,7 +32,7 @@ git status
 파일은 템플릿으로 준비되어 있습니다.
 
 ```shell
-docs/domain/phase-2-review-checkpoint.md
+docs/domain/00_종합/Phase_2_Review_Checkpoint_실습산출물.md
 ```
 
 ## 작성할 문서 구조
@@ -139,7 +139,7 @@ Day 2: Ledger는 결제 상태가 아니라 돈의 이동 기록이고, Settleme
 ## 권장 커밋 메시지
 
 ```shell
-git add docs/domain/phase-2-review-checkpoint.md
+git add docs/domain/00_종합/Phase_2_Review_Checkpoint_실습산출물.md
 git commit -m "docs: SPN-23 Phase 2 통합 복습과 구현 전 점검 정리"
 git push
 ```

@@ -10,7 +10,7 @@ Confluence 문서: [Ledger와 Settlement 실습 가이드](https://aslan0.atlass
 
 ## 실습 목표
 
-`docs/domain/ledger-and-settlement.md` 파일을 직접 만들고, 다음 내용을 정리합니다.
+`docs/domain/02_원장과_정산/Ledger와_Settlement_실습산출물.md` 파일을 직접 만들고, 다음 내용을 정리합니다.
 
 1. Payment, Ledger, Settlement의 책임 비교
 2. Payment `FINALIZED`와 Settlement `PAID`의 차이
@@ -35,7 +35,7 @@ git status
 새 파일을 만듭니다.
 
 ```shell
-touch docs/domain/ledger-and-settlement.md
+touch docs/domain/02_원장과_정산/Ledger와_Settlement_실습산출물.md
 ```
 
 ## 작성할 문서 구조
@@ -180,7 +180,7 @@ settlement가 실패했을 때 ledger를 되돌려야 하는지 보상 entry를 
 문서를 직접 작성한 뒤 커밋할 때는 아래 메시지를 추천합니다.
 
 ```shell
-git add docs/domain/ledger-and-settlement.md
+git add docs/domain/02_원장과_정산/Ledger와_Settlement_실습산출물.md
 git commit -m "docs: SPN-19 Ledger와 Settlement 도메인 정리"
 git push
 ```

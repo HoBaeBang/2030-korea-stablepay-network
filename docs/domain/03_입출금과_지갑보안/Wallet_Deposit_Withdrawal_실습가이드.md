@@ -8,21 +8,21 @@
 
 ## 실습 흐름
 
-![SPN-20 Day 3 실습 흐름](../confluence/diagrams/spn20-day3-learning-flow.png)
+![SPN-20 Day 3 실습 흐름](../../confluence/diagrams/spn20-day3-learning-flow.png)
 
 실습은 `개념 이해 -> 차이 정리 -> 보안 경계 정리 -> 직접 문서화` 순서로 진행합니다.
 
 ## 참고 시퀀스
 
-아래 두 그림을 보면서 `docs/domain/wallet-deposit-withdrawal.md`에 Deposit과 Withdrawal 상태 흐름을 직접 정리합니다.
+아래 두 그림을 보면서 `docs/domain/03_입출금과_지갑보안/Wallet_Deposit_Withdrawal_실습산출물.md`에 Deposit과 Withdrawal 상태 흐름을 직접 정리합니다.
 
-![Deposit 실행 시퀀스](../confluence/diagrams/spn20-deposit-sequence.png)
+![Deposit 실행 시퀀스](../../confluence/diagrams/spn20-deposit-sequence.png)
 
-![Withdrawal 실행 시퀀스](../confluence/diagrams/spn20-withdrawal-sequence.png)
+![Withdrawal 실행 시퀀스](../../confluence/diagrams/spn20-withdrawal-sequence.png)
 
 ## 실습 목표
 
-`docs/domain/wallet-deposit-withdrawal.md` 파일을 직접 만들고, 다음 내용을 정리합니다.
+`docs/domain/03_입출금과_지갑보안/Wallet_Deposit_Withdrawal_실습산출물.md` 파일을 직접 만들고, 다음 내용을 정리합니다.
 
 1. Deposit, Withdrawal, Wallet, Key Security의 책임 비교
 2. Deposit 상태 흐름
@@ -48,7 +48,7 @@ git status
 새 파일을 만듭니다.
 
 ```shell
-touch docs/domain/wallet-deposit-withdrawal.md
+touch docs/domain/03_입출금과_지갑보안/Wallet_Deposit_Withdrawal_실습산출물.md
 ```
 
 ## 작성할 문서 구조
@@ -174,7 +174,7 @@ Rust signer는 전체 백엔드를 Rust로 바꾸기 위한 것이 아니라,
 문서를 직접 작성한 뒤 커밋할 때는 아래 메시지를 추천합니다.
 
 ```shell
-git add docs/domain/wallet-deposit-withdrawal.md
+git add docs/domain/03_입출금과_지갑보안/Wallet_Deposit_Withdrawal_실습산출물.md
 git commit -m "docs: SPN-20 입출금과 지갑 보안 도메인 정리"
 git push
 ```

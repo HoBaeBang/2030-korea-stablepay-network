@@ -28,7 +28,7 @@ Confluence 문서: [Ledger와 Settlement 개념 학습](https://aslan0.atlassian
 
 ## 2. Payment, Ledger, Settlement 책임 분리
 
-![Payment Ledger Settlement Responsibility Split](../confluence/diagrams/spn19-responsibility-split.png)
+![Payment Ledger Settlement Responsibility Split](../../confluence/diagrams/spn19-responsibility-split.png)
 
 | 도메인 | 한글 의미 | 책임 | 예시 질문 |
 | --- | --- | --- | --- |
@@ -54,7 +54,7 @@ Settlement PAID
 
 간단히 말하면 돈의 이동을 한 줄로만 기록하지 않고, 어느 계정에서 빠지고 어느 계정으로 들어갔는지를 함께 기록하는 방식입니다.
 
-![Double Entry Example](../confluence/diagrams/spn19-double-entry-example.png)
+![Double Entry Example](../../confluence/diagrams/spn19-double-entry-example.png)
 
 예시:
 
@@ -98,7 +98,7 @@ Merchant Pending     +10 USDC
 
 이 흐름이 `Settlement`, 즉 정산입니다.
 
-![Settlement State](../confluence/diagrams/spn19-settlement-state.png)
+![Settlement State](../../confluence/diagrams/spn19-settlement-state.png)
 
 ## 6. 최소 테이블 후보
 
@@ -106,7 +106,7 @@ Day 2에서는 실제 구현을 하지 않습니다.
 
 다만 이후 구현을 위해 최소 테이블 후보를 이해해야 합니다.
 
-![Minimum Table Candidates](../confluence/diagrams/spn19-minimum-table-candidates.png)
+![Minimum Table Candidates](../../confluence/diagrams/spn19-minimum-table-candidates.png)
 
 | 테이블 후보 | 역할 |
 | --- | --- |

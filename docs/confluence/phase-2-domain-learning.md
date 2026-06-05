@@ -10,8 +10,8 @@ Phase 2의 핵심은 단순히 API를 추가하는 것이 아니라, Payment 상
 
 | 순서 | 문서 | 목적 |
 | --- | --- | --- |
-| 1 | [Phase 2 전체 도메인 지도](../domain/phase-2-domain-map.md) | Phase 1과 Phase 2의 차이, 전체 도메인 흐름을 이해합니다. |
-| 2 | [Ledger와 Settlement 기초 학습](../domain/ledger-and-settlement-basic-learning.md) | Payment, Ledger, Settlement의 책임을 분리해서 이해합니다. |
+| 1 | [Phase 2 전체 도메인 지도](../domain/01_Phase2_전체지도/Phase_2_도메인_전체지도.md) | Phase 1과 Phase 2의 차이, 전체 도메인 흐름을 이해합니다. |
+| 2 | [Ledger와 Settlement 기초 학습](../domain/02_원장과_정산/Ledger와_Settlement_기초학습.md) | Payment, Ledger, Settlement의 책임을 분리해서 이해합니다. |
 | 3 | Deposit, Withdrawal, Wallet, Key Security | 입출금과 지갑/키 보안 경계를 학습합니다. |
 | 4 | Blockchain Event Indexer와 운영 개념 | 온체인 이벤트 감지, 멱등성, 대사, 재처리를 학습합니다. |
 

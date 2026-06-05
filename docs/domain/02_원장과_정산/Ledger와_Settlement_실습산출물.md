@@ -2,7 +2,7 @@
 
 이 문서는 Day 2 퇴근 후 실습에서 직접 채워 넣는 학습 산출물입니다.
 
-관련 가이드: [Ledger와 Settlement 실습 가이드](ledger-and-settlement-practice-guide.md)
+관련 가이드: [Ledger와 Settlement 실습 가이드](Ledger와_Settlement_실습가이드.md)
 
 ## 한 문장 요약
 

@@ -28,19 +28,19 @@
 | 포트폴리오 | [docs/portfolio/project-scope.md](portfolio/project-scope.md) | [포트폴리오 프로젝트 범위](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/4947994) |
 | 아키텍처 | [docs/architecture/target-architecture.md](architecture/target-architecture.md) | [목표 아키텍처](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5046592) |
 | 로드맵 | [docs/roadmap/phase-2-roadmap.md](roadmap/phase-2-roadmap.md) | [Phase 2 구현 로드맵](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/4948017) |
-| 도메인 | [docs/domain/phase-2-domain-map.md](domain/phase-2-domain-map.md) | [Phase 2 전체 도메인 지도](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5046569) |
-| 도메인 학습 | [docs/domain/phase-2-learning-start-guide.md](domain/phase-2-learning-start-guide.md) | [Phase 2 도메인 학습 시작 가이드](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5013561) |
-| 도메인 학습 | [docs/domain/ledger-and-settlement-basic-learning.md](domain/ledger-and-settlement-basic-learning.md) | [Ledger와 Settlement 기초 학습](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5013611) |
-| 도메인 학습 | [docs/domain/ledger-and-settlement-concepts.md](domain/ledger-and-settlement-concepts.md) | [Ledger와 Settlement 개념 학습](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/4948055) |
-| 실습 가이드 | [docs/domain/ledger-and-settlement-practice-guide.md](domain/ledger-and-settlement-practice-guide.md) | [Ledger와 Settlement 실습 가이드](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5013640) |
-| 검증 가이드 | [docs/domain/ledger-and-settlement-verification-guide.md](domain/ledger-and-settlement-verification-guide.md) | [Ledger와 Settlement 검증문제와 답변가이드](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/4948076) |
-| 도메인 학습 | [docs/domain/deposit-withdrawal-wallet-key-security-basic-learning.md](domain/deposit-withdrawal-wallet-key-security-basic-learning.md) | [Deposit, Withdrawal, Wallet, Key Security 기초 학습](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5046787) |
-| 도메인 학습 | [docs/domain/deposit-withdrawal-wallet-key-security-concepts.md](domain/deposit-withdrawal-wallet-key-security-concepts.md) | [Deposit, Withdrawal, Wallet, Key Security 개념 학습](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5144688) |
-| 실습 가이드 | [docs/domain/wallet-deposit-withdrawal-practice-guide.md](domain/wallet-deposit-withdrawal-practice-guide.md) | [Wallet, Deposit, Withdrawal 실습 가이드](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5406724) |
-| 검증 가이드 | [docs/domain/deposit-withdrawal-wallet-key-security-verification-guide.md](domain/deposit-withdrawal-wallet-key-security-verification-guide.md) | [Deposit, Withdrawal, Wallet, Key Security 검증문제와 답변가이드](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5373973) |
+| 도메인 | [docs/domain/01_Phase2_전체지도/Phase_2_도메인_전체지도.md](domain/01_Phase2_전체지도/Phase_2_도메인_전체지도.md) | [Phase 2 전체 도메인 지도](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5046569) |
+| 도메인 학습 | [docs/domain/01_Phase2_전체지도/Phase_2_도메인_학습_시작가이드.md](domain/01_Phase2_전체지도/Phase_2_도메인_학습_시작가이드.md) | [Phase 2 도메인 학습 시작 가이드](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5013561) |
+| 도메인 학습 | [docs/domain/02_원장과_정산/Ledger와_Settlement_기초학습.md](domain/02_원장과_정산/Ledger와_Settlement_기초학습.md) | [Ledger와 Settlement 기초 학습](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5013611) |
+| 도메인 학습 | [docs/domain/02_원장과_정산/Ledger와_Settlement_개념학습.md](domain/02_원장과_정산/Ledger와_Settlement_개념학습.md) | [Ledger와 Settlement 개념 학습](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/4948055) |
+| 실습 가이드 | [docs/domain/02_원장과_정산/Ledger와_Settlement_실습가이드.md](domain/02_원장과_정산/Ledger와_Settlement_실습가이드.md) | [Ledger와 Settlement 실습 가이드](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5013640) |
+| 검증 가이드 | [docs/domain/02_원장과_정산/Ledger와_Settlement_검증문제_답변가이드.md](domain/02_원장과_정산/Ledger와_Settlement_검증문제_답변가이드.md) | [Ledger와 Settlement 검증문제와 답변가이드](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/4948076) |
+| 도메인 학습 | [docs/domain/03_입출금과_지갑보안/Deposit_Withdrawal_Wallet_KeySecurity_기초학습.md](domain/03_입출금과_지갑보안/Deposit_Withdrawal_Wallet_KeySecurity_기초학습.md) | [Deposit, Withdrawal, Wallet, Key Security 기초 학습](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5046787) |
+| 도메인 학습 | [docs/domain/03_입출금과_지갑보안/Deposit_Withdrawal_Wallet_KeySecurity_개념학습.md](domain/03_입출금과_지갑보안/Deposit_Withdrawal_Wallet_KeySecurity_개념학습.md) | [Deposit, Withdrawal, Wallet, Key Security 개념 학습](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5144688) |
+| 실습 가이드 | [docs/domain/03_입출금과_지갑보안/Wallet_Deposit_Withdrawal_실습가이드.md](domain/03_입출금과_지갑보안/Wallet_Deposit_Withdrawal_실습가이드.md) | [Wallet, Deposit, Withdrawal 실습 가이드](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5406724) |
+| 검증 가이드 | [docs/domain/03_입출금과_지갑보안/Deposit_Withdrawal_Wallet_KeySecurity_검증문제_답변가이드.md](domain/03_입출금과_지갑보안/Deposit_Withdrawal_Wallet_KeySecurity_검증문제_답변가이드.md) | [Deposit, Withdrawal, Wallet, Key Security 검증문제와 답변가이드](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5373973) |
 
 ## 현재 주의할 점
 
-`docs/domain/ledger-and-settlement.md`는 Day 2 퇴근 후 실습에서 사용자가 직접 작성하는 학습 산출물입니다.
+`docs/domain/02_원장과_정산/Ledger와_Settlement_실습산출물.md`는 Day 2 퇴근 후 실습에서 사용자가 직접 작성하는 학습 산출물입니다.
 
 따라서 이 파일은 완성본을 미리 제공하지 않고, 사용자가 직접 채우는 초안 형태로 관리합니다.

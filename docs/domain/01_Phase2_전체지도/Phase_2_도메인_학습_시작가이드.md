@@ -12,14 +12,14 @@ Confluence 문서: [Phase 2 도메인 학습 시작 가이드](https://aslan0.at
 
 | 순서 | 문서 | 집중해서 볼 내용 |
 | --- | --- | --- |
-| 1 | [Phase 2 전체 도메인 지도](phase-2-domain-map.md) | Phase 1과 Phase 2의 차이, 핵심 용어 10개, 전체 흐름 |
-| 2 | [포트폴리오 프로젝트 범위](../portfolio/project-scope.md) | 이 프로젝트로 어떤 개발자 역량을 보여줄지 |
-| 3 | [목표 아키텍처](../architecture/target-architecture.md) | 현재 구조와 Phase 2/3 목표 구조 |
-| 4 | [Phase 2 구현 로드맵](../roadmap/phase-2-roadmap.md) | 앞으로 어떤 순서로 구현할지 |
+| 1 | [Phase 2 전체 도메인 지도](Phase_2_도메인_전체지도.md) | Phase 1과 Phase 2의 차이, 핵심 용어 10개, 전체 흐름 |
+| 2 | [포트폴리오 프로젝트 범위](../../portfolio/project-scope.md) | 이 프로젝트로 어떤 개발자 역량을 보여줄지 |
+| 3 | [목표 아키텍처](../../architecture/target-architecture.md) | 현재 구조와 Phase 2/3 목표 구조 |
+| 4 | [Phase 2 구현 로드맵](../../roadmap/phase-2-roadmap.md) | 앞으로 어떤 순서로 구현할지 |
 
 ## 오늘의 큰 그림
 
-![SPN-18 Learning Flow](../confluence/diagrams/spn18-learning-flow.png)
+![SPN-18 Learning Flow](../../confluence/diagrams/spn18-learning-flow.png)
 
 ## 오늘 이해해야 할 핵심
 

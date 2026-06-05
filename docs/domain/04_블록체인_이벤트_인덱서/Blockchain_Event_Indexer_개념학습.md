@@ -8,7 +8,7 @@
 
 `Event Indexer`는 블록체인에 이미 기록된 block, transaction, event/log를 읽고, 우리 서비스의 DB 상태로 변환하는 off-chain worker입니다.
 
-![Blockchain Event Indexer 실행 레이어](../confluence/diagrams/spn21-indexer-runtime-layer.png)
+![Blockchain Event Indexer 실행 레이어](../../confluence/diagrams/spn21-indexer-runtime-layer.png)
 
 중요한 점은 Event Indexer가 블록체인 네트워크 내부에서 실행되는 것이 아니라는 점입니다. Event Indexer는 우리 백엔드에 속한 별도 worker 프로세스입니다.
 
@@ -28,7 +28,7 @@
 
 `Polling`은 일정 주기로 블록체인 RPC를 조회하는 방식입니다.
 
-![Indexer Polling Sequence](../confluence/diagrams/spn21-indexer-polling-sequence.png)
+![Indexer Polling Sequence](../../confluence/diagrams/spn21-indexer-polling-sequence.png)
 
 예를 들면 다음처럼 동작합니다.
 
@@ -54,7 +54,7 @@ Checkpoint가 없으면 장애 후에 어디서부터 다시 읽어야 하는지
 
 `Idempotency`는 같은 작업을 여러 번 실행해도 결과가 한 번 실행한 것과 같게 만드는 성질입니다.
 
-![Idempotency and Reconciliation](../confluence/diagrams/spn21-idempotency-reconciliation.png)
+![Idempotency and Reconciliation](../../confluence/diagrams/spn21-idempotency-reconciliation.png)
 
 Indexer에서는 같은 event를 여러 번 읽을 수 있습니다.
 

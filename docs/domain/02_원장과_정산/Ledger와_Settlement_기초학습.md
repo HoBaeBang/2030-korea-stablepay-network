@@ -6,26 +6,26 @@ Confluence 문서: [Ledger와 Settlement 기초 학습](https://aslan0.atlassian
 
 이 페이지는 Ledger와 Settlement 학습 허브입니다.
 
-목표는 `Payment`, `Ledger`, `Settlement`의 책임을 분리해서 이해하고, 퇴근 후 직접 `docs/domain/ledger-and-settlement.md` 문서를 작성할 준비를 하는 것입니다.
+목표는 `Payment`, `Ledger`, `Settlement`의 책임을 분리해서 이해하고, 퇴근 후 직접 `docs/domain/02_원장과_정산/Ledger와_Settlement_실습산출물.md` 문서를 작성할 준비를 하는 것입니다.
 
 ## 오늘의 큰 그림
 
-![SPN-19 Day 2 Learning Flow](../confluence/diagrams/spn19-day2-learning-flow.png)
+![SPN-19 Day 2 Learning Flow](../../confluence/diagrams/spn19-day2-learning-flow.png)
 
 ## 오늘의 목표
 
 1. Ledger가 왜 필요한지 이해한다.
 2. Settlement가 Payment `FINALIZED` 이후 어떤 역할을 하는지 이해한다.
 3. Payment, Ledger, Settlement의 책임을 구분해서 설명할 수 있게 한다.
-4. 퇴근 후 직접 작성할 `docs/domain/ledger-and-settlement.md`의 구조를 잡는다.
+4. 퇴근 후 직접 작성할 `docs/domain/02_원장과_정산/Ledger와_Settlement_실습산출물.md`의 구조를 잡는다.
 
 ## 읽기 순서
 
 | 순서 | 문서 | 목적 |
 | --- | --- | --- |
-| 1 | [Ledger와 Settlement 개념 학습](ledger-and-settlement-concepts.md) | 출퇴근 시간에 읽을 핵심 개념 자료 |
-| 2 | [Ledger와 Settlement 실습 가이드](ledger-and-settlement-practice-guide.md) | 퇴근 후 직접 작성할 문서 가이드 |
-| 3 | [Ledger와 Settlement 검증문제와 답변가이드](ledger-and-settlement-verification-guide.md) | 학습 후 스스로 확인할 문제와 답변 기준 |
+| 1 | [Ledger와 Settlement 개념 학습](Ledger와_Settlement_개념학습.md) | 출퇴근 시간에 읽을 핵심 개념 자료 |
+| 2 | [Ledger와 Settlement 실습 가이드](Ledger와_Settlement_실습가이드.md) | 퇴근 후 직접 작성할 문서 가이드 |
+| 3 | [Ledger와 Settlement 검증문제와 답변가이드](Ledger와_Settlement_검증문제_답변가이드.md) | 학습 후 스스로 확인할 문제와 답변 기준 |
 
 ## 오늘 꼭 잡아야 하는 문장
 
@@ -41,7 +41,7 @@ Settlement는 확정된 돈을 가맹점에게 지급 가능한 묶음으로 계
 
 Codex가 대신 완성 문서를 작성하는 것이 아니라, 사용자가 아래 작업을 직접 수행합니다.
 
-1. GitHub repo에서 `docs/domain/ledger-and-settlement.md` 파일을 만든다.
+1. GitHub repo에서 `docs/domain/02_원장과_정산/Ledger와_Settlement_실습산출물.md` 파일을 만든다.
 2. Confluence 실습가이드의 목차를 따라 직접 내용을 작성한다.
 3. Payment, Ledger, Settlement 책임 비교표를 직접 채운다.
 4. 10 USDC 결제 예시를 ledger entry 형태로 직접 적어본다.
@@ -49,13 +49,13 @@ Codex가 대신 완성 문서를 작성하는 것이 아니라, 사용자가 아
 
 ## 관련 GitHub 원본 문서
 
-- [Phase 2 Domain Map](phase-2-domain-map.md)
-- [Phase 2 Roadmap](../roadmap/phase-2-roadmap.md)
-- [Target Architecture](../architecture/target-architecture.md)
+- [Phase 2 Domain Map](../01_Phase2_전체지도/Phase_2_도메인_전체지도.md)
+- [Phase 2 Roadmap](../../roadmap/phase-2-roadmap.md)
+- [Target Architecture](../../architecture/target-architecture.md)
 
 ## 완료 기준
 
 - [ ] Ledger와 Settlement의 차이를 설명할 수 있다.
 - [ ] Payment `FINALIZED`가 정산 완료가 아니라는 점을 문서화한다.
 - [ ] 이후 Ledger 구현을 위한 최소 테이블 후보를 정리한다.
-- [ ] `docs/domain/ledger-and-settlement.md`를 직접 작성한다.
+- [ ] `docs/domain/02_원장과_정산/Ledger와_Settlement_실습산출물.md`를 직접 작성한다.

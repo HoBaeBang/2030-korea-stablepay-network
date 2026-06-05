@@ -170,9 +170,9 @@ Phase 2 구현 순서와 확장 전략은 [docs/roadmap/phase-2-roadmap.md](docs
 
 포트폴리오에서 보여주려는 범위는 [docs/portfolio/project-scope.md](docs/portfolio/project-scope.md), 로컬 검증 절차는 [docs/portfolio/verification.md](docs/portfolio/verification.md)에 정리되어 있습니다.
 
-Phase 2 도메인 전체 지도는 [docs/domain/phase-2-domain-map.md](docs/domain/phase-2-domain-map.md)에 정리되어 있습니다.
+Phase 2 도메인 전체 지도는 [docs/domain/01_Phase2_전체지도/Phase_2_도메인_전체지도.md](docs/domain/01_Phase2_전체지도/Phase_2_도메인_전체지도.md)에 정리되어 있습니다.
 
-Ledger와 Settlement 학습 자료는 [docs/domain/ledger-and-settlement-basic-learning.md](docs/domain/ledger-and-settlement-basic-learning.md)에서 시작합니다.
+Ledger와 Settlement 학습 자료는 [docs/domain/02_원장과_정산/Ledger와_Settlement_기초학습.md](docs/domain/02_원장과_정산/Ledger와_Settlement_기초학습.md)에서 시작합니다.
 
 ## 테스트
 
