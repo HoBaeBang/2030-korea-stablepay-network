@@ -14,7 +14,7 @@ GitHub 앱에서 빠르게 찾을 수 있도록 폴더명과 문서명을 한글
 | 3 | [03_입출금과_지갑보안](03_입출금과_지갑보안) | [Deposit Withdrawal Wallet KeySecurity 기초학습](03_입출금과_지갑보안/Deposit_Withdrawal_Wallet_KeySecurity_기초학습.md) |
 | 4 | [04_블록체인_이벤트_인덱서](04_블록체인_이벤트_인덱서) | [Blockchain Event Indexer 기초학습](04_블록체인_이벤트_인덱서/Blockchain_Event_Indexer_기초학습.md) |
 | 5 | [05_구현범위와_Sprint2](05_구현범위와_Sprint2) | [Phase 2 첫 구현범위 기초학습](05_구현범위와_Sprint2/Phase_2_첫_구현범위_기초학습.md) |
-| 6 | [06_백엔드코어](06_백엔드코어) | [Backend Core 기초학습](06_백엔드코어/Backend_Core_기초학습.md) |
+| 6 | [06_백엔드코어](06_백엔드코어) | [Backend Core 일정과 티켓 관리](06_백엔드코어/00_Backend_Core_일정과_티켓_관리.md) |
 
 ## 폴더별 역할
 
@@ -45,3 +45,13 @@ Phase 2에서 무엇부터 구현할지, Sprint 2 Backend Core를 왜 먼저 정
 ### 06_백엔드코어
 
 Sprint 2 구현을 시작하기 전에 공통 에러 응답, 요청 검증, 설정, 로그, 테스트 패턴을 정리합니다.
+
+권장 진행 순서:
+
+| Day | 문서 |
+| --- | --- |
+| Day 7 | [Backend Core 기초학습](06_백엔드코어/Backend_Core_기초학습.md) |
+| Day 8 | [Day8 공통 에러와 검증 기초학습](06_백엔드코어/Day8_공통에러와_검증/Day8_기초학습.md) |
+| Day 9 | [Day9 설정과 시작 구조 기초학습](06_백엔드코어/Day9_설정과_시작구조/Day9_기초학습.md) |
+| Day 10 | [Day10 로깅과 테스트 기초학습](06_백엔드코어/Day10_로깅과_테스트/Day10_기초학습.md) |
+| Day 11 | [Day11 통합 복습과 Ledger 준비 기초학습](06_백엔드코어/Day11_통합복습과_Ledger준비/Day11_기초학습.md) |
