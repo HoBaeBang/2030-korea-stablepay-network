@@ -46,7 +46,8 @@ flowchart TD
     Deposit -->|"입금 확정 후 원장 기록"| Ledger
     Withdrawal -->|"출금 요청 후 원장 기록"| Ledger
     Withdrawal -->|"서명 요청"| RustSigner
-    RustSigner -->|"서명된 transaction"| Chain
+    RustSigner -->|"서명된 transaction 반환"| Withdrawal
+    Withdrawal -->|"서명된 transaction 전송"| Chain
     Wallet --> KeySecurity
     KeySecurity --> RustSigner
 ```
@@ -61,7 +62,14 @@ Merchant -> Invoice -> Payment -> Ledger -> Settlement
 Blockchain Network -> Indexer -> Payment
 
 3. 입출금/지갑 흐름
-Wallet/Key Security -> Deposit/Withdrawal -> Ledger -> Blockchain Network
+Wallet/Key Security -> Withdrawal -> Rust Signer -> Withdrawal -> Blockchain Network
+```
+
+이 지도에서는 학습 기준을 명확히 하기 위해 `Rust Signer`를 서명 전용 컴포넌트로 둔다.
+
+```text
+Rust Signer = private key 보관과 transaction signing 담당
+Go Backend  = withdrawal 상태 관리, signed tx broadcast, tx hash 추적 담당
 ```
 
 ## Phase 1과 Phase 2의 차이
@@ -282,4 +290,3 @@ SPN-18의 완료 기준에 대해 현재 문서는 다음을 만족한다.
 [x] 각 용어가 어떤 기능으로 이어지는지 1문장 이상 설명된다.
 [x] 다음 날 Ledger/Settlement 학습으로 넘어갈 준비가 된다.
 ```
-

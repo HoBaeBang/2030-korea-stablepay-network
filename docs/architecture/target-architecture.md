@@ -254,10 +254,14 @@ flowchart TD
     Indexer["Indexer<br/>blocks, transactions 읽기"]
 
     Backend -->|"signing request"| Signer
-    Signer -->|"signed transaction"| Network
+    Signer -->|"signed transaction"| Backend
+    Backend -->|"broadcast transaction"| Network
     Network -->|"blocks, transactions"| Indexer
     Indexer -->|"detected event"| Backend
 ```
+
+이 구조에서 Rust Signer는 private key 보관과 transaction signing만 담당한다.
+서명된 transaction을 블록체인 네트워크에 broadcast하고, 이후 tx hash를 추적하는 책임은 Go 백엔드와 worker 계층이 담당한다.
 
 Rust를 사용하는 후보 영역:
 
@@ -531,4 +535,3 @@ Rust component strategy
 현재 이 프로젝트는 "완성된 블록체인 네트워크"가 아니다.
 
 현재의 가치는 결제 도메인을 Go 백엔드로 단단히 만들고, 그 위에 블록체인 인덱서와 Rust 컴포넌트를 붙일 수 있는 구조를 설계해둔 것에 있다.
-

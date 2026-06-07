@@ -318,8 +318,12 @@ Go API Server
 -> 출금 요청 검증
 -> 출금 승인 상태 저장
 -> Rust Signer에 서명 요청
--> 서명된 transaction을 네트워크에 전송
+-> Rust Signer로부터 signed transaction을 응답으로 받음
+-> Go 백엔드가 signed transaction을 네트워크에 전송
 ```
+
+이 기준에서 Rust Signer는 private key 보관과 transaction signing만 담당합니다.
+Blockchain network에 broadcast하고, tx hash를 저장하고, 이후 상태를 추적하는 책임은 Go 백엔드와 worker 계층이 담당합니다.
 
 ## Day 4. Blockchain Event Indexer
 

@@ -137,6 +137,7 @@ API Server
 -> withdrawal request 검증
 -> signer service에 서명 요청
 -> signer service가 제한된 방식으로 transaction 서명
+-> API Server가 signed transaction을 받아 blockchain network에 전송
 ```
 
 ## 6. Rust Signer가 왜 나오는가
@@ -150,7 +151,8 @@ Go API Server
 -> 출금 요청 검증
 -> 출금 승인 상태 저장
 -> Rust Signer에 서명 요청
--> 서명된 transaction을 네트워크에 전송
+-> Rust Signer로부터 signed transaction을 응답으로 받음
+-> Go 백엔드가 signed transaction을 네트워크에 전송
 ```
 
 이렇게 분리하면 개인키를 다루는 경계를 좁힐 수 있고, 보안 사고의 범위를 줄일 수 있습니다.
