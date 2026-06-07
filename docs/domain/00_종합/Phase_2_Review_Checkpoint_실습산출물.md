@@ -106,11 +106,11 @@ Settlement 후보 계산
 
 | Day | 주제 | 내가 이해한 한 문장 |
 | --- | --- | --- |
-| Day 1 | Phase 2 Domain Map |  |
-| Day 2 | Ledger & Settlement |  |
-| Day 3 | Deposit / Withdrawal / Wallet / Key Security |  |
-| Day 4 | Blockchain Event Indexer |  |
-| Day 5 | First Implementation Scope |  |
+| Day 1 | Phase 2 Domain Map | 기존 결제 백엔드 시스템에서 블록체인 백엔드 결제 시스템으로의 확장 |
+| Day 2 | Ledger & Settlement | 원장과 정산 왜 블록체인의 결제 상태만으로 관리가 불가능한가? |
+| Day 3 | Deposit / Withdrawal / Wallet / Key Security | 입금, 출금, 지갑, 비밀키의 관계 입금,출금 시 벌어지게 되는 flow 및 발생하는 중복 에러 등에 대한 위험에따라 설계상 key security를 확보 할 수 있도록 레이어 분리 및 각 트랜젝션에 대해 멱등성 유지 |
+| Day 4 | Blockchain Event Indexer | 블록체인 네트워크에서 트렌젝션을 조회하여 입금되는 이벤트를 감지하고 그에 대한 작업을 진행하는데 우선적으로는 polling방식으로 진행한다. |
+| Day 5 | First Implementation Scope | 첫번째 구현 범위는 백엔드 코어를 기준으로 삼는다. |
 
 ## 도메인별 이해 상태
 
@@ -152,14 +152,14 @@ Settlement 후보 계산
 
 | 체크 항목 | 결과 | 메모 |
 | --- | --- | --- |
-| Payment와 Ledger의 책임 차이를 설명할 수 있다 |  |  |
-| Ledger entry에 `+`, `-` 금액이 왜 필요한지 설명할 수 있다 |  |  |
-| Settlement가 단순 합계가 아닌 이유를 설명할 수 있다 |  |  |
-| Deposit과 Withdrawal의 위험 차이를 설명할 수 있다 |  |  |
-| Event Indexer가 off-chain worker라는 점을 설명할 수 있다 |  |  |
-| Idempotency key 후보를 말할 수 있다 |  |  |
-| Reconciliation이 무엇을 비교하는지 설명할 수 있다 |  |  |
-| Backend Core vertical slice를 먼저 구현해야 하는 이유를 설명할 수 있다 |  |  |
+| Payment와 Ledger의 책임 차이를 설명할 수 있다 | 가능 | Payment는 결제 진행 상태를 요약하고, Ledger는 돈이 왜 누구에게서 누구에게 얼마 이동했는지 기록한다. |
+| Ledger entry에 `+`, `-` 금액이 왜 필요한지 설명할 수 있다 | 가능 | 하나의 거래 사건에서 감소 entry와 증가 entry를 함께 남겨 돈이 임의로 생기거나 사라지지 않게 한다. |
+| Settlement가 단순 합계가 아닌 이유를 설명할 수 있다 | 가능 | finality, 중복 ledger entry, 실패/환불 상태, 수수료, 정산 정책을 확인한 뒤 지급 가능한 묶음을 만들어야 한다. |
+| Deposit과 Withdrawal의 위험 차이를 설명할 수 있다 | 가능 | Deposit은 이미 발생한 온체인 입금을 감지하고 중복 반영을 막는 것이 중요하고, Withdrawal은 주소 검증, 승인, 서명, broadcast, 중복 출금 방지가 중요하다. |
+| Event Indexer가 off-chain worker라는 점을 설명할 수 있다 | 가능 | Indexer는 블록체인 내부 코드가 아니라 우리 백엔드 worker가 RPC로 block, transaction, event/log를 읽는 구조다. |
+| Idempotency key 후보를 말할 수 있다 | 가능 | `chain + tx_hash + log_index`로 특정 체인의 특정 transaction 안에 있는 특정 event/log를 식별할 수 있다. |
+| Reconciliation이 무엇을 비교하는지 설명할 수 있다 | 가능 | 온체인 상태와 내부 DB 상태를 비교해 누락, 중복, 실패 tx의 잘못된 반영, ledger 불일치를 찾는다. |
+| Backend Core vertical slice를 먼저 구현해야 하는 이유를 설명할 수 있다 | 가능 | 실제 체인 연결보다 먼저 Payment, Ledger, Settlement의 최소 연결과 공통 에러/검증/테스트 구조를 작게 검증해야 이후 기능이 흔들리지 않는다. |
 
 ## Sprint 2 진입 판단
 
@@ -179,10 +179,10 @@ Settlement 후보 계산
 
 | 후보 작업 | 해야 하는 이유 | 예상 난이도 | 먼저 확인할 질문 |
 | --- | --- | --- | --- |
-| Backend Core migration 설계 |  |  |  |
-| Ledger account/entry 모델 설계 |  |  |  |
-| Payment finalized 이후 ledger 연결 |  |  |  |
-| Settlement skeleton 작성 |  |  |  |
+| Backend Core migration 설계 | Phase 2 기능이 붙기 전에 공통 설정, 에러 응답, validation, logging, 테스트 패턴을 정리해야 한다. | 중 | 현재 `merchant`, `invoice`, `payment` 패키지에서 공통화할 수 있는 에러/응답/검증 패턴은 무엇인가? |
+| Ledger account/entry 모델 설계 | Payment 상태만으로는 돈의 이동을 설명할 수 없으므로, 계정과 entry 구조를 먼저 잡아야 한다. | 중상 | `ledger_accounts`, `ledger_transactions`, `ledger_entries`를 어떤 관계로 둘 것인가? |
+| Payment finalized 이후 ledger 연결 | `FINALIZED` 상태가 된 결제를 Ledger transaction과 entry로 연결해야 Phase 2 핵심 흐름이 시작된다. | 중상 | 어떤 Payment 상태 전이에서 ledger entry를 생성하고, 중복 생성을 어떤 key로 막을 것인가? |
+| Settlement skeleton 작성 | Ledger에 쌓인 확정 금액을 지급 가능한 묶음으로 계산하는 첫 구조가 필요하다. | 중 | Settlement 대상은 merchant로 시작하되, 추후 사용자/파트너 계정으로 확장 가능하게 설계할 것인가? |
 
 ## 오늘의 회고
 
