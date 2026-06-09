@@ -82,21 +82,19 @@ repository의 주 책임은 DB 저장과 조회입니다.
 
 ## 책임 분리 그림
 
-```text
-Handler
-  - HTTP 요청 형식 확인
-  - JSON 파싱
-  - path/query/body 기본 검증
+![Day8 공통 에러 응답과 검증 흐름](../../../confluence/diagrams/spn25-day8-error-validation-flow.png)
 
-Service
-  - 도메인 규칙 확인
-  - 상태 전이 확인
-  - 비즈니스 정책 판단
+이 그림을 볼 때는 화살표보다 “책임 경계”를 먼저 봐야 합니다.
 
-Repository
-  - SQL 실행
-  - DB constraint 결과 처리
-```
+| 계층 | 봐야 하는 것 | 보면 안 되는 것 |
+| --- | --- | --- |
+| Handler | HTTP 요청 형식, JSON 파싱, path/query/body 기본 검증 | DB table 구조, 복잡한 도메인 정책 |
+| Service | 도메인 규칙, 상태 전이, 비즈니스 정책 | HTTP status code 세부 선택, JSON 응답 모양 |
+| Repository | SQL 실행, DB constraint 결과 전달 | 요청 field 검증, payment 상태 전이 정책 판단 |
+
+실제 구현에서는 Service에서 발생한 error를 Handler가 받아서 HTTP status와 error code로 바꾸게 됩니다.
+
+예를 들어 `payment.ErrPaymentNotFound`가 Service에서 올라오면 Handler는 이것을 `404 not_found`로 바꾸고, `invalid payment status transition`은 `409 conflict` 또는 정책에 따라 `400 bad_request`로 바꿀 수 있습니다.
 
 ## Day7에서 정리한 error code 후보
 

@@ -2,6 +2,12 @@
 
 관련 Jira: [SPN-27](https://aslan0.atlassian.net/browse/SPN-27)
 
+## 실습 흐름
+
+![Day10 로깅과 테스트 피드백 루프](../../../confluence/diagrams/spn27-day10-logging-test-feedback.png)
+
+오늘 실습은 테스트 파일을 읽는 데서 끝나지 않습니다. 어떤 규칙은 테스트로 고정하고, 어떤 사건은 로그로 남겨야 하는지 구분하는 것이 핵심입니다.
+
 ## 실습 목표
 
 `Day10_실습산출물.md`에 다음 내용을 작성합니다.
@@ -43,6 +49,16 @@ future indexer duplicate event ignored
 future withdrawal signed
 ```
 
+각 로그 후보에는 다음 값을 같이 생각합니다.
+
+| 질문 | 예시 |
+| --- | --- |
+| 어떤 일이 발생했는가? | payment status changed |
+| 어떤 리소스인가? | payment_id, invoice_id |
+| 이전 상태와 다음 상태는 무엇인가? | old_status, new_status |
+| 온체인 식별자가 있는가? | tx_hash, chain |
+| 사용자가 보면 안 되는 값이 섞였는가? | private key, token |
+
 ## Step 3. 로그에 포함할 값 정리
 
 예시:
@@ -78,6 +94,19 @@ given:
 when:
 then:
 ```
+
+예시:
+
+```text
+테스트 이름: ONCHAIN_DETECTED 상태로 바꿀 때 transaction_hash가 없으면 실패한다
+given: PENDING 상태의 payment가 존재한다
+when: transaction_hash 없이 ONCHAIN_DETECTED로 상태 변경을 요청한다
+then: bad_request 계열 에러가 발생하고 상태는 변경되지 않는다
+```
+
+Day10에서는 실제 테스트 코드를 완성하지 않아도 됩니다.
+
+하지만 Day11 이후 Ledger 구현에 들어갔을 때 바로 테스트로 옮길 수 있을 만큼 구체적인 테스트 후보를 작성해야 합니다.
 
 ## 완료 기준
 

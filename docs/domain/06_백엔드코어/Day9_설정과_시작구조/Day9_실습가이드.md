@@ -2,6 +2,12 @@
 
 관련 Jira: [SPN-26](https://aslan0.atlassian.net/browse/SPN-26)
 
+## 실습 흐름
+
+![Day9 설정 로딩과 애플리케이션 시작 구조](../../../confluence/diagrams/spn26-day9-config-startup-flow.png)
+
+오늘 실습은 `main.go`를 “서버 실행 파일”로만 보는 것이 아니라, 설정과 의존성이 어떤 순서로 조립되는지 읽는 연습입니다.
+
 ## 실습 목표
 
 `Day9_실습산출물.md`에 다음 내용을 작성합니다.
@@ -28,6 +34,16 @@ DB 연결은 어디에서 만들어지는가?
 repository와 service는 어떤 순서로 만들어지는가?
 route 등록은 어디에서 일어나는가?
 ```
+
+읽을 때는 단순히 위에서 아래로 따라가지 말고, 아래 질문을 같이 표시합니다.
+
+| 관찰 지점 | 메모할 내용 |
+| --- | --- |
+| 설정값 | 코드에 직접 박힌 값인가, 환경 변수에서 온 값인가 |
+| DB 연결 | 실패하면 어디서 에러가 처리되는가 |
+| route 등록 | domain별 등록 함수가 있는가 |
+| 의존성 생성 | handler가 service를 알고, service가 repository를 아는 방향인가 |
+| server 시작 | 주소와 포트가 어디서 결정되는가 |
 
 ## Step 2. 현재 설정 후보 정리
 
@@ -69,6 +85,14 @@ type Config struct {
 
 오늘은 정확한 코드보다, 어떤 구조가 좋을지 정리하는 것이 우선입니다.
 
+추가로 다음 질문도 적어봅니다.
+
+```text
+config 패키지는 internal/platform/config가 좋을까?
+아니면 internal/config가 좋을까?
+database 연결 설정도 config에 둘까, database 패키지에 둘까?
+```
+
 ## Step 5. 설정 누락 기준 작성
 
 다음 질문에 답합니다.
@@ -78,6 +102,12 @@ PORT가 없으면 기본값을 써도 되는가?
 DATABASE_URL이 없으면 서버를 시작해도 되는가?
 BLOCKCHAIN_RPC_URL이 없으면 모든 기능이 막히는가, 일부 기능만 막히는가?
 ```
+
+Phase 2에서는 모든 기능이 한 번에 켜지지 않을 수 있습니다.
+
+예를 들어 결제 백엔드 API만 실행할 때는 `BLOCKCHAIN_RPC_URL`이 없어도 될 수 있지만, Event Indexer를 실행하는 프로세스라면 필수입니다.
+
+그래서 설정 누락 기준은 “전체 서버 기준”이 아니라 “그 프로세스가 맡은 역할 기준”으로 생각해야 합니다.
 
 ## 완료 기준
 

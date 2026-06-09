@@ -10,27 +10,15 @@ Phase 2에서는 Ledger, Deposit, Withdrawal, Settlement처럼 돈과 상태가 
 
 ## 오늘의 큰 그림
 
-```text
-Client Request
-      |
-      v
-HTTP Handler
-      |
-      +--> JSON 파싱
-      +--> path variable 확인
-      +--> 기본 요청값 검증
-      |
-      v
-Service
-      |
-      +--> 도메인 규칙 검증
-      +--> 상태 변경 판단
-      |
-      v
-Repository
-      |
-      +--> DB 저장/조회
-```
+![Day8 공통 에러 응답과 검증 흐름](../../../confluence/diagrams/spn25-day8-error-validation-flow.png)
+
+Day8에서 가장 중요하게 봐야 하는 것은 “어디에서 에러가 발생했는가?”가 아니라 “어느 계층이 어떤 책임으로 에러를 해석해야 하는가?”입니다.
+
+HTTP Handler는 요청 형식에 가까운 문제를 봅니다. JSON body가 깨졌는지, path variable이 비어 있는지, 필수 필드가 빠졌는지 같은 문제입니다.
+
+Service는 도메인 규칙에 가까운 문제를 봅니다. 결제 금액이 0보다 커야 하는지, payment 상태 전이가 가능한지, 지원하는 currency인지 같은 문제입니다.
+
+Repository는 DB 조회와 저장을 맡습니다. DB constraint 때문에 실패할 수는 있지만, 비즈니스 규칙을 판단하는 중심 계층은 아닙니다.
 
 ## 오늘의 목표
 
@@ -66,6 +54,15 @@ handler validation과 service validation은 어떻게 다를까?
 Validation은 사용자의 요청을 믿지 않기 위한 장치이고,
 Error Response는 실패를 예측 가능한 언어로 표현하기 위한 장치다.
 ```
+
+Day8을 지나면 “에러가 났다”가 아니라 다음처럼 말할 수 있어야 합니다.
+
+| 질문 | 답할 수 있어야 하는 내용 |
+| --- | --- |
+| 어떤 HTTP status인가? | 400, 404, 409, 415, 500 중 무엇이 맞는가 |
+| 어떤 error code인가? | `bad_request`, `not_found`, `conflict`처럼 프로그램이 분기할 값 |
+| 사용자가 볼 message는 무엇인가? | 한글로 이해 가능한 설명 |
+| field가 필요한가? | 특정 요청 필드 문제인지, 전체 요청/서버 문제인지 |
 
 ## 완료 기준
 
