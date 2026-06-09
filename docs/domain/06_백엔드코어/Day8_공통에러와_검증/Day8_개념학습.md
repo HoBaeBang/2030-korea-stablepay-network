@@ -11,8 +11,8 @@
 ```json
 {
   "error": {
-    "code": "invalid_request",
-    "message": "amount must be greater than zero",
+    "code": "bad_request",
+    "message": "결제 금액은 0보다 커야 합니다.",
     "field": "amount"
   }
 }
@@ -30,9 +30,9 @@
 
 `message`는 사람이 읽기 좋지만, 프로그램이 안정적으로 판단하기 어렵습니다.
 
-예를 들어 `amount must be greater than zero`라는 문장은 나중에 `amount should be positive`로 바뀔 수 있습니다.
+예를 들어 `결제 금액은 0보다 커야 합니다.`라는 문장은 나중에 `결제 금액을 다시 확인해주세요.`로 바뀔 수 있습니다.
 
-반면 `invalid_request` 같은 code는 클라이언트가 안정적으로 분기할 수 있습니다.
+반면 `bad_request` 같은 code는 클라이언트가 안정적으로 분기할 수 있습니다.
 
 ## validation이란?
 
@@ -98,14 +98,46 @@ Repository
   - DB constraint 결과 처리
 ```
 
-## 우리 프로젝트에서 먼저 쓸 error code 후보
+## Day7에서 정리한 error code 후보
 
-| code | 의미 |
+Day7 실습산출물에서는 400번대 REST Client Error를 중심으로 후보를 정리했습니다.
+
+Day8에서는 이 후보를 바탕으로 실제 구현에 먼저 사용할 코드를 고릅니다.
+
+| HTTP status | code | 의미 | 사용 예시 | message 예시 | 초기 구현 여부 |
+| --- | --- | --- | --- | --- | --- |
+| 400 | `bad_request` | 요청 형식이나 필드 값이 잘못됨 | JSON 파싱 실패, amount가 0 이하, currency 누락 | 요청 형식이 올바르지 않습니다. | 우선 사용 |
+| 401 | `unauthorized` | 인증되지 않은 요청 | API key 또는 token이 없거나 유효하지 않음 | 인증 정보가 필요합니다. | 인증 도입 후 |
+| 402 | `payment_required` | 결제가 필요한 요청 | 유료 기능, 수수료 결제 필요 정책이 생겼을 때 | 결제가 필요한 요청입니다. | 보류 |
+| 403 | `forbidden` | 인증은 되었지만 권한이 없음 | 다른 merchant의 invoice에 접근 | 해당 리소스에 접근할 권한이 없습니다. | 권한 도입 후 |
+| 404 | `not_found` | 대상 리소스를 찾을 수 없음 | merchant, invoice, payment 없음 | 요청한 리소스를 찾을 수 없습니다. | 우선 사용 |
+| 405 | `method_not_allowed` | 지원하지 않는 HTTP method | `GET /invoices`만 지원하는데 `DELETE` 요청 | 지원하지 않는 HTTP 메서드입니다. | 필요 시 |
+| 406 | `not_acceptable` | 요청한 응답 형식을 제공할 수 없음 | 지원하지 않는 `Accept` header | 요청한 응답 형식을 제공할 수 없습니다. | 보류 |
+| 407 | `proxy_authentication_required` | proxy 인증 필요 | 프록시 서버 인증이 필요한 특수 환경 | 프록시 인증이 필요합니다. | 보류 |
+| 408 | `request_timeout` | 요청 시간이 초과됨 | 클라이언트 요청 body 수신 지연 | 요청 시간이 초과되었습니다. | 필요 시 |
+| 409 | `conflict` | 현재 상태와 요청이 충돌함 | 이미 finalized된 payment를 다시 finalized 처리 | 현재 상태에서는 요청을 처리할 수 없습니다. | 우선 사용 |
+| 415 | `unsupported_media_type` | 지원하지 않는 요청 본문 형식 | `Content-Type: text/plain`으로 JSON API 호출 | 지원하지 않는 요청 형식입니다. | 우선 사용 |
+| 422 | `unprocessable_entity` | 형식은 맞지만 도메인 규칙을 만족하지 못함 | currency는 문자열이지만 지원하지 않는 통화 | 요청값이 처리 가능한 조건을 만족하지 않습니다. | 필요 시 |
+
+500번대 서버 오류는 400번대와 분리해서 관리합니다.
+
+| HTTP status | code | 의미 | 사용 예시 | message 예시 | 초기 구현 여부 |
+| --- | --- | --- | --- | --- | --- |
+| 500 | `internal_server_error` | 서버 내부 오류 | DB 오류, 예상하지 못한 실패 | 서버 내부 오류가 발생했습니다. | 우선 사용 |
+
+## 우리 프로젝트에서 먼저 구현할 error code
+
+처음 구현에서는 모든 후보를 한 번에 넣지 않습니다.
+
+먼저 아래 코드만 구현하고, 인증/권한 기능이 들어올 때 `unauthorized`, `forbidden`을 추가합니다.
+
+| code | 사용하는 상황 |
 | --- | --- |
-| invalid_request | 요청 형식이나 값이 잘못됨 |
-| not_found | 대상 리소스를 찾을 수 없음 |
-| conflict | 이미 처리되었거나 상태가 맞지 않음 |
-| internal_error | 서버 내부 오류 |
+| `bad_request` | JSON 파싱 실패, 필수 필드 누락, amount가 0 이하인 경우 |
+| `not_found` | merchant, invoice, payment를 찾을 수 없는 경우 |
+| `conflict` | 이미 처리된 payment를 다시 처리하는 것처럼 현재 상태와 충돌하는 경우 |
+| `unsupported_media_type` | JSON API인데 `Content-Type`이 JSON이 아닌 경우 |
+| `internal_server_error` | DB 오류처럼 클라이언트가 고칠 수 없는 서버 내부 오류 |
 
 ## 오늘의 주의점
 

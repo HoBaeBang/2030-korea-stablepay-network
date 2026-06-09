@@ -58,8 +58,8 @@ internal/payment/service.go
 ```json
 {
   "error": {
-    "code": "invalid_request",
-    "message": "amount must be greater than zero",
+    "code": "bad_request",
+    "message": "결제 금액은 0보다 커야 합니다.",
     "field": "amount"
   }
 }
@@ -71,6 +71,7 @@ internal/payment/service.go
 field가 항상 필요한가?
 여러 필드가 동시에 틀렸을 때는 어떻게 할 것인가?
 처음에는 단일 field만 지원해도 되는가?
+Day7에서 정리한 error code 후보 중 무엇을 먼저 구현할 것인가?
 ```
 
 ## Step 4. validation 후보 작성

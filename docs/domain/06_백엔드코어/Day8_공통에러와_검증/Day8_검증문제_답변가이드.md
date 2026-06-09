@@ -8,7 +8,7 @@
 2. `message`와 `code`는 각각 어떤 역할을 하는가?
 3. handler validation과 service validation의 차이는 무엇인가?
 4. repository에 validation을 많이 넣으면 어떤 문제가 생길 수 있는가?
-5. `invalid_request`와 `conflict`는 어떤 차이가 있는가?
+5. `bad_request`와 `conflict`는 어떤 차이가 있는가?
 6. field 값은 언제 필요하고 언제 없어도 되는가?
 7. payment 상태 전이 검증은 handler와 service 중 어디가 더 적절한가?
 8. 공통 에러 응답을 만들 때 처음부터 많은 error code가 필요하지 않은 이유는 무엇인가?
@@ -39,16 +39,16 @@ repository는 DB 접근 책임을 가져야 합니다.
 
 검증 규칙이 repository에 섞이면 service의 도메인 정책이 흐려지고 테스트도 어려워집니다.
 
-### 5. invalid_request와 conflict의 차이
+### 5. bad_request와 conflict의 차이
 
-`invalid_request`는 요청값 자체가 잘못된 경우입니다.
+`bad_request`는 요청 형식이나 요청값 자체가 잘못된 경우입니다.
 
 `conflict`는 요청값 형식은 맞지만 현재 상태와 충돌하는 경우입니다.
 
 예시:
 
 ```text
-amount = -1            -> invalid_request
+amount = -1            -> bad_request
 이미 finalized인 payment를 다시 finalized 처리 -> conflict
 ```
 
@@ -68,4 +68,4 @@ service가 더 적절합니다.
 
 초기에 너무 많은 code를 만들면 관리가 어려워집니다.
 
-먼저 `invalid_request`, `not_found`, `conflict`, `internal_error` 정도로 시작하고, 실제 필요가 생기면 늘리는 것이 좋습니다.
+먼저 `bad_request`, `not_found`, `conflict`, `unsupported_media_type`, `internal_server_error` 정도로 시작하고, 실제 필요가 생기면 늘리는 것이 좋습니다.

@@ -35,7 +35,7 @@ Repository
 ## 오늘의 목표
 
 1. 공통 에러 응답이 왜 필요한지 설명할 수 있다.
-2. `invalid_request`, `not_found`, `internal_error` 같은 error code 후보를 정리한다.
+2. `bad_request`, `not_found`, `conflict`, `internal_server_error` 같은 error code 후보를 정리한다.
 3. handler와 service의 validation 책임을 구분한다.
 4. 기존 merchant, invoice, payment API에 어떤 에러 응답이 필요한지 찾는다.
 5. 실습산출물에 우리 프로젝트의 에러 응답 정책 초안을 작성한다.
