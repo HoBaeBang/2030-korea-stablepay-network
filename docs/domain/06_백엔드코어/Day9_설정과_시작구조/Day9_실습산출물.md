@@ -2,6 +2,10 @@
 
 관련 Jira: [SPN-26](https://aslan0.atlassian.net/browse/SPN-26)
 
+## 실습 흐름
+
+![Day9 설정 로딩과 애플리케이션 시작 구조](../../../confluence/diagrams/spn26-day9-config-startup-flow.png)
+
 ## 1. main.go 실행 순서
 
 아래 순서를 실제 `cmd/api/main.go`를 읽고 프로젝트 기준으로 채운다.

@@ -2,6 +2,12 @@
 
 관련 Jira: [SPN-27](https://aslan0.atlassian.net/browse/SPN-27)
 
+## 확인 흐름
+
+![Day10 로깅과 테스트 피드백 루프](../../../confluence/diagrams/spn27-day10-logging-test-feedback.png)
+
+문제를 풀 때는 로그가 운영 중 추적을 위한 기록이고, 테스트가 개발 중 규칙을 고정하는 장치라는 차이를 먼저 떠올립니다.
+
 ## 먼저 풀어볼 문제
 
 1. 로그는 왜 필요한가?

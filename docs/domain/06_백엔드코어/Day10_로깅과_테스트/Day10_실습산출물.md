@@ -2,6 +2,10 @@
 
 관련 Jira: [SPN-27](https://aslan0.atlassian.net/browse/SPN-27)
 
+## 실습 흐름
+
+![Day10 로깅과 테스트 피드백 루프](../../../confluence/diagrams/spn27-day10-logging-test-feedback.png)
+
 ## 1. 기존 테스트 구조 관찰
 
 실제 테스트 파일을 보고 테스트가 어떤 도메인 규칙을 설명하는지 적는다.

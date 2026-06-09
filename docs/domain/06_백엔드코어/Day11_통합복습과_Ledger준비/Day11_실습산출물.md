@@ -2,6 +2,10 @@
 
 관련 Jira: [SPN-28](https://aslan0.atlassian.net/browse/SPN-28)
 
+## 실습 흐름
+
+![Day11 Backend Core에서 Ledger로 넘어가는 준비도](../../../confluence/diagrams/spn28-day11-ledger-readiness.png)
+
 ## 1. Backend Core 통합 체크리스트
 
 | 영역 | 준비 여부 | 내가 이해한 내용 | 추가 질문 |

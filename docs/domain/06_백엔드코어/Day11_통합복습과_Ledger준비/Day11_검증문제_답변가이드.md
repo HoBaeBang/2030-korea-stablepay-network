@@ -2,6 +2,12 @@
 
 관련 Jira: [SPN-28](https://aslan0.atlassian.net/browse/SPN-28)
 
+## 확인 흐름
+
+![Day11 Backend Core에서 Ledger로 넘어가는 준비도](../../../confluence/diagrams/spn28-day11-ledger-readiness.png)
+
+문제를 풀 때는 Day8~10의 Backend Core 기반이 Ledger의 중복 원장 생성, 불균형 entry, 부분 저장 위험을 어떻게 줄이는지 연결해서 생각합니다.
+
 ## 먼저 풀어볼 문제
 
 1. Backend Core를 Ledger보다 먼저 정리한 이유는 무엇인가?

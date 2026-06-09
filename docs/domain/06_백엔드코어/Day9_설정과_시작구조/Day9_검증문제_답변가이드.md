@@ -2,6 +2,12 @@
 
 관련 Jira: [SPN-26](https://aslan0.atlassian.net/browse/SPN-26)
 
+## 확인 흐름
+
+![Day9 설정 로딩과 애플리케이션 시작 구조](../../../confluence/diagrams/spn26-day9-config-startup-flow.png)
+
+문제를 풀 때는 환경 변수, Config 구조체, `main.go`, HTTP Server가 어떤 순서로 이어지는지 먼저 떠올립니다.
+
 ## 먼저 풀어볼 문제
 
 1. config는 무엇인가?
