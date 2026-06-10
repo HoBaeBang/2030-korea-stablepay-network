@@ -108,6 +108,99 @@ Day10에서는 실제 테스트 코드를 완성하지 않아도 됩니다.
 
 하지만 Day11 이후 Ledger 구현에 들어갔을 때 바로 테스트로 옮길 수 있을 만큼 구체적인 테스트 후보를 작성해야 합니다.
 
+## Step 6. 코드 작업 - payment 상태 전이 테스트 추가
+
+Day10의 실제 코드 작업은 테스트를 하나 추가하는 것입니다.
+
+현재 `payment.Service`에는 다음 규칙이 있습니다.
+
+```text
+ONCHAIN_DETECTED 상태로 변경하려면 transaction_hash가 필요하다.
+```
+
+이 규칙은 서비스 코드에 이미 있지만, 테스트로 고정해두는 것이 좋습니다.
+
+수정할 파일:
+
+```text
+internal/payment/service_test.go
+```
+
+추가할 위치:
+
+```text
+TestService_UpdatePaymentStatus 함수 안
+```
+
+추가할 테스트:
+
+```go
+t.Run("transaction_hash 없이 ONCHAIN_DETECTED로 변경할 수 없다", func(t *testing.T) {
+	store := &fakeStore{current: Payment{ID: "pay_123", Status: StatusPending}}
+	service := NewService(store)
+	service.now = func() time.Time { return fixedNow }
+
+	_, err := service.UpdatePaymentStatus(context.Background(), UpdatePaymentStatusRequest{
+		PaymentID:  "pay_123",
+		NextStatus: StatusOnchainDetected,
+	})
+	if err == nil {
+		t.Fatal("expected error, got nil")
+	}
+	if store.current.Status != StatusPending {
+		t.Fatalf("status = %s, want %s", store.current.Status, StatusPending)
+	}
+})
+```
+
+이 테스트가 확인하는 것:
+
+| 확인 내용 | 의미 |
+| --- | --- |
+| `err == nil`이면 실패 | transaction_hash 없이 성공하면 안 된다 |
+| 상태가 여전히 `PENDING`인지 확인 | 실패한 요청이 상태를 바꾸면 안 된다 |
+| 테스트 이름을 한글로 작성 | 실패 시 어떤 규칙이 깨졌는지 바로 읽을 수 있다 |
+
+## Step 7. 테스트 실행
+
+먼저 payment 패키지만 실행합니다.
+
+```bash
+go test ./internal/payment
+```
+
+문제가 없으면 전체 테스트를 실행합니다.
+
+```bash
+go test ./...
+```
+
+테스트 파일을 수정했으므로 포맷도 확인합니다.
+
+```bash
+gofmt -w internal/payment/service_test.go
+```
+
+실행 순서는 보통 아래처럼 하면 됩니다.
+
+```bash
+gofmt -w internal/payment/service_test.go
+go test ./internal/payment
+go test ./...
+```
+
+## Step 8. 실습산출물 작성
+
+코드 작업이 끝나면 `Day10_실습산출물.md`에 다음 내용을 작성합니다.
+
+```text
+추가한 테스트 이름
+given / when / then
+이 테스트가 막아주는 버그
+로그로 남겨야 할 이벤트 후보
+Ledger 구현 전에 추가로 필요한 테스트 후보
+```
+
 ## 완료 기준
 
 - [ ] 기존 테스트 구조를 확인했다.
@@ -115,3 +208,7 @@ Day10에서는 실제 테스트 코드를 완성하지 않아도 됩니다.
 - [ ] 로그에 포함할 값과 제외할 값을 구분했다.
 - [ ] 한글 subtest 후보를 작성했다.
 - [ ] Ledger 구현 전 테스트 후보를 작성했다.
+- [ ] `internal/payment/service_test.go`에 상태 전이 테스트를 추가했다.
+- [ ] `gofmt -w internal/payment/service_test.go`를 실행했다.
+- [ ] `go test ./internal/payment`를 실행했다.
+- [ ] `go test ./...`를 실행했다.

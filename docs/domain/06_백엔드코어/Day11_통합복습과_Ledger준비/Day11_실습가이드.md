@@ -111,6 +111,79 @@ Ledger 구현을 시작할 때 필요한 준비가 되어 있는가?
 | 일부 보강 후 완료 | 특정 문서나 구현 후보만 보강하면 된다 |
 | 완료 보류 | 공통 기반이 아직 너무 약해 Ledger로 넘어가면 위험하다 |
 
+## Step 6. 코드 점검 실습 - Ledger 구현 전 마지막 확인
+
+Day11은 새 기능을 크게 추가하는 날이 아닙니다.
+
+대신 Day9~10에서 했어야 하는 코드 작업이 실제로 반영되었는지 확인하고, Ledger 구현 전에 깨진 테스트가 없는지 점검합니다.
+
+확인할 파일:
+
+```text
+cmd/api/main.go
+internal/platform/config/config.go
+internal/payment/service.go
+internal/payment/service_test.go
+internal/merchant/service_test.go
+internal/invoice/service_test.go
+```
+
+## Step 7. 코드 기준 체크리스트
+
+아래 질문을 코드에서 직접 확인합니다.
+
+| 확인 항목 | 확인 파일 | 확인 결과 |
+| --- | --- | --- |
+| `main.go`가 설정 로딩을 직접 많이 하지 않는가 | `cmd/api/main.go` |  |
+| config 패키지가 설정 기본값을 관리하는가 | `internal/platform/config/config.go` |  |
+| payment 상태 전이 규칙이 service에 있는가 | `internal/payment/service.go` |  |
+| 상태 전이 규칙이 테스트로 고정되어 있는가 | `internal/payment/service_test.go` |  |
+| 한글 subtest로 실패 원인을 읽을 수 있는가 | `*_test.go` |  |
+
+## Step 8. 검증 명령 실행
+
+아래 명령을 실행합니다.
+
+```bash
+go test ./...
+```
+
+테스트가 실패하면 바로 넘어가지 말고 다음 순서로 확인합니다.
+
+```text
+1. 어떤 패키지가 실패했는가?
+2. 어떤 테스트 이름이 실패했는가?
+3. 에러 메시지는 무엇인가?
+4. 코드 문제인가, 테스트 기대값 문제인가?
+5. 수정 후 다시 go test ./...를 실행했는가?
+```
+
+## Step 9. Ledger 첫 구현 전에 필요한 코드 작업 후보 정리
+
+Day11에서 실제 Ledger 코드를 바로 작성하지 않는 이유는, Ledger는 migration, repository, service, 테스트가 함께 들어가는 큰 작업이기 때문입니다.
+
+대신 다음 구현을 작게 나누어 준비합니다.
+
+| 다음 코드 작업 후보 | 만들 파일 후보 | 먼저 확인할 것 |
+| --- | --- | --- |
+| Ledger 모델 정의 | `internal/ledger/ledger.go` | account, transaction, entry 용어 이해 |
+| Ledger migration 작성 | `migrations/000002_create_ledger_tables.up.sql` | debit/credit 구조 |
+| Ledger repository 작성 | `internal/ledger/repository.go` | DB transaction 필요 여부 |
+| Ledger service 작성 | `internal/ledger/service.go` | 합계 0 검증, 중복 방어 |
+| Ledger 테스트 작성 | `internal/ledger/service_test.go` | given/when/then 테스트 패턴 |
+
+## Step 10. 실습산출물 작성
+
+코드 점검이 끝나면 `Day11_실습산출물.md`에 다음 내용을 작성합니다.
+
+```text
+go test ./... 실행 결과
+Day9 config 코드가 이해되는지
+Day10 payment 테스트가 이해되는지
+Ledger 구현 전 가장 위험해 보이는 부분
+다음 구현 티켓 후보
+```
+
 ## 완료 기준
 
 - [ ] 통합 체크리스트를 작성했다.
@@ -118,3 +191,7 @@ Ledger 구현을 시작할 때 필요한 준비가 되어 있는가?
 - [ ] Ledger 구현 전 위험 요소를 작성했다.
 - [ ] 다음 구현 티켓 후보를 작성했다.
 - [ ] SPN-2 완료 가능 여부를 판단했다.
+- [ ] Day9 config 코드 작업 반영 여부를 확인했다.
+- [ ] Day10 payment 테스트 추가 여부를 확인했다.
+- [ ] `go test ./...`를 실행했다.
+- [ ] Ledger 첫 구현 후보를 파일 단위로 나누어 작성했다.
