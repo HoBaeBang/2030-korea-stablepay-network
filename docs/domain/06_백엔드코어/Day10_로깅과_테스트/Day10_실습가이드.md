@@ -201,6 +201,119 @@ given / when / then
 Ledger 구현 전에 추가로 필요한 테스트 후보
 ```
 
+## Step 9. 완성본 확인
+
+Day10에서 수정하는 파일은 `internal/payment/service_test.go`입니다.
+
+이날 추가하는 코드는 전체 파일을 새로 쓰는 것이 아니라, `TestService_UpdatePaymentStatus` 함수 안에 테스트 케이스를 하나 더 추가하는 것입니다.
+
+아래는 테스트 추가 후 `TestService_UpdatePaymentStatus` 함수가 가져야 하는 최종 형태입니다.
+
+```go
+func TestService_UpdatePaymentStatus(t *testing.T) {
+	fixedNow := time.Date(2026, 5, 21, 9, 0, 0, 0, time.UTC)
+
+	t.Run("PENDING에서 ONCHAIN_DETECTED로 변경할 수 있다", func(t *testing.T) {
+		store := &fakeStore{current: Payment{ID: "pay_123", Status: StatusPending}}
+		service := NewService(store)
+		service.now = func() time.Time { return fixedNow }
+
+		txHash := "0xabc"
+		got, err := service.UpdatePaymentStatus(context.Background(), UpdatePaymentStatusRequest{
+			PaymentID:       "pay_123",
+			NextStatus:      StatusOnchainDetected,
+			TransactionHash: &txHash,
+		})
+		if err != nil {
+			t.Fatalf("UpdatePaymentStatus returned error: %v", err)
+		}
+		if got.Status != StatusOnchainDetected {
+			t.Fatalf("status = %s, want %s", got.Status, StatusOnchainDetected)
+		}
+		if got.TransactionHash == nil || *got.TransactionHash != txHash {
+			t.Fatalf("transaction hash was not saved")
+		}
+	})
+
+	t.Run("transaction_hash 없이 ONCHAIN_DETECTED로 변경할 수 없다", func(t *testing.T) {
+		store := &fakeStore{current: Payment{ID: "pay_123", Status: StatusPending}}
+		service := NewService(store)
+		service.now = func() time.Time { return fixedNow }
+
+		_, err := service.UpdatePaymentStatus(context.Background(), UpdatePaymentStatusRequest{
+			PaymentID:  "pay_123",
+			NextStatus: StatusOnchainDetected,
+		})
+		if err == nil {
+			t.Fatal("expected error, got nil")
+		}
+		if store.current.Status != StatusPending {
+			t.Fatalf("status = %s, want %s", store.current.Status, StatusPending)
+		}
+	})
+
+	t.Run("FINALIZED에서 PENDING으로 되돌릴 수 없다", func(t *testing.T) {
+		store := &fakeStore{current: Payment{ID: "pay_123", Status: StatusFinalized}}
+		service := NewService(store)
+		service.now = func() time.Time { return fixedNow }
+
+		_, err := service.UpdatePaymentStatus(context.Background(), UpdatePaymentStatusRequest{
+			PaymentID:  "pay_123",
+			NextStatus: StatusPending,
+		})
+		if err == nil {
+			t.Fatal("expected error, got nil")
+		}
+	})
+
+	t.Run("FINALIZED가 되면 finalized_at을 저장한다", func(t *testing.T) {
+		store := &fakeStore{current: Payment{ID: "pay_123", Status: StatusOnchainDetected}}
+		service := NewService(store)
+		service.now = func() time.Time { return fixedNow }
+
+		got, err := service.UpdatePaymentStatus(context.Background(), UpdatePaymentStatusRequest{
+			PaymentID:  "pay_123",
+			NextStatus: StatusFinalized,
+		})
+		if err != nil {
+			t.Fatalf("UpdatePaymentStatus returned error: %v", err)
+		}
+		if got.FinalizedAt == nil {
+			t.Fatal("finalized_at is nil")
+		}
+		if !got.FinalizedAt.Equal(fixedNow) {
+			t.Fatalf("finalized_at = %v, want %v", got.FinalizedAt, fixedNow)
+		}
+	})
+}
+```
+
+완성본과 비교할 때는 다음을 확인합니다.
+
+```text
+새 테스트 이름이 한글로 되어 있는가?
+transaction_hash 없이 ONCHAIN_DETECTED 요청을 보내는가?
+err가 nil이면 실패하도록 되어 있는가?
+실패한 요청 후 상태가 PENDING으로 유지되는지 확인하는가?
+```
+
+## Step 10. 커밋 메시지
+
+Day10 코드 실습을 완료하고 테스트까지 통과했다면 아래 커밋 메시지를 사용합니다.
+
+```bash
+git status
+git add internal/payment/service_test.go docs/domain/06_백엔드코어/Day10_로깅과_테스트/Day10_실습산출물.md
+git commit -m "test: 결제 상태 전이 검증 테스트 추가"
+```
+
+커밋에 포함할 파일:
+
+```text
+internal/payment/service_test.go
+docs/domain/06_백엔드코어/Day10_로깅과_테스트/Day10_실습산출물.md
+```
+
 ## 완료 기준
 
 - [ ] 기존 테스트 구조를 확인했다.
@@ -212,3 +325,5 @@ Ledger 구현 전에 추가로 필요한 테스트 후보
 - [ ] `gofmt -w internal/payment/service_test.go`를 실행했다.
 - [ ] `go test ./internal/payment`를 실행했다.
 - [ ] `go test ./...`를 실행했다.
+- [ ] 완성본과 내 코드를 비교했다.
+- [ ] 커밋 메시지를 확인했다.

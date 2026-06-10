@@ -184,6 +184,57 @@ Ledger 구현 전 가장 위험해 보이는 부분
 다음 구현 티켓 후보
 ```
 
+## Step 11. 완성본 확인
+
+Day11은 새 코드를 크게 작성하는 날이 아니라, Day9~10 코드 작업이 제대로 반영되었는지 확인하는 날입니다.
+
+따라서 Day11의 완성본은 특정 Go 파일 하나가 아니라 아래 상태입니다.
+
+| 확인 대상 | 완성 기준 |
+| --- | --- |
+| `internal/platform/config/config.go` | `Config` 구조체와 `Load()` 함수가 있다 |
+| `cmd/api/main.go` | `config.Load()`를 사용하고 `os.Getenv`를 직접 호출하지 않는다 |
+| `internal/payment/service_test.go` | `transaction_hash 없이 ONCHAIN_DETECTED로 변경할 수 없다` 테스트가 있다 |
+| 전체 테스트 | `go test ./...`가 성공한다 |
+| 실습산출물 | Day8~10 기반, Ledger 위험 요소, 다음 티켓 후보가 작성되어 있다 |
+
+Day11에서 확인할 최종 명령:
+
+```bash
+go fmt ./...
+go test ./...
+git status
+```
+
+`git status`에서 Day9 또는 Day10 실습 파일이 남아 있다면 먼저 해당 날짜의 커밋을 완료한 뒤 Day11 정리 커밋을 진행합니다.
+
+## Step 12. 커밋 메시지
+
+Day11은 코드 점검과 산출물 정리 중심이므로, 보통 산출물 문서만 커밋합니다.
+
+```bash
+git status
+git add docs/domain/06_백엔드코어/Day11_통합복습과_Ledger준비/Day11_실습산출물.md
+git commit -m "docs: Backend Core 통합 점검 산출물 정리"
+```
+
+만약 Day11 과정에서 Day9~10 코드 누락을 함께 수정했다면 커밋을 섞지 않습니다.
+
+이 경우 아래처럼 나눕니다.
+
+```text
+1. Day9 config 코드 수정 커밋
+2. Day10 payment 테스트 수정 커밋
+3. Day11 산출물 정리 커밋
+```
+
+커밋을 나누는 이유:
+
+```text
+설정 코드 변경, 테스트 코드 변경, 학습 산출물 정리는 변경 목적이 다르기 때문이다.
+나중에 Git 기록을 볼 때 어떤 작업이 어떤 이유로 들어갔는지 추적하기 쉬워진다.
+```
+
 ## 완료 기준
 
 - [ ] 통합 체크리스트를 작성했다.
@@ -195,3 +246,5 @@ Ledger 구현 전 가장 위험해 보이는 부분
 - [ ] Day10 payment 테스트 추가 여부를 확인했다.
 - [ ] `go test ./...`를 실행했다.
 - [ ] Ledger 첫 구현 후보를 파일 단위로 나누어 작성했다.
+- [ ] 완성 기준 표와 현재 프로젝트 상태를 비교했다.
+- [ ] 커밋 메시지를 확인했다.

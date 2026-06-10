@@ -255,6 +255,119 @@ Config 구조체에 넣은 값
 이번 코드 작업에서 헷갈린 점
 ```
 
+## Step 8. 완성본 확인
+
+코드 작성이 끝나면 아래 완성본과 본인이 작성한 파일을 비교합니다.
+
+완전히 외워서 따라 쓰는 것이 목적은 아닙니다. 다만 다음을 확인해야 합니다.
+
+```text
+config.go가 설정 읽기 책임을 가진다.
+main.go가 os.Getenv를 직접 호출하지 않는다.
+main.go는 config.Load() 결과를 사용한다.
+go fmt ./...와 go test ./...가 성공한다.
+```
+
+### internal/platform/config/config.go 완성본
+
+```go
+package config
+
+import "os"
+
+type Config struct {
+	Port        string
+	DatabaseURL string
+}
+
+func Load() Config {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	databaseURL := os.Getenv("DATABASE_URL")
+	if databaseURL == "" {
+		databaseURL = "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable"
+	}
+
+	return Config{
+		Port:        port,
+		DatabaseURL: databaseURL,
+	}
+}
+```
+
+### cmd/api/main.go 완성본
+
+```go
+package main
+
+import (
+	"context"
+	"log"
+	"net/http"
+	"time"
+
+	"github.com/HoBaeBang/2030-korea-stablepay-network/internal/httpapi"
+	"github.com/HoBaeBang/2030-korea-stablepay-network/internal/platform/config"
+	"github.com/HoBaeBang/2030-korea-stablepay-network/internal/platform/database"
+)
+
+func main() {
+	cfg := config.Load()
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	db, err := database.Open(ctx, cfg.DatabaseURL)
+	if err != nil {
+		log.Fatalf("database connection failed: %v", err)
+	}
+	defer db.Close()
+
+	log.Println("database connection ok")
+
+	// mux는 multiplexer의 줄임말이다. 여러 HTTP 요청 중 경로와 method에 맞는 handler로 분배한다.
+	// http.NewServeMux()는 *http.ServeMux, 즉 ServeMux 구조체의 포인터를 반환한다.
+	mux := http.NewServeMux()
+	httpapi.RegisterHealthRoutes(mux)
+	httpapi.RegisterMerchantRoutes(mux, db)
+	httpapi.RegisterInvoiceRoutes(mux, db)
+	httpapi.RegisterPaymentRoutes(mux, db)
+
+	// &http.Server{...}는 Server 구조체 값을 만들고, 그 값의 메모리 주소를 포인터로 가져온다.
+	server := &http.Server{
+		Addr:              ":" + cfg.Port,
+		Handler:           mux,
+		ReadHeaderTimeout: 5 * time.Second,
+	}
+
+	log.Printf("stablepay api listening on :%s", cfg.Port)
+	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		log.Fatalf("server failed: %v", err)
+	}
+}
+```
+
+## Step 9. 커밋 메시지
+
+Day9 코드 실습을 완료하고 테스트까지 통과했다면 아래 커밋 메시지를 사용합니다.
+
+```bash
+git status
+git add internal/platform/config/config.go cmd/api/main.go docs/domain/06_백엔드코어/Day9_설정과_시작구조/Day9_실습산출물.md
+git commit -m "feat: 설정 로딩 config 패키지 추가"
+```
+
+커밋에 포함할 파일:
+
+```text
+internal/platform/config/config.go
+cmd/api/main.go
+docs/domain/06_백엔드코어/Day9_설정과_시작구조/Day9_실습산출물.md
+```
+
 ## 완료 기준
 
 - [ ] main.go 실행 순서를 작성했다.
@@ -266,3 +379,5 @@ Config 구조체에 넣은 값
 - [ ] `cmd/api/main.go`가 `config.Load()`를 사용하도록 수정했다.
 - [ ] `gofmt -w internal/platform/config/config.go cmd/api/main.go`를 실행했다.
 - [ ] `go test ./...`를 실행했다.
+- [ ] 완성본과 내 코드를 비교했다.
+- [ ] 커밋 메시지를 확인했다.
