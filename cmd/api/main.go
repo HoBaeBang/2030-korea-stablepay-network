@@ -4,23 +4,17 @@ import (
 	"context"
 	"log"
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/HoBaeBang/2030-korea-stablepay-network/internal/httpapi"
+	"github.com/HoBaeBang/2030-korea-stablepay-network/internal/platform/config"
 	"github.com/HoBaeBang/2030-korea-stablepay-network/internal/platform/database"
 )
 
 func main() {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-
-	databaseURL := os.Getenv("DATABASE_URL")
-	if databaseURL == "" {
-		databaseURL = "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable"
-	}
+	cnf := config.Load()
+	port := cnf.Port
+	databaseURL := cnf.DatabaseURL
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
