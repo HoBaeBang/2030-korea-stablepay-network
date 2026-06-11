@@ -122,6 +122,24 @@ func TestService_UpdatePaymentStatus(t *testing.T) {
 			t.Fatalf("finalized_at = %v, want %v", got.FinalizedAt, fixedNow)
 		}
 	})
+
+	t.Run("transaction_hash 없이 ONCHAIN_DETECTED로 변경할 수 없다", func(t *testing.T) {
+		store := &fakeStore{current: Payment{ID: "pay_123", Status: StatusPending}}
+		service := NewService(store)
+		service.now = func() time.Time { return fixedNow }
+
+		_, err := service.UpdatePaymentStatus(context.Background(), UpdatePaymentStatusRequest{
+			PaymentID:  "pay_123",
+			NextStatus: StatusOnchainDetected,
+		})
+
+		if err == nil {
+			t.Fatal("expected error, got nil")
+		}
+		if store.current.Status != StatusPending {
+			t.Fatalf("status = %s, want %s", store.current.Status, StatusPending)
+		}
+	})
 }
 
 func TestCanTransition(t *testing.T) {
