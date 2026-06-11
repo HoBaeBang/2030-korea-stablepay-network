@@ -22,6 +22,7 @@
 | 분류 | GitHub Markdown | Confluence |
 | --- | --- | --- |
 | 문서 인덱스 | [docs/README.md](README.md) | [문서 인덱스와 동기화 기준](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5046715) |
+| 운영 메모리 | [docs/프로젝트_운영_메모리.md](프로젝트_운영_메모리.md) | [프로젝트_운영_메모리.md](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/9306169) |
 | Space 홈 | [docs/confluence/space-home.md](confluence/space-home.md) | [2030 KOREA StablePay Network](https://aslan0.atlassian.net/wiki/spaces/SPN/overview) |
 | 문서 허브 | [docs/confluence/project-overview-and-roadmap.md](confluence/project-overview-and-roadmap.md) | [프로젝트 개요와 로드맵](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/4948097) |
 | 문서 허브 | [docs/confluence/phase-2-domain-learning.md](confluence/phase-2-domain-learning.md) | [Phase 2 도메인 학습](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/4948117) |
