@@ -12,14 +12,12 @@ import (
 )
 
 func main() {
-	cnf := config.Load()
-	port := cnf.Port
-	databaseURL := cnf.DatabaseURL
+	cfg := config.Load()
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	db, err := database.Open(ctx, databaseURL)
+	db, err := database.Open(ctx, cfg.DatabaseURL)
 	if err != nil {
 		log.Fatalf("database connection failed: %v", err)
 	}
@@ -37,12 +35,12 @@ func main() {
 
 	// &http.Server{...}는 Server 구조체 값을 만들고, 그 값의 메모리 주소를 포인터로 가져온다.
 	server := &http.Server{
-		Addr:              ":" + port,
+		Addr:              ":" + cfg.Port,
 		Handler:           mux,
 		ReadHeaderTimeout: 5 * time.Second,
 	}
 
-	log.Printf("stablepay api listening on :%s", port)
+	log.Printf("stablepay api listening on :%s", cfg.Port)
 	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		log.Fatalf("server failed: %v", err)
 	}
