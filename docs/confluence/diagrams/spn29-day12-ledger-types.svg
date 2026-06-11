@@ -1,0 +1,58 @@
+<svg width="1440" height="900" viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: Arial, 'Apple SD Gothic Neo', sans-serif; font-size: 34px; font-weight: 700; fill: #f8fafc; }
+      .subtitle { font-family: Arial, 'Apple SD Gothic Neo', sans-serif; font-size: 17px; fill: #cbd5e1; }
+      .box-title { font-family: Arial, 'Apple SD Gothic Neo', sans-serif; font-size: 23px; font-weight: 700; fill: #f8fafc; }
+      .box-line { font-family: Arial, 'Apple SD Gothic Neo', sans-serif; font-size: 17px; fill: #cbd5e1; }
+      .note { font-family: Arial, 'Apple SD Gothic Neo', sans-serif; font-size: 17px; fill: #e2e8f0; }
+      .arrow { stroke: #94a3b8; stroke-width: 4; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M 0 0 L 12 6 L 0 12 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <rect width="1440" height="900" fill="#0f172a"/>
+  <rect x="32" y="32" width="1376" height="836" rx="28" fill="#111827" stroke="#1f2937" stroke-width="2"/>
+
+  <text x="60" y="76" class="title">Day12 Ledger 도메인 타입 초안</text>
+  <text x="62" y="108" class="subtitle">Payment 상태에서 돈의 이동 기록으로 넘어가기 위한 첫 코드 언어 만들기</text>
+
+  <rect x="90" y="190" width="270" height="170" rx="16" fill="#172554" stroke="#60a5fa" stroke-width="3"/>
+  <text x="112" y="228" class="box-title">Payment</text>
+  <text x="112" y="262" class="box-line">결제 상태</text>
+  <text x="112" y="288" class="box-line">PENDING</text>
+  <text x="112" y="314" class="box-line">ONCHAIN_DETECTED</text>
+  <text x="112" y="340" class="box-line">FINALIZED</text>
+
+  <rect x="585" y="172" width="270" height="206" rx="16" fill="#431407" stroke="#fb923c" stroke-width="3"/>
+  <text x="607" y="210" class="box-title">Ledger Transaction</text>
+  <text x="607" y="244" class="box-line">하나의 원장 거래 묶음</text>
+  <text x="607" y="270" class="box-line">reference_type</text>
+  <text x="607" y="296" class="box-line">reference_id</text>
+  <text x="607" y="322" class="box-line">idempotency_key</text>
+
+  <rect x="1080" y="190" width="270" height="170" rx="16" fill="#052e2b" stroke="#34d399" stroke-width="3"/>
+  <text x="1102" y="228" class="box-title">Ledger Entry</text>
+  <text x="1102" y="262" class="box-line">돈의 이동 한 줄</text>
+  <text x="1102" y="288" class="box-line">account_id</text>
+  <text x="1102" y="314" class="box-line">direction</text>
+  <text x="1102" y="340" class="box-line">amount</text>
+
+  <rect x="585" y="530" width="270" height="170" rx="16" fill="#2e1065" stroke="#a78bfa" stroke-width="3"/>
+  <text x="607" y="568" class="box-title">Ledger Account</text>
+  <text x="607" y="602" class="box-line">돈이 기록되는 주체</text>
+  <text x="607" y="628" class="box-line">CUSTOMER</text>
+  <text x="607" y="654" class="box-line">MERCHANT_PENDING</text>
+  <text x="607" y="680" class="box-line">PLATFORM_FEE</text>
+
+  <path d="M360 275 L585 275" class="arrow"/>
+  <path d="M855 275 L1080 275" class="arrow"/>
+  <path d="M1215 360 C1215 470 900 470 805 530" class="arrow"/>
+  <path d="M720 530 L720 378" class="arrow"/>
+
+  <rect x="90" y="740" width="1260" height="70" rx="16" fill="#020617" stroke="#334155" stroke-width="2"/>
+  <text x="112" y="772" class="note">핵심: 오늘은 Ledger 전체 구현이 아니라 Account, Transaction, Entry라는 최소 타입 언어를 만든다.</text>
+  <text x="112" y="798" class="note">다음 단계에서 이 타입을 바탕으로 service test, validation, migration, repository로 확장한다.</text>
+</svg>

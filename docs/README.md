@@ -39,6 +39,12 @@
 | 도메인 학습 | [docs/domain/03_입출금과_지갑보안/Deposit_Withdrawal_Wallet_KeySecurity_개념학습.md](domain/03_입출금과_지갑보안/Deposit_Withdrawal_Wallet_KeySecurity_개념학습.md) | [Deposit, Withdrawal, Wallet, Key Security 개념 학습](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5144688) |
 | 실습 가이드 | [docs/domain/03_입출금과_지갑보안/Wallet_Deposit_Withdrawal_실습가이드.md](domain/03_입출금과_지갑보안/Wallet_Deposit_Withdrawal_실습가이드.md) | [Wallet, Deposit, Withdrawal 실습 가이드](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5406724) |
 | 검증 가이드 | [docs/domain/03_입출금과_지갑보안/Deposit_Withdrawal_Wallet_KeySecurity_검증문제_답변가이드.md](domain/03_입출금과_지갑보안/Deposit_Withdrawal_Wallet_KeySecurity_검증문제_답변가이드.md) | [Deposit, Withdrawal, Wallet, Key Security 검증문제와 답변가이드](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5373973) |
+| Ledger Core | [docs/domain/07_Ledger_Core/Day12_Ledger_도메인타입_초안](domain/07_Ledger_Core/Day12_Ledger_도메인타입_초안) | [Day12_Ledger_도메인타입_초안](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/9306218) |
+| Ledger Core | [docs/domain/07_Ledger_Core/Day12_Ledger_도메인타입_초안/Day12_기초학습.md](domain/07_Ledger_Core/Day12_Ledger_도메인타입_초안/Day12_기초학습.md) | [Day12_기초학습.md](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/9895972) |
+| Ledger Core | [docs/domain/07_Ledger_Core/Day12_Ledger_도메인타입_초안/Day12_개념학습.md](domain/07_Ledger_Core/Day12_Ledger_도메인타입_초안/Day12_개념학습.md) | [Day12_개념학습.md](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/9895997) |
+| Ledger Core | [docs/domain/07_Ledger_Core/Day12_Ledger_도메인타입_초안/Day12_실습가이드.md](domain/07_Ledger_Core/Day12_Ledger_도메인타입_초안/Day12_실습가이드.md) | [Day12_실습가이드.md](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/9699409) |
+| Ledger Core | [docs/domain/07_Ledger_Core/Day12_Ledger_도메인타입_초안/Day12_실습산출물.md](domain/07_Ledger_Core/Day12_Ledger_도메인타입_초안/Day12_실습산출물.md) | [Day12_실습산출물.md](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/9699432) |
+| Ledger Core | [docs/domain/07_Ledger_Core/Day12_Ledger_도메인타입_초안/Day12_검증문제_답변가이드.md](domain/07_Ledger_Core/Day12_Ledger_도메인타입_초안/Day12_검증문제_답변가이드.md) | [Day12_검증문제_답변가이드.md](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/9830460) |
 
 ## 현재 주의할 점
 
