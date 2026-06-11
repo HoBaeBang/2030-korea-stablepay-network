@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <rect width="1400" height="900" fill="#101820"/>
+  <text x="58" y="76" fill="#eef6ff" font-size="34" font-family="Apple SD Gothic Neo, Arial">Day14 Ledger Core 주간 회고</text>
+  <text x="60" y="116" fill="#a8bbcf" font-size="22" font-family="Apple SD Gothic Neo, Arial">타입, 규칙, 테스트를 복습하고 DB 저장 단계로 넘어갈 준비를 점검한다</text>
+  <rect x="80" y="190" width="270" height="130" rx="18" fill="#20344a" stroke="#5eead4" stroke-width="2"/>
+  <text x="215" y="225" fill="#eef6ff" font-size="22" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Day12</text><text x="215" y="255" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">도메인 타입</text><text x="215" y="285" fill="#eef6ff" font-size="18" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Account / Transaction / Entry</text>
+  <rect x="420" y="190" width="280" height="130" rx="18" fill="#20344a" stroke="#80bfff" stroke-width="2"/>
+  <text x="560" y="225" fill="#eef6ff" font-size="22" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Day13</text><text x="560" y="255" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">균형 검증</text><text x="560" y="285" fill="#eef6ff" font-size="18" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">debit 합계 = credit 합계</text>
+  <rect x="770" y="190" width="280" height="130" rx="18" fill="#20344a" stroke="#fbbf24" stroke-width="2"/>
+  <text x="910" y="225" fill="#eef6ff" font-size="22" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Day14</text><text x="910" y="255" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">회고와 검증</text><text x="910" y="285" fill="#eef6ff" font-size="18" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">코드 읽기 / 테스트 실행</text>
+  <rect x="1110" y="190" width="240" height="130" rx="18" fill="#20344a" stroke="#86efac" stroke-width="2"/>
+  <text x="1230" y="225" fill="#eef6ff" font-size="22" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Next</text><text x="1230" y="255" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">DB 저장 구조</text><text x="1230" y="285" fill="#eef6ff" font-size="18" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Migration / Repository</text>
+  <line x1="350" y1="255" x2="420" y2="255" stroke="#80bfff" stroke-width="4" marker-end="url(#arrow)"/><line x1="700" y1="255" x2="770" y2="255" stroke="#80bfff" stroke-width="4" marker-end="url(#arrow)"/><line x1="1050" y1="255" x2="1110" y2="255" stroke="#80bfff" stroke-width="4" marker-end="url(#arrow)"/>
+  <rect x="130" y="500" width="1140" height="240" rx="18" fill="#162333" stroke="#3b82f6" stroke-width="2"/>
+  <text x="170" y="562" fill="#eef6ff" font-size="22" font-family="Apple SD Gothic Neo, Arial">Day14 확인 체크포인트</text>
+  <text x="205" y="607" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">Payment와 Ledger의 책임을 분리해서 설명할 수 있는가?</text>
+  <text x="205" y="639" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">Account, Transaction, Entry 관계를 말할 수 있는가?</text>
+  <text x="205" y="671" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">ValidateTransaction의 합계 계산 흐름을 읽을 수 있는가?</text>
+  <text x="205" y="703" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">go test ./internal/ledger -v 결과를 해석할 수 있는가?</text>
+  <text x="205" y="735" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">다음 DB 테이블 후보 3개를 말할 수 있는가?</text>
+  <circle cx="181" cy="600" r="6" fill="#5eead4"/><circle cx="181" cy="632" r="6" fill="#5eead4"/><circle cx="181" cy="664" r="6" fill="#5eead4"/><circle cx="181" cy="696" r="6" fill="#5eead4"/><circle cx="181" cy="728" r="6" fill="#5eead4"/>
+  <text x="70" y="836" fill="#a8bbcf" font-size="16" font-family="Apple SD Gothic Neo, Arial">오늘은 큰 기능 추가보다 이해 점검이 목표입니다. 이해가 고정되면 다음 단계에서 migration/repository가 훨씬 쉬워집니다.</text>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#80bfff"/></marker></defs>
+</svg>

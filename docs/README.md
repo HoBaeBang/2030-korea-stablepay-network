@@ -45,6 +45,18 @@
 | Ledger Core | [docs/domain/07_Ledger_Core/Day12_Ledger_도메인타입_초안/Day12_실습가이드.md](domain/07_Ledger_Core/Day12_Ledger_도메인타입_초안/Day12_실습가이드.md) | [Day12_실습가이드.md](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/9699409) |
 | Ledger Core | [docs/domain/07_Ledger_Core/Day12_Ledger_도메인타입_초안/Day12_실습산출물.md](domain/07_Ledger_Core/Day12_Ledger_도메인타입_초안/Day12_실습산출물.md) | [Day12_실습산출물.md](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/9699432) |
 | Ledger Core | [docs/domain/07_Ledger_Core/Day12_Ledger_도메인타입_초안/Day12_검증문제_답변가이드.md](domain/07_Ledger_Core/Day12_Ledger_도메인타입_초안/Day12_검증문제_답변가이드.md) | [Day12_검증문제_답변가이드.md](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/9830460) |
+| Ledger Core | [docs/domain/07_Ledger_Core/Day13_Ledger_균형검증_테스트](domain/07_Ledger_Core/Day13_Ledger_균형검증_테스트) | [Day13_Ledger_균형검증_테스트](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/10027011) |
+| Ledger Core | [docs/domain/07_Ledger_Core/Day13_Ledger_균형검증_테스트/Day13_기초학습.md](domain/07_Ledger_Core/Day13_Ledger_균형검증_테스트/Day13_기초학습.md) | [Day13_기초학습.md](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/10059800) |
+| Ledger Core | [docs/domain/07_Ledger_Core/Day13_Ledger_균형검증_테스트/Day13_개념학습.md](domain/07_Ledger_Core/Day13_Ledger_균형검증_테스트/Day13_개념학습.md) | [Day13_개념학습.md](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/10027034) |
+| Ledger Core | [docs/domain/07_Ledger_Core/Day13_Ledger_균형검증_테스트/Day13_실습가이드.md](domain/07_Ledger_Core/Day13_Ledger_균형검증_테스트/Day13_실습가이드.md) | [Day13_실습가이드.md](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/10125314) |
+| Ledger Core | [docs/domain/07_Ledger_Core/Day13_Ledger_균형검증_테스트/Day13_실습산출물.md](domain/07_Ledger_Core/Day13_Ledger_균형검증_테스트/Day13_실습산출물.md) | [Day13_실습산출물.md](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/10092545) |
+| Ledger Core | [docs/domain/07_Ledger_Core/Day13_Ledger_균형검증_테스트/Day13_검증문제_답변가이드.md](domain/07_Ledger_Core/Day13_Ledger_균형검증_테스트/Day13_검증문제_답변가이드.md) | [Day13_검증문제_답변가이드.md](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/10027057) |
+| Ledger Core | [docs/domain/07_Ledger_Core/Day14_Ledger_Core_주간회고와_검증](domain/07_Ledger_Core/Day14_Ledger_Core_주간회고와_검증) | [Day14_Ledger_Core_주간회고와_검증](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/10059777) |
+| Ledger Core | [docs/domain/07_Ledger_Core/Day14_Ledger_Core_주간회고와_검증/Day14_기초학습.md](domain/07_Ledger_Core/Day14_Ledger_Core_주간회고와_검증/Day14_기초학습.md) | [Day14_기초학습.md](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/10059823) |
+| Ledger Core | [docs/domain/07_Ledger_Core/Day14_Ledger_Core_주간회고와_검증/Day14_개념학습.md](domain/07_Ledger_Core/Day14_Ledger_Core_주간회고와_검증/Day14_개념학습.md) | [Day14_개념학습.md](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/10125337) |
+| Ledger Core | [docs/domain/07_Ledger_Core/Day14_Ledger_Core_주간회고와_검증/Day14_실습가이드.md](domain/07_Ledger_Core/Day14_Ledger_Core_주간회고와_검증/Day14_실습가이드.md) | [Day14_실습가이드.md](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/10092568) |
+| Ledger Core | [docs/domain/07_Ledger_Core/Day14_Ledger_Core_주간회고와_검증/Day14_실습산출물.md](domain/07_Ledger_Core/Day14_Ledger_Core_주간회고와_검증/Day14_실습산출물.md) | [Day14_실습산출물.md](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/10125360) |
+| Ledger Core | [docs/domain/07_Ledger_Core/Day14_Ledger_Core_주간회고와_검증/Day14_검증문제_답변가이드.md](domain/07_Ledger_Core/Day14_Ledger_Core_주간회고와_검증/Day14_검증문제_답변가이드.md) | [Day14_검증문제_답변가이드.md](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/10125383) |
 
 ## 현재 주의할 점
 

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <rect width="1400" height="900" fill="#101820"/>
+  <text x="58" y="76" fill="#eef6ff" font-size="34" font-family="Apple SD Gothic Neo, Arial">Day13 Ledger 균형 검증 테스트</text>
+  <text x="60" y="116" fill="#a8bbcf" font-size="22" font-family="Apple SD Gothic Neo, Arial">debit/credit 합계가 맞는지 테스트로 먼저 고정한다</text>
+  <rect x="70" y="190" width="300" height="140" rx="18" fill="#20344a" stroke="#5eead4" stroke-width="2"/>
+  <text x="220" y="235" fill="#eef6ff" font-size="22" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Entry 목록</text>
+  <text x="220" y="265" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">DEBIT / CREDIT</text>
+  <text x="220" y="295" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Amount / Currency</text>
+  <rect x="520" y="185" width="360" height="150" rx="18" fill="#253b54" stroke="#80bfff" stroke-width="2"/>
+  <text x="700" y="225" fill="#eef6ff" font-size="22" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">ValidateTransaction</text>
+  <text x="700" y="255" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">금액, 통화, 방향 검증</text>
+  <text x="700" y="285" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">통화별 합계 계산</text>
+  <rect x="1030" y="190" width="300" height="140" rx="18" fill="#20344a" stroke="#fbbf24" stroke-width="2"/>
+  <text x="1180" y="235" fill="#eef6ff" font-size="22" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">map[string]int64</text>
+  <text x="1180" y="265" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">USDC -&gt; 0이면 균형</text>
+  <text x="1180" y="295" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">0이 아니면 실패</text>
+  <line x1="370" y1="260" x2="520" y2="260" stroke="#80bfff" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="880" y1="260" x2="1030" y2="260" stroke="#80bfff" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="700" y1="335" x2="380" y2="560" stroke="#86efac" stroke-width="4" marker-end="url(#arrowGood)"/>
+  <line x1="700" y1="335" x2="1010" y2="560" stroke="#fb7185" stroke-width="4" marker-end="url(#arrowBad)"/>
+  <rect x="200" y="560" width="320" height="150" rx="18" fill="#173527" stroke="#86efac" stroke-width="2"/>
+  <text x="360" y="610" fill="#eef6ff" font-size="24" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">PASS</text>
+  <text x="360" y="642" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">정상 원장 거래</text>
+  <text x="360" y="672" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">go test 성공</text>
+  <rect x="840" y="560" width="350" height="150" rx="18" fill="#3a1f2a" stroke="#fb7185" stroke-width="2"/>
+  <text x="1015" y="610" fill="#eef6ff" font-size="24" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">ERROR</text>
+  <text x="1015" y="642" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">불균형 거래 차단</text>
+  <text x="1015" y="672" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">저장하면 안 됨</text>
+  <text x="70" y="816" fill="#a8bbcf" font-size="16" font-family="Apple SD Gothic Neo, Arial">오늘 실습 파일: internal/ledger/service.go, internal/ledger/service_test.go</text>
+  <text x="70" y="842" fill="#a8bbcf" font-size="16" font-family="Apple SD Gothic Neo, Arial">핵심 규칙: 하나의 Ledger Transaction 안에서 debit 합계와 credit 합계는 같아야 한다.</text>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#80bfff"/></marker>
+    <marker id="arrowGood" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#86efac"/></marker>
+    <marker id="arrowBad" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#fb7185"/></marker>
+  </defs>
+</svg>
