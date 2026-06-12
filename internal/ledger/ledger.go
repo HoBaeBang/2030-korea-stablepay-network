@@ -21,18 +21,18 @@ const (
 
 // Account는 원장에서 돈이 기록되는 주체이다.
 type Account struct {
-	ID       string
-	Type     AccountType
-	OwnerID  string
-	Currency string
-	CreateAt time.Time
+	ID        string
+	Type      AccountType
+	OwnerID   string
+	Currency  string
+	CreatedAt time.Time
 }
 
 // Transaction은 여러 Entry를 하나의 원장 거래로 묶는다.
 type Transaction struct {
 	ID             string
 	ReferenceType  string
-	ReferenceId    string
+	ReferenceID    string
 	IdempotencyKey string
 	CreatedAt      time.Time
 }
@@ -40,10 +40,10 @@ type Transaction struct {
 // Entry는 하나의 원장 거래 안에서 발생한 돈의 이동 한 줄이다.
 type Entry struct {
 	ID            string
-	TransactionId string
-	AccountId     string
+	TransactionID string
+	AccountID     string
 	Direction     EntryDirection
 	Amount        int64
 	Currency      string
-	CreateAt      time.Time
+	CreatedAt     time.Time
 }
