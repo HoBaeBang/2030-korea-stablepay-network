@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <rect width="1400" height="900" fill="#101820"/>
+  <text x="58" y="76" fill="#eef6ff" font-size="34" font-family="Apple SD Gothic Neo, Arial">Day15 Ledger Service 균형 검증 구현</text>
+  <text x="60" y="116" fill="#a8bbcf" font-size="22" font-family="Apple SD Gothic Neo, Arial">원장 항목을 저장하기 전에 debit과 credit 합계가 맞는지 Service에서 검증한다</text>
+
+  <rect x="75" y="185" width="260" height="135" rx="18" fill="#20344a" stroke="#5eead4" stroke-width="2"/>
+  <text x="205" y="225" fill="#eef6ff" font-size="23" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Entry 목록</text>
+  <text x="205" y="260" fill="#d8e8f8" font-size="18" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">DEBIT / CREDIT</text>
+  <text x="205" y="290" fill="#d8e8f8" font-size="18" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">amount / currency</text>
+
+  <rect x="420" y="185" width="280" height="135" rx="18" fill="#20344a" stroke="#80bfff" stroke-width="2"/>
+  <text x="560" y="225" fill="#eef6ff" font-size="23" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">ValidateTransaction</text>
+  <text x="560" y="260" fill="#d8e8f8" font-size="18" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">기본 조건 검증</text>
+  <text x="560" y="290" fill="#d8e8f8" font-size="18" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">통화별 합계 계산</text>
+
+  <rect x="785" y="185" width="250" height="135" rx="18" fill="#20344a" stroke="#fbbf24" stroke-width="2"/>
+  <text x="910" y="225" fill="#eef6ff" font-size="23" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">균형 판단</text>
+  <text x="910" y="260" fill="#d8e8f8" font-size="18" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">합계가 0이면 성공</text>
+  <text x="910" y="290" fill="#d8e8f8" font-size="18" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">아니면 error</text>
+
+  <rect x="1120" y="185" width="220" height="135" rx="18" fill="#20344a" stroke="#86efac" stroke-width="2"/>
+  <text x="1230" y="225" fill="#eef6ff" font-size="23" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">테스트</text>
+  <text x="1230" y="260" fill="#d8e8f8" font-size="18" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">성공/실패 케이스</text>
+  <text x="1230" y="290" fill="#d8e8f8" font-size="18" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">규칙 고정</text>
+
+  <line x1="335" y1="252" x2="420" y2="252" stroke="#80bfff" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="700" y1="252" x2="785" y2="252" stroke="#80bfff" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="1035" y1="252" x2="1120" y2="252" stroke="#80bfff" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <rect x="95" y="430" width="560" height="265" rx="18" fill="#162333" stroke="#3b82f6" stroke-width="2"/>
+  <text x="135" y="482" fill="#eef6ff" font-size="24" font-family="Apple SD Gothic Neo, Arial">검증 순서</text>
+  <circle cx="145" cy="530" r="6" fill="#5eead4"/>
+  <text x="168" y="537" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">context가 nil인지 확인한다</text>
+  <circle cx="145" cy="568" r="6" fill="#5eead4"/>
+  <text x="168" y="575" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">Entry가 최소 2개 이상인지 확인한다</text>
+  <circle cx="145" cy="606" r="6" fill="#5eead4"/>
+  <text x="168" y="613" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">amount, currency, direction을 확인한다</text>
+  <circle cx="145" cy="644" r="6" fill="#5eead4"/>
+  <text x="168" y="651" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">통화별 debit/credit 합계가 0인지 확인한다</text>
+
+  <rect x="745" y="430" width="560" height="265" rx="18" fill="#162333" stroke="#fbbf24" stroke-width="2"/>
+  <text x="785" y="482" fill="#eef6ff" font-size="24" font-family="Apple SD Gothic Neo, Arial">예시 계산</text>
+  <text x="825" y="532" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">DEBIT  고객 10_000_000 USDC</text>
+  <text x="825" y="572" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">CREDIT 가맹점 9_800_000 USDC</text>
+  <text x="825" y="612" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">CREDIT 수수료 200_000 USDC</text>
+  <line x1="810" y1="640" x2="1240" y2="640" stroke="#4b6075" stroke-width="2"/>
+  <text x="825" y="680" fill="#86efac" font-size="22" font-family="Apple SD Gothic Neo, Arial">10_000_000 - 9_800_000 - 200_000 = 0</text>
+
+  <text x="70" y="815" fill="#a8bbcf" font-size="17" font-family="Apple SD Gothic Neo, Arial">Day15는 DB 저장을 만들기 전 단계입니다. Service가 올바른 Ledger Transaction만 통과시키도록 규칙을 작게 고정합니다.</text>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#80bfff"/>
+    </marker>
+  </defs>
+</svg>
