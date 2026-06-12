@@ -47,9 +47,3 @@ type Entry struct {
 	Currency      string
 	CreateAt      time.Time
 }
-
-/**
-ledger의 구성 ledger는
-Account(계정), Transaction(거래 묶음), Entry(원장 항목)로 구성된다.
-
-*/
