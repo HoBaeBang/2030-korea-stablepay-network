@@ -13,6 +13,7 @@
 5. `ledger_accounts`, `ledger_transactions`, `ledger_entries`는 각각 어떤 타입과 연결되는가?
 6. Day14에서 새 기능을 크게 추가하지 않는 이유는 무엇인가?
 7. 다음 구현 후보는 무엇인가?
+8. Day14를 시작하기 전에 `service.go`, `service_test.go`가 있어야 하는 이유는 무엇인가?
 
 ## 답변가이드
 
@@ -86,6 +87,14 @@ ledger_transactions
 ledger_entries
 ```
 
+### 8. Day14 전에 `service.go`, `service_test.go`가 있어야 하는 이유
+
+Day14는 Day13에서 만든 Ledger 균형 검증 로직과 테스트를 회고하는 날입니다.
+
+따라서 `service.go`, `service_test.go`가 없다면 아직 회고할 Day13 코드가 없는 상태입니다.
+
+이 경우 Day14 산출물을 억지로 작성하기보다 Day13 실습을 먼저 완료해야 합니다.
+
 ## Day14 통과 기준
 
 ```text
@@ -93,4 +102,5 @@ Payment와 Ledger의 차이를 설명할 수 있다.
 Account, Transaction, Entry 관계를 설명할 수 있다.
 ValidateTransaction의 균형 검증 흐름을 설명할 수 있다.
 다음 DB migration 후보를 말할 수 있다.
+Day13 코드가 없으면 Day14를 진행하지 않고 Day13으로 돌아가야 한다는 점을 안다.
 ```

@@ -4,12 +4,35 @@
 
 Day14 산출물은 5개 질문만 작성합니다.
 
+작성 전에 먼저 확인합니다.
+
+```bash
+ls internal/ledger
+```
+
+아래 파일이 없다면 Day14 산출물 작성 전에 Day13 실습을 먼저 끝냅니다.
+
+```text
+service.go
+service_test.go
+```
+
+오늘 산출물은 “새로운 지식을 많이 쓰는 문서”가 아니라, Day12~13 코드가 내 머릿속에서 연결되었는지 확인하는 문서입니다.
+
 ## 1. Day12에서 만든 타입 3개는 각각 무엇인가?
 
 작성할 때 볼 파일:
 
 ```text
 internal/ledger/ledger.go
+```
+
+특히 아래 타입을 확인합니다.
+
+```text
+Account
+Transaction
+Entry
 ```
 
 작성 예시:
@@ -34,6 +57,17 @@ Entry는 실제 돈의 이동 한 줄이다.
 internal/ledger/service.go
 ```
 
+아래 키워드를 순서대로 포함해보면 좋습니다.
+
+```text
+entries 개수
+Amount
+Currency
+Direction
+totals map
+최종 합계 0
+```
+
 작성 예시:
 
 ```text
@@ -55,6 +89,10 @@ entries 개수를 확인하고, amount와 currency를 검증한다.
 ```text
 internal/ledger/service_test.go
 ```
+
+정답이 하나로 고정된 질문은 아닙니다.
+
+중요하다고 생각한 이유를 코드와 연결해서 설명하면 됩니다.
 
 작성 예시:
 
@@ -79,6 +117,14 @@ ledger_transactions는 Transaction과 연결된다.
 ledger_entries는 Entry와 연결된다.
 ```
 
+추가로 여유가 있다면 아래처럼 필드도 한 줄씩 연결해봅니다.
+
+```text
+Entry.TransactionID는 ledger_entries.transaction_id가 될 수 있다.
+Entry.AccountID는 ledger_entries.account_id가 될 수 있다.
+Entry.Amount는 ledger_entries.amount가 될 수 있다.
+```
+
 내 답변:
 
 ```text
@@ -86,6 +132,17 @@ ledger_entries는 Entry와 연결된다.
 ```
 
 ## 5. 다음 구현으로 넘어가기 전에 아직 헷갈리는 부분은 무엇인가?
+
+아래 후보 중 실제로 헷갈리는 것을 골라도 됩니다.
+
+```text
+Payment와 Ledger의 차이
+Account와 실제 계좌의 차이
+Ledger Transaction과 블록체인 transaction의 차이
+debit / credit 방향
+map으로 합계를 계산하는 방식
+DB 테이블로 나누는 기준
+```
 
 작성 예시:
 

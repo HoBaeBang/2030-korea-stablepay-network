@@ -6,6 +6,19 @@ Day14는 새 기능을 크게 추가하는 날이 아닙니다.
 
 Day12와 Day13에서 만든 흐름을 복습하고, 다음 구현으로 넘어갈 준비가 되었는지 확인하는 날입니다.
 
+중요한 전제:
+
+```text
+Day14는 Day13 실습이 끝난 뒤 진행하는 회고/검증일이다.
+```
+
+따라서 아직 아래 파일이 없다면 Day14로 넘어가기 전에 Day13 실습을 먼저 완료합니다.
+
+```text
+internal/ledger/service.go
+internal/ledger/service_test.go
+```
+
 ## 오늘의 큰 그림
 
 ![Day14 Ledger Core 회고 흐름](../../../confluence/diagrams/spn31-day14-ledger-review.png)
@@ -70,6 +83,22 @@ debit과 credit 균형 검증은 어떤 버그를 막는가?
 5. Day14 실습산출물 작성
 ```
 
+작업을 시작할 때는 먼저 아래 명령으로 Day13 완료 여부를 확인합니다.
+
+```bash
+ls internal/ledger
+```
+
+아래 3개 파일이 보여야 Day14를 정상 진행할 수 있습니다.
+
+```text
+ledger.go
+service.go
+service_test.go
+```
+
+만약 `service.go`, `service_test.go`가 없다면 Day14 산출물을 작성하지 말고 Day13 실습가이드를 먼저 진행합니다.
+
 ## 완료 기준
 
 - [ ] Day12에서 만든 타입 3개를 설명할 수 있다.
@@ -77,6 +106,7 @@ debit과 credit 균형 검증은 어떤 버그를 막는가?
 - [ ] `go test ./internal/ledger -v` 실행 결과를 해석할 수 있다.
 - [ ] 다음 단계가 DB migration/repository로 이어지는 이유를 설명할 수 있다.
 - [ ] Day14 실습산출물 5문항을 작성할 수 있다.
+- [ ] Day13이 아직 끝나지 않았다면 Day14를 멈추고 Day13으로 돌아가야 한다는 점을 안다.
 
 ## 다음 작업 예고
 

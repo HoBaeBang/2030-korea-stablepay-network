@@ -8,6 +8,16 @@ Day12와 Day13은 Ledger Core의 뼈대를 잡는 단계입니다.
 
 아직 결제 완료 시 자동으로 Ledger를 쓰거나, DB에 저장하거나, 정산을 계산하지 않습니다.
 
+Day14는 이 뼈대가 제대로 이해되었는지 확인하는 날입니다.
+
+즉 Day14의 핵심은 “새로운 코드를 많이 작성하는 것”이 아니라 아래 질문에 답할 수 있는지 확인하는 것입니다.
+
+```text
+내가 만든 타입이 무엇인지 설명할 수 있는가?
+내가 만든 테스트가 어떤 위험을 막는지 설명할 수 있는가?
+다음 DB 저장 단계가 왜 필요한지 설명할 수 있는가?
+```
+
 대신 아래 두 가지를 먼저 잡습니다.
 
 ```text
@@ -129,6 +139,26 @@ Repository가 저장한다.
 DB가 기록을 보존한다.
 ```
 
+이 흐름은 Java 백엔드의 레이어드 구조와 비교하면 이렇게 볼 수 있습니다.
+
+| Java식 감각 | 현재 Go 프로젝트에서의 위치 |
+| --- | --- |
+| Domain Model | `internal/ledger/ledger.go` |
+| Service | `internal/ledger/service.go` |
+| Repository | 다음 단계에서 만들 후보 |
+| Migration/DDL | 다음 단계에서 만들 후보 |
+| Controller/API | 아직 만들지 않음 |
+
+Go에서는 패키지와 파일 이름이 Java처럼 항상 `controller`, `service`, `repository` 폴더로 고정되지는 않습니다.
+
+하지만 지금 Ledger Core에서는 학습을 위해 역할을 명확히 나누고 있습니다.
+
+```text
+ledger.go       -> 도메인 타입
+service.go      -> 도메인 규칙
+service_test.go -> 규칙 검증
+```
+
 ## 7. 아직 구현하지 않은 것
 
 아래 내용은 아직 구현하지 않았습니다.
@@ -146,7 +176,19 @@ Deposit/Withdrawal과 연결
 
 Day14에서 중요한 것은 “아직 안 만든 것을 아는 것”입니다.
 
-## 8. 오늘의 결론
+## 8. Day14에서 스스로 확인할 질문
+
+아래 질문에 답이 막히면 Day13 자료로 돌아가서 다시 봅니다.
+
+```text
+왜 Payment 상태만으로 돈의 이동을 설명할 수 없는가?
+왜 Entry는 최소 2개 이상이어야 하는가?
+왜 금액은 float이 아니라 int64인가?
+왜 debit과 credit 합계가 다르면 저장하면 안 되는가?
+왜 service 테스트를 DB migration보다 먼저 작성했는가?
+```
+
+## 9. 오늘의 결론
 
 ```text
 Ledger Core는 Payment 이후에 붙는 부가 기능이 아니라,
