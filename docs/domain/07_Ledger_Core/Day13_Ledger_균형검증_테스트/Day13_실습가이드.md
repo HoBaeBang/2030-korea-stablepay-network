@@ -32,6 +32,23 @@ EntryDirectionDebit
 EntryDirectionCredit
 ```
 
+Day12 코드가 Day13 실습과 맞는지 아래 명령으로 확인합니다.
+
+```bash
+rg -n "AccountID|TransactionID|ReferenceID|CreatedAt" internal/ledger/ledger.go
+```
+
+예상되는 핵심 필드명:
+
+```text
+AccountID
+TransactionID
+ReferenceID
+CreatedAt
+```
+
+만약 `AccountId`, `TransactionId`, `ReferenceId`, `CreateAt`처럼 보인다면 먼저 Day12 코드 필드명을 정리해야 합니다.
+
 ## 오늘 만들 코드의 위치
 
 새로 만들 파일:
@@ -40,6 +57,15 @@ EntryDirectionCredit
 internal/ledger/service.go
 internal/ledger/service_test.go
 ```
+
+이미 파일이 있다면 새로 덮어쓰기 전에 내용을 먼저 확인합니다.
+
+```bash
+sed -n '1,220p' internal/ledger/service.go
+sed -n '1,260p' internal/ledger/service_test.go
+```
+
+아직 없다면 오늘 문서의 코드를 그대로 작성하면 됩니다.
 
 ## Step 1. `service.go` 작성
 
@@ -166,6 +192,24 @@ USDC -> 0
 ```
 
 최종 합계가 0이면 debit과 credit이 균형을 이룬 것입니다.
+
+처음에는 아래처럼 생각하면 됩니다.
+
+```text
+DEBIT  10 USDC  -> totals["USDC"] += 10
+CREDIT 9.8 USDC -> totals["USDC"] -= 9.8
+CREDIT 0.2 USDC -> totals["USDC"] -= 0.2
+
+결과: 10 - 9.8 - 0.2 = 0
+```
+
+실제 코드는 소수점 금액이 아니라 최소 단위 정수로 계산합니다.
+
+```text
+10 USDC  = 10_000_000
+9.8 USDC = 9_800_000
+0.2 USDC = 200_000
+```
 
 ### `switch entry.Direction`
 
@@ -320,6 +364,21 @@ Ledger Service를 하나 만듭니다.
 
 Java의 `List<Entry>`와 비슷하게 생각하면 됩니다.
 
+Go의 slice는 아래처럼 여러 구조체 값을 나열해서 만들 수 있습니다.
+
+```go
+entries := []Entry{
+	{
+		AccountID: "acct_customer_1",
+		Direction: EntryDirectionDebit,
+		Amount:    10_000_000,
+		Currency:  "USDC",
+	},
+}
+```
+
+여기서 `AccountID: "acct_customer_1"` 같은 문법은 구조체 필드 이름을 지정해서 값을 넣는 방식입니다.
+
 ### `if err := svc.ValidateTransaction(ctx, entries); err != nil`
 
 Go에서 자주 쓰는 에러 처리 패턴입니다.
@@ -365,7 +424,56 @@ PASS
 ok   github.com/HoBaeBang/2030-korea-stablepay-network/internal/ledger
 ```
 
-## Step 7. 완성 기준
+테스트 출력에서 한글 테스트 이름이 보이면 정상입니다.
+
+예시:
+
+```text
+=== RUN   TestServiceValidateTransaction/debit과_credit_합계가_같으면_성공한다
+--- PASS: TestServiceValidateTransaction/debit과_credit_합계가_같으면_성공한다
+```
+
+## Step 7. 자주 만날 수 있는 오류
+
+### `unknown field AccountID`
+
+Day12의 `Entry` 구조체 필드명이 `AccountID`가 아니라 `AccountId`로 되어 있을 때 발생할 수 있습니다.
+
+해결:
+
+```text
+AccountId     -> AccountID
+TransactionId -> TransactionID
+ReferenceId   -> ReferenceID
+CreateAt      -> CreatedAt
+```
+
+Go에서는 `ID`처럼 약어는 대문자로 유지하는 관례가 많습니다.
+
+### `undefined: EntryDirectionDebit`
+
+`ledger.go`에 아래 상수가 없거나 이름이 다를 때 발생합니다.
+
+```go
+const (
+	EntryDirectionDebit  EntryDirection = "DEBIT"
+	EntryDirectionCredit EntryDirection = "CREDIT"
+)
+```
+
+해결하려면 Day12 타입 정의를 먼저 확인합니다.
+
+### 테스트가 실패했는데 이유가 잘 안 보이는 경우
+
+먼저 Ledger 패키지만 자세히 실행합니다.
+
+```bash
+go test ./internal/ledger -v
+```
+
+`-v`는 verbose의 약자이고, 테스트 이름과 실행 결과를 더 자세히 보여줍니다.
+
+## Step 8. 완성 기준
 
 오늘 완성 기준:
 
@@ -379,7 +487,7 @@ debit과 credit 합계가 같으면 테스트가 성공한다.
 go test ./... 가 성공한다.
 ```
 
-## Step 8. 실습산출물 작성
+## Step 9. 실습산출물 작성
 
 `Day13_실습산출물.md`에는 5개 질문만 답합니다.
 
@@ -391,7 +499,7 @@ go test ./... 가 성공한다.
 5. 아직 헷갈리는 Go 문법 또는 Ledger 개념은 무엇인가?
 ```
 
-## Step 9. 커밋 메시지
+## Step 10. 커밋 메시지
 
 코드 작업까지 완료했다면 아래 커밋 메시지를 사용합니다.
 

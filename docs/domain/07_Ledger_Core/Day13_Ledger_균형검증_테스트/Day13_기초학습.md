@@ -10,6 +10,17 @@ Ledger Transaction 안의 debit 합계와 credit 합계는 같아야 한다.
 
 Day12에서 `Account`, `Transaction`, `Entry` 타입 초안을 만들었다면, Day13에서는 그 타입들을 이용해 “균형이 맞는 거래만 통과시킨다”는 규칙을 코드로 표현합니다.
 
+오늘은 “Ledger 전체 기능을 완성하는 날”이 아닙니다.
+
+오늘의 범위는 아주 작게 제한합니다.
+
+```text
+Ledger Entry 목록을 받는다.
+금액, 통화, 방향을 검증한다.
+debit과 credit 합계가 맞는지 확인한다.
+이 규칙을 테스트로 고정한다.
+```
+
 ## 오늘의 큰 그림
 
 ![Day13 Ledger 균형 검증 흐름](../../../confluence/diagrams/spn30-day13-ledger-balance-test.png)
@@ -67,6 +78,29 @@ context.Context는 오늘 코드에서 어떤 역할을 하는가?
 internal/ledger/service.go
 internal/ledger/service_test.go
 ```
+
+작업 전에 아래 파일이 이미 있는지 확인합니다.
+
+```bash
+ls internal/ledger
+```
+
+Day12가 제대로 끝났다면 최소한 아래 파일이 보여야 합니다.
+
+```text
+ledger.go
+```
+
+그리고 `ledger.go` 안에는 아래 필드명이 있어야 합니다.
+
+```text
+AccountID
+TransactionID
+ReferenceID
+CreatedAt
+```
+
+이 필드명은 Day13 테스트 코드에서 그대로 사용합니다.
 
 오늘은 아래 작업을 하지 않습니다.
 

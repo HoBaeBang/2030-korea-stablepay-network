@@ -4,12 +4,27 @@
 
 Day13 산출물은 5개 질문만 작성합니다.
 
+작성 전에 아래 파일을 먼저 확인합니다.
+
+```text
+internal/ledger/service.go
+internal/ledger/service_test.go
+```
+
+오늘 산출물은 “외워서 쓰는 문서”가 아니라, 방금 작성한 코드와 테스트를 읽고 내 말로 정리하는 문서입니다.
+
 ## 1. 오늘 만든 Service 메서드는 어떤 규칙을 검증하는가?
 
 작성할 때 볼 파일:
 
 ```text
 internal/ledger/service.go
+```
+
+특히 아래 부분을 봅니다.
+
+```go
+func (s *Service) ValidateTransaction(ctx context.Context, entries []Entry) error
 ```
 
 작성 예시:
@@ -34,6 +49,10 @@ internal/ledger/service.go
 가맹점 CREDIT 9.8 USDC
 플랫폼 수수료 CREDIT 0.2 USDC
 ```
+
+이 질문은 회계 이론을 완벽히 설명하라는 뜻이 아닙니다.
+
+오늘 코드 기준으로 “왜 합계가 0이어야 하는지”를 설명하면 됩니다.
 
 작성 예시:
 
@@ -77,6 +96,8 @@ USDC debit은 더하고 USDC credit은 빼서 최종 값이 0인지 확인한다
 internal/ledger/service_test.go
 ```
 
+테스트 이름을 먼저 읽고, 그 테스트가 실패해야 하는 상황인지 성공해야 하는 상황인지 구분합니다.
+
 작성 예시:
 
 ```text
@@ -93,6 +114,19 @@ credit 부족 테스트는 불균형 거래가 저장되는 문제를 막는다.
 ```
 
 ## 5. 아직 헷갈리는 Go 문법 또는 Ledger 개념은 무엇인가?
+
+작성할 때 아래 후보 중에서 실제로 헷갈린 것을 골라도 됩니다.
+
+```text
+receiver: func (s *Service) ...
+포인터: *Service, &Service{}
+짧은 변수 선언: :=
+slice: []Entry{...}
+map: map[string]int64
+에러 처리: if err := ...; err != nil
+context.Context
+debit / credit 방향
+```
 
 작성 예시:
 
