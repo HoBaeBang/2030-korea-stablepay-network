@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <rect width="1400" height="900" fill="#101820"/>
+  <text x="58" y="76" fill="#eef6ff" font-size="34" font-family="Apple SD Gothic Neo, Arial">Day16 Ledger DB Migration 작성</text>
+  <text x="60" y="116" fill="#a8bbcf" font-size="22" font-family="Apple SD Gothic Neo, Arial">Ledger 도메인 타입을 PostgreSQL 테이블 구조로 옮긴다</text>
+
+  <rect x="70" y="180" width="280" height="150" rx="18" fill="#20344a" stroke="#5eead4" stroke-width="2"/>
+  <text x="210" y="220" fill="#eef6ff" font-size="24" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Account</text>
+  <text x="210" y="258" fill="#d8e8f8" font-size="19" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">원장 계정</text>
+  <text x="210" y="292" fill="#d8e8f8" font-size="18" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">ledger_accounts</text>
+
+  <rect x="410" y="180" width="300" height="150" rx="18" fill="#20344a" stroke="#80bfff" stroke-width="2"/>
+  <text x="560" y="220" fill="#eef6ff" font-size="24" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Transaction</text>
+  <text x="560" y="258" fill="#d8e8f8" font-size="19" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">원장 거래 묶음</text>
+  <text x="560" y="292" fill="#d8e8f8" font-size="18" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">ledger_transactions</text>
+
+  <rect x="770" y="180" width="280" height="150" rx="18" fill="#20344a" stroke="#fbbf24" stroke-width="2"/>
+  <text x="910" y="220" fill="#eef6ff" font-size="24" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Entry</text>
+  <text x="910" y="258" fill="#d8e8f8" font-size="19" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">돈의 이동 한 줄</text>
+  <text x="910" y="292" fill="#d8e8f8" font-size="18" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">ledger_entries</text>
+
+  <rect x="1110" y="180" width="220" height="150" rx="18" fill="#20344a" stroke="#86efac" stroke-width="2"/>
+  <text x="1220" y="220" fill="#eef6ff" font-size="24" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Migration</text>
+  <text x="1220" y="258" fill="#d8e8f8" font-size="19" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">up / down</text>
+  <text x="1220" y="292" fill="#d8e8f8" font-size="18" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">적용과 롤백</text>
+
+  <line x1="350" y1="255" x2="410" y2="255" stroke="#80bfff" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="710" y1="255" x2="770" y2="255" stroke="#80bfff" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="1050" y1="255" x2="1110" y2="255" stroke="#80bfff" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <rect x="95" y="445" width="540" height="245" rx="18" fill="#162333" stroke="#3b82f6" stroke-width="2"/>
+  <text x="135" y="496" fill="#eef6ff" font-size="24" font-family="Apple SD Gothic Neo, Arial">테이블 관계</text>
+  <text x="145" y="548" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">ledger_entries.transaction_id</text>
+  <text x="190" y="580" fill="#a8bbcf" font-size="18" font-family="Apple SD Gothic Neo, Arial">-> ledger_transactions.id</text>
+  <text x="145" y="628" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">ledger_entries.account_id</text>
+  <text x="190" y="660" fill="#a8bbcf" font-size="18" font-family="Apple SD Gothic Neo, Arial">-> ledger_accounts.id</text>
+
+  <rect x="735" y="445" width="570" height="245" rx="18" fill="#162333" stroke="#fbbf24" stroke-width="2"/>
+  <text x="775" y="496" fill="#eef6ff" font-size="24" font-family="Apple SD Gothic Neo, Arial">검증할 것</text>
+  <circle cx="790" cy="540" r="6" fill="#5eead4"/>
+  <text x="815" y="547" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">테이블 3개가 생성되는가?</text>
+  <circle cx="790" cy="580" r="6" fill="#5eead4"/>
+  <text x="815" y="587" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">foreign key 관계가 맞는가?</text>
+  <circle cx="790" cy="620" r="6" fill="#5eead4"/>
+  <text x="815" y="627" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">idempotency_key가 unique인가?</text>
+  <circle cx="790" cy="660" r="6" fill="#5eead4"/>
+  <text x="815" y="667" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">down migration으로 롤백되는가?</text>
+
+  <text x="70" y="815" fill="#a8bbcf" font-size="17" font-family="Apple SD Gothic Neo, Arial">Day16은 repository를 만들기 전 단계입니다. 먼저 DB가 Ledger 기록을 안전하게 담을 수 있는 모양을 갖춥니다.</text>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#80bfff"/>
+    </marker>
+  </defs>
+</svg>

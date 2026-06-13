@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="950" viewBox="0 0 1500 950">
+  <rect width="1500" height="950" fill="#101820"/>
+  <text x="58" y="76" fill="#eef6ff" font-size="34" font-family="Apple SD Gothic Neo, Arial">Ledger Core 이후 일정</text>
+  <text x="60" y="116" fill="#a8bbcf" font-size="22" font-family="Apple SD Gothic Neo, Arial">Ledger 저장 구조에서 Settlement, Deposit/Withdrawal, Event Indexer까지 작은 단계로 확장한다</text>
+
+  <rect x="80" y="175" width="250" height="125" rx="18" fill="#20344a" stroke="#5eead4" stroke-width="2"/>
+  <text x="205" y="215" fill="#eef6ff" font-size="22" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Day16-22</text>
+  <text x="205" y="250" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Ledger Core</text>
+  <text x="205" y="280" fill="#a8bbcf" font-size="17" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">migration / repository</text>
+
+  <rect x="420" y="175" width="250" height="125" rx="18" fill="#20344a" stroke="#80bfff" stroke-width="2"/>
+  <text x="545" y="215" fill="#eef6ff" font-size="22" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Day23-28</text>
+  <text x="545" y="250" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Settlement</text>
+  <text x="545" y="280" fill="#a8bbcf" font-size="17" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">batch / payout candidate</text>
+
+  <rect x="760" y="175" width="270" height="125" rx="18" fill="#20344a" stroke="#fbbf24" stroke-width="2"/>
+  <text x="895" y="215" fill="#eef6ff" font-size="22" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Day29-34</text>
+  <text x="895" y="250" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Deposit / Withdrawal</text>
+  <text x="895" y="280" fill="#a8bbcf" font-size="17" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">onchain event / signer boundary</text>
+
+  <rect x="1120" y="175" width="280" height="125" rx="18" fill="#20344a" stroke="#86efac" stroke-width="2"/>
+  <text x="1260" y="215" fill="#eef6ff" font-size="22" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Day35+</text>
+  <text x="1260" y="250" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Portfolio / Rust</text>
+  <text x="1260" y="280" fill="#a8bbcf" font-size="17" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">README / signer lab</text>
+
+  <line x1="330" y1="237" x2="420" y2="237" stroke="#80bfff" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="670" y1="237" x2="760" y2="237" stroke="#80bfff" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="1030" y1="237" x2="1120" y2="237" stroke="#80bfff" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <rect x="90" y="410" width="1320" height="360" rx="18" fill="#162333" stroke="#3b82f6" stroke-width="2"/>
+  <text x="130" y="462" fill="#eef6ff" font-size="25" font-family="Apple SD Gothic Neo, Arial">구현 확장 순서</text>
+  <text x="150" y="520" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">1. Ledger는 돈의 이동 기록을 안전하게 저장한다.</text>
+  <text x="150" y="566" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">2. Settlement는 Ledger를 기반으로 지급 가능 금액을 계산한다.</text>
+  <text x="150" y="612" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">3. Deposit/Withdrawal은 온체인 이벤트와 내부 원장을 연결한다.</text>
+  <text x="150" y="658" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">4. Event Indexer는 블록체인에서 발생한 이벤트를 안전하게 읽는다.</text>
+  <text x="150" y="704" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">5. Wallet/Key Security는 출금과 서명 책임을 분리한다.</text>
+
+  <text x="70" y="845" fill="#a8bbcf" font-size="17" font-family="Apple SD Gothic Neo, Arial">일정은 학습 속도에 따라 조정한다. 다만 하루에 핵심 코드 작업 하나만 완성하는 리듬은 유지한다.</text>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#80bfff"/>
+    </marker>
+  </defs>
+</svg>
