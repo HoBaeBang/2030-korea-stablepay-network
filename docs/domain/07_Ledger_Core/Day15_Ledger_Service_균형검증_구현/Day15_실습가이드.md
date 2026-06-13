@@ -88,7 +88,7 @@ func NewService() *Service {
 // ValidateTransaction은 원장 거래의 기본 규칙을 검증한다.
 func (s *Service) ValidateTransaction(ctx context.Context, entries []Entry) error {
 	if ctx == nil {
-		return fmt.Errorf("context is required")
+		return fmt.Errorf("context가 필요합니다")
 	}
 
 	if err := ctx.Err(); err != nil {
@@ -96,18 +96,18 @@ func (s *Service) ValidateTransaction(ctx context.Context, entries []Entry) erro
 	}
 
 	if len(entries) < 2 {
-		return fmt.Errorf("ledger transaction requires at least two entries")
+		return fmt.Errorf("원장 거래는 최소 2개 이상의 항목이 필요합니다")
 	}
 
 	totals := make(map[string]int64)
 
 	for _, entry := range entries {
 		if entry.Amount <= 0 {
-			return fmt.Errorf("entry amount must be greater than zero")
+			return fmt.Errorf("원장 항목 금액은 0보다 커야 합니다")
 		}
 
 		if entry.Currency == "" {
-			return fmt.Errorf("entry currency is required")
+			return fmt.Errorf("원장 항목 통화가 필요합니다")
 		}
 
 		switch entry.Direction {
@@ -116,13 +116,13 @@ func (s *Service) ValidateTransaction(ctx context.Context, entries []Entry) erro
 		case EntryDirectionCredit:
 			totals[entry.Currency] -= entry.Amount
 		default:
-			return fmt.Errorf("unknown entry direction: %s", entry.Direction)
+			return fmt.Errorf("알 수 없는 원장 항목 방향입니다: %s", entry.Direction)
 		}
 	}
 
 	for currency, total := range totals {
 		if total != 0 {
-			return fmt.Errorf("ledger transaction is not balanced for %s", currency)
+			return fmt.Errorf("원장 거래의 debit과 credit 합계가 일치하지 않습니다: %s", currency)
 		}
 	}
 
@@ -218,7 +218,7 @@ func TestServiceValidateTransaction(t *testing.T) {
 		}
 
 		if err := svc.ValidateTransaction(context.Background(), entries); err != nil {
-			t.Fatalf("expected no error, got %v", err)
+			t.Fatalf("에러가 없어야 하는데 발생했습니다: %v", err)
 		}
 	})
 
@@ -241,7 +241,7 @@ func TestServiceValidateTransaction(t *testing.T) {
 		}
 
 		if err := svc.ValidateTransaction(context.Background(), entries); err == nil {
-			t.Fatal("expected error, got nil")
+			t.Fatal("에러가 발생해야 하는데 nil이 반환되었습니다")
 		}
 	})
 
@@ -258,7 +258,7 @@ func TestServiceValidateTransaction(t *testing.T) {
 		}
 
 		if err := svc.ValidateTransaction(context.Background(), entries); err == nil {
-			t.Fatal("expected error, got nil")
+			t.Fatal("에러가 발생해야 하는데 nil이 반환되었습니다")
 		}
 	})
 
@@ -281,7 +281,7 @@ func TestServiceValidateTransaction(t *testing.T) {
 		}
 
 		if err := svc.ValidateTransaction(context.Background(), entries); err == nil {
-			t.Fatal("expected error, got nil")
+			t.Fatal("에러가 발생해야 하는데 nil이 반환되었습니다")
 		}
 	})
 
@@ -304,7 +304,7 @@ func TestServiceValidateTransaction(t *testing.T) {
 		}
 
 		if err := svc.ValidateTransaction(context.Background(), entries); err == nil {
-			t.Fatal("expected error, got nil")
+			t.Fatal("에러가 발생해야 하는데 nil이 반환되었습니다")
 		}
 	})
 
@@ -327,7 +327,7 @@ func TestServiceValidateTransaction(t *testing.T) {
 		}
 
 		if err := svc.ValidateTransaction(context.Background(), entries); err == nil {
-			t.Fatal("expected error, got nil")
+			t.Fatal("에러가 발생해야 하는데 nil이 반환되었습니다")
 		}
 	})
 
@@ -353,7 +353,7 @@ func TestServiceValidateTransaction(t *testing.T) {
 		}
 
 		if err := svc.ValidateTransaction(ctx, entries); err == nil {
-			t.Fatal("expected error, got nil")
+			t.Fatal("에러가 발생해야 하는데 nil이 반환되었습니다")
 		}
 	})
 }
@@ -389,7 +389,7 @@ svc.ValidateTransaction(context.Background(), entries)
 
 ```go
 if err := svc.ValidateTransaction(context.Background(), entries); err == nil {
-	t.Fatal("expected error, got nil")
+	t.Fatal("에러가 발생해야 하는데 nil이 반환되었습니다")
 }
 ```
 
