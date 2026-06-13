@@ -76,6 +76,12 @@ service_test.go
 아래 명령으로 핵심 타입 위치를 확인합니다.
 
 ```bash
+grep -RnE "type Account|type Transaction|type Entry|type EntryDirection" internal/ledger
+```
+
+`rg`가 설치되어 있다면 아래 명령도 사용할 수 있습니다.
+
+```bash
 rg -n "type Account|type Transaction|type Entry|type EntryDirection" internal/ledger
 ```
 
@@ -99,6 +105,12 @@ Entry는 왜 여러 줄이 필요한가?
 ## Step 3. 균형 검증 로직 다시 읽기
 
 아래 명령으로 검증 메서드를 찾습니다.
+
+```bash
+grep -RnE "ValidateTransaction|totals|EntryDirectionDebit|EntryDirectionCredit" internal/ledger
+```
+
+`rg`가 설치되어 있다면 아래 명령도 사용할 수 있습니다.
 
 ```bash
 rg -n "ValidateTransaction|totals|EntryDirectionDebit|EntryDirectionCredit" internal/ledger
@@ -157,6 +169,16 @@ PASS
 ```
 
 한글 테스트 이름이 보이면 `t.Run`으로 만든 하위 테스트가 실행된 것입니다.
+
+Day13 실습 코드의 에러 메시지는 한글 기준으로 읽습니다.
+
+예:
+
+```text
+원장 거래는 최소 2개 이상의 항목이 필요합니다
+원장 항목 금액은 0보다 커야 합니다
+원장 거래의 debit과 credit 합계가 일치하지 않습니다: USDC
+```
 
 ## Step 5. 전체 테스트 실행
 

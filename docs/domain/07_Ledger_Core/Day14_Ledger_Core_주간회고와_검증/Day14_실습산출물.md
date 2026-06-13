@@ -163,9 +163,15 @@ DB 테이블로 나누는 기준
 
 ```bash
 ls internal/ledger
-rg -n "type Account|type Transaction|type Entry|ValidateTransaction" internal/ledger
+grep -RnE "type Account|type Transaction|type Entry|ValidateTransaction" internal/ledger
 go test ./internal/ledger -v
 go test ./...
+```
+
+`rg`가 설치되어 있다면 아래 명령으로 바꿔 사용할 수 있습니다.
+
+```bash
+rg -n "type Account|type Transaction|type Entry|ValidateTransaction" internal/ledger
 ```
 
 결과:
