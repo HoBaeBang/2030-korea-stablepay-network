@@ -37,7 +37,9 @@ func (s *Service) ValidateTransaction(ctx context.Context, entries []Entry) erro
 내 답변:
 
 ```text
-
+ValidateTransaction은 하나의 Ledger Transaction 안에 들어온 Entry들이 원장 규칙을 지키는지 검증한다.
+구체적으로 context가 있는지, Entry가 최소 2개 이상인지, amount가 0보다 큰지, currency가 비어 있지 않은지 확인한다.
+마지막으로 debit 합계와 credit 합계가 같은지 검증해서, 합계가 맞지 않으면 error를 반환한다.
 ```
 
 ## 2. debit과 credit 합계가 같아야 하는 이유는 무엇인가?
@@ -64,7 +66,9 @@ Ledger는 돈의 이동 기록이기 때문에 돈이 갑자기 생기거나 사
 내 답변:
 
 ```text
-
+Ledger는 돈의 이동 기록이기 때문에 돈이 갑자기 생기거나 사라진 것처럼 기록되면 안 된다.
+그래서 하나의 거래 안에서 debit 총액과 credit 총액이 같아야 한다.
+이 규칙이 깨지면 정합성이 깨지고, 이후 중복 입금/중복 출금/정산 오류를 확인하기 어려워진다.
 ```
 
 ## 3. `map[string]int64`는 어떤 역할을 하는가?
@@ -85,7 +89,9 @@ USDC debit은 더하고 USDC credit은 빼서 최종 값이 0인지 확인한다
 내 답변:
 
 ```text
-
+map[string]int64는 통화별 합계를 임시로 저장하는 역할을 한다.
+key는 USDC 같은 currency이고, value는 해당 currency의 debit과 credit을 반영한 합계다.
+이번 코드에서는 debit은 더하고 credit은 빼서 최종 값이 0인지 확인한다.
 ```
 
 ## 4. 오늘 테스트 4개는 각각 어떤 버그를 막는가?
@@ -110,7 +116,10 @@ credit 부족 테스트는 불균형 거래가 저장되는 문제를 막는다.
 내 답변:
 
 ```text
-
+정상 균형 거래 테스트는 정상적인 debit/credit 조합이 통과하는지 확인한다.
+credit 합계가 부족하면 실패하는 테스트는 돈이 사라진 것처럼 기록되는 불균형 거래를 막는다.
+금액이 0이면 실패하는 테스트는 의미 없는 Entry가 원장에 들어오는 문제를 막는다.
+알 수 없는 direction 테스트는 DEBIT/CREDIT이 아닌 잘못된 방향 값이 원장에 들어오는 문제를 막는다.
 ```
 
 ## 5. 아직 헷갈리는 Go 문법 또는 Ledger 개념은 무엇인가?
@@ -138,7 +147,9 @@ map에 값을 더하고 빼는 부분은 이해했지만, debit과 credit 방향
 내 답변:
 
 ```text
-
+포인터와 receiver, slice와 map 자료형은 아직 반복해서 볼 필요가 있다.
+특히 context.Context가 어디서 만들어지고, 어떤 요청 흐름에서 전달되는지 더 익숙해져야 한다.
+다만 오늘 코드 기준으로는 context.Background()를 테스트에서 직접 만들고, ValidateTransaction에 전달해서 취소 여부를 확인하는 흐름까지는 확인했다.
 ```
 
 ## 실행 결과
@@ -154,13 +165,20 @@ go test ./...
 결과:
 
 ```text
-
+go test ./internal/ledger -v 성공
+go test ./... 성공
 ```
 
 ## 오늘의 결론
 
 ```text
 Day13에서 확인한 결론:
+Ledger Service는 Entry 목록을 받아서 원장 거래의 기본 규칙을 검증한다.
+debit과 credit의 합계가 같아야 돈의 이동 기록이 안전하게 남는다.
+테스트를 먼저 작성해두면 이후 DB 저장 로직을 만들 때 잘못된 원장 거래가 저장되는 것을 막을 수 있다.
 
 다음 구현으로 넘어가기 전에 남은 질문:
+context.Context의 실제 API 요청 흐름에서의 전달 방식
+포인터와 receiver가 Service 구조에서 사용되는 이유
+slice와 map을 실무 코드에서 읽고 쓰는 방식
 ```
