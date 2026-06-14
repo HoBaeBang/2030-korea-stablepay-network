@@ -98,7 +98,7 @@ totals["KRW"] = 0
 
 ```go
 if err := svc.ValidateTransaction(context.Background(), entries); err == nil {
-	t.Fatal("expected error, got nil")
+	t.Fatal("에러가 발생해야 하는데 nil이 반환되었습니다")
 }
 ```
 
