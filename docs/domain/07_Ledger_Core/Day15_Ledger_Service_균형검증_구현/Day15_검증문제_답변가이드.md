@@ -2,7 +2,7 @@
 
 관련 Jira: SPN-32
 
-먼저 문제를 풀어보고, 그 다음 답변가이드와 비교합니다.
+먼저 문제를 풀어보고, 필요할 때만 답변을 펼쳐서 확인합니다.
 
 ## 먼저 풀어볼 문제
 
@@ -18,6 +18,9 @@
 
 ### 1. `Service`는 오늘 코드에서 어떤 역할을 하는가?
 
+<details>
+<summary>답변 보기</summary>
+
 `Service`는 Ledger 도메인 규칙을 검증하는 영역입니다.
 
 오늘 만든 `Service`는 DB에 저장하지 않습니다.
@@ -30,7 +33,12 @@ Repository = 저장
 DB = 기록 보존
 ```
 
+</details>
+
 ### 2. `ValidateTransaction(ctx, entries)`가 `error`만 반환하는 이유는 무엇인가?
+
+<details>
+<summary>답변 보기</summary>
 
 오늘 함수는 새로운 데이터를 만들어 반환하는 함수가 아닙니다.
 
@@ -43,7 +51,12 @@ nil  -> 검증 성공
 error -> 검증 실패
 ```
 
+</details>
+
 ### 3. `len(entries) < 2`를 실패로 보는 이유는 무엇인가?
+
+<details>
+<summary>답변 보기</summary>
 
 Ledger Transaction은 돈의 이동을 기록합니다.
 
@@ -53,7 +66,12 @@ Entry가 1개뿐이면 상대 항목이 없어서 균형을 만들 수 없습니
 
 그래서 최소 2개 이상이어야 합니다.
 
+</details>
+
 ### 4. `DEBIT`은 더하고 `CREDIT`은 빼는 방식으로 합계를 계산하는 이유는 무엇인가?
+
+<details>
+<summary>답변 보기</summary>
 
 오늘 코드는 균형 여부를 계산하기 위해 한쪽 방향을 양수, 다른 방향을 음수처럼 다룹니다.
 
@@ -65,7 +83,12 @@ CREDIT 200_000     -> -200_000
 
 최종 합계가 0이면 debit과 credit이 정확히 맞는 것입니다.
 
+</details>
+
 ### 5. `map[string]int64`에서 `string`과 `int64`는 각각 무엇을 의미하는가?
+
+<details>
+<summary>답변 보기</summary>
 
 `string`은 통화 코드입니다.
 
@@ -86,7 +109,12 @@ totals["USDC"] = 0
 totals["KRW"] = 0
 ```
 
+</details>
+
 ### 6. 실패해야 하는 테스트에서 `err == nil`이면 왜 테스트 실패인가?
+
+<details>
+<summary>답변 보기</summary>
 
 실패 케이스는 `ValidateTransaction`이 error를 반환해야 정상입니다.
 
@@ -102,7 +130,12 @@ if err := svc.ValidateTransaction(context.Background(), entries); err == nil {
 }
 ```
 
+</details>
+
 ### 7. Day15 이후 Repository와 DB migration이 필요한 이유는 무엇인가?
+
+<details>
+<summary>답변 보기</summary>
 
 Day15의 Service는 검증만 합니다.
 
@@ -119,3 +152,5 @@ ledger_entries
 ```
 
 그리고 이 테이블에 저장하고 조회하는 Repository가 필요합니다.
+
+</details>

@@ -2,7 +2,7 @@
 
 관련 Jira: SPN-33
 
-먼저 문제를 풀어보고, 그 다음 답변가이드와 비교합니다.
+먼저 문제를 풀어보고, 필요할 때만 답변을 펼쳐서 확인합니다.
 
 ## 먼저 풀어볼 문제
 
@@ -18,13 +18,21 @@
 
 ### 1. Migration은 무엇이고 왜 필요한가?
 
+<details>
+<summary>답변 보기</summary>
+
 Migration은 DB 구조 변경을 파일로 관리하는 방식입니다.
 
 테이블 생성, 컬럼 추가, 인덱스 추가 같은 변경을 SQL 파일로 남기면 어떤 DB 변경이 언제 들어갔는지 추적할 수 있습니다.
 
 팀 프로젝트나 운영 환경에서는 DB 구조가 코드만큼 중요하므로 migration으로 관리합니다.
 
+</details>
+
 ### 2. `up.sql`과 `down.sql`의 차이는 무엇인가?
+
+<details>
+<summary>답변 보기</summary>
 
 `up.sql`은 변경을 적용하는 파일입니다.
 
@@ -48,7 +56,12 @@ Migration은 DB 구조 변경을 파일로 관리하는 방식입니다.
 
 Day16에서는 `up.sql`로 Ledger 테이블을 만들고, `down.sql`로 Ledger 테이블을 삭제합니다.
 
+</details>
+
 ### 3. Ledger 테이블 3개는 각각 무엇을 저장하는가?
+
+<details>
+<summary>답변 보기</summary>
 
 `ledger_accounts`는 돈이 기록되는 원장 계정을 저장합니다.
 
@@ -62,7 +75,12 @@ Transaction  -> ledger_transactions
 Entry        -> ledger_entries
 ```
 
+</details>
+
 ### 4. `ledger_entries.transaction_id`가 foreign key인 이유는 무엇인가?
+
+<details>
+<summary>답변 보기</summary>
 
 Entry는 반드시 어떤 Ledger Transaction에 속해야 합니다.
 
@@ -70,7 +88,12 @@ Entry는 반드시 어떤 Ledger Transaction에 속해야 합니다.
 
 이렇게 하면 존재하지 않는 transaction에 연결된 entry가 저장되는 것을 막을 수 있습니다.
 
+</details>
+
 ### 5. `idempotency_key`에 unique index를 두는 이유는 무엇인가?
+
+<details>
+<summary>답변 보기</summary>
 
 같은 Ledger Transaction이 두 번 저장되면 돈이 두 번 움직인 것처럼 보일 수 있습니다.
 
@@ -78,7 +101,12 @@ Entry는 반드시 어떤 Ledger Transaction에 속해야 합니다.
 
 `idempotency_key`에 unique index를 두면 같은 key를 가진 Ledger Transaction이 중복 저장되는 것을 DB 레벨에서도 막을 수 있습니다.
 
+</details>
+
 ### 6. `amount`를 `BIGINT`로 저장하는 이유는 무엇인가?
+
+<details>
+<summary>답변 보기</summary>
 
 돈을 소수점으로 저장하면 부동소수점 오차가 생길 수 있습니다.
 
@@ -94,7 +122,12 @@ Entry는 반드시 어떤 Ledger Transaction에 속해야 합니다.
 
 Go 코드에서는 `int64`와 대응됩니다.
 
+</details>
+
 ### 7. `down.sql`에서 테이블 삭제 순서가 중요한 이유는 무엇인가?
+
+<details>
+<summary>답변 보기</summary>
 
 `ledger_entries`가 `ledger_transactions`와 `ledger_accounts`를 참조합니다.
 
@@ -107,3 +140,5 @@ ledger_entries
 -> ledger_transactions
 -> ledger_accounts
 ```
+
+</details>
