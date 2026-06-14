@@ -295,7 +295,94 @@ service.go
 service_test.go
 ```
 
-## 10. `service.go` 완성 기준
+## 10. 실습 코드 작성 원칙
+
+실습할 때는 코드 조각만 보고 맞히는 방식으로 진행하지 않습니다.
+
+아래 `최종 완성본 전체`를 기준으로 현재 파일과 비교하면서 작성합니다.
+
+```text
+1. 먼저 현재 파일을 읽는다.
+2. 아래 완성본 전체와 비교한다.
+3. 빠진 테스트나 검증 조건을 직접 추가한다.
+4. gofmt와 go test로 검증한다.
+```
+
+Day15에서 직접 확인할 파일은 3개입니다.
+
+```text
+internal/ledger/ledger.go
+internal/ledger/service.go
+internal/ledger/service_test.go
+```
+
+`ledger.go`는 Day12에서 이미 작성한 타입 파일입니다.
+
+Day15에서 주로 수정하는 파일은 `service.go`, `service_test.go`이지만, `service.go`와 `service_test.go`가 어떤 타입을 사용하는지 이해하려면 `ledger.go` 전체 모습도 같이 확인해야 합니다.
+
+## 11. `ledger.go` 최종 완성본 전체
+
+파일:
+
+```text
+internal/ledger/ledger.go
+```
+
+완성 기준 코드는 아래와 같습니다.
+
+```go
+package ledger
+
+import "time"
+
+// AccountType은 원장에서 계정의 역할을 구분한다.
+type AccountType string
+
+const (
+	AccountTypeCustomer        AccountType = "CUSTOMER"
+	AccountTypeMerchantPending AccountType = "MERCHANT_PENDING"
+	AccountTypePlatformFee     AccountType = "PLATFORM_FEE"
+)
+
+// EntryDirection은 원장 항목의 방향을 나타낸다.
+type EntryDirection string
+
+const (
+	EntryDirectionDebit  EntryDirection = "DEBIT"
+	EntryDirectionCredit EntryDirection = "CREDIT"
+)
+
+// Account는 원장에서 돈이 기록되는 주체이다.
+type Account struct {
+	ID        string
+	Type      AccountType
+	OwnerID   string
+	Currency  string
+	CreatedAt time.Time
+}
+
+// Transaction은 여러 Entry를 하나의 원장 거래로 묶는다.
+type Transaction struct {
+	ID             string
+	ReferenceType  string
+	ReferenceID    string
+	IdempotencyKey string
+	CreatedAt      time.Time
+}
+
+// Entry는 하나의 원장 거래 안에서 발생한 돈의 이동 한 줄이다.
+type Entry struct {
+	ID            string
+	TransactionID string
+	AccountID     string
+	Direction     EntryDirection
+	Amount        int64
+	Currency      string
+	CreatedAt     time.Time
+}
+```
+
+## 12. `service.go` 최종 완성본 전체
 
 파일:
 
@@ -366,7 +453,7 @@ func (s *Service) ValidateTransaction(ctx context.Context, entries []Entry) erro
 }
 ```
 
-## 11. `service_test.go` 보강 기준
+## 13. `service_test.go` 최종 완성본 전체
 
 파일:
 
@@ -563,7 +650,19 @@ func TestServiceValidateTransaction(t *testing.T) {
 }
 ```
 
-## 12. 테스트 코드 해석
+위 테스트 파일은 Day15에서 목표로 하는 최종 형태입니다.
+
+현재 프로젝트에 테스트가 일부만 있다면, 위 완성본을 기준으로 빠진 케이스를 추가합니다.
+
+특히 아래 3개는 Day15에서 보강 여부를 반드시 확인합니다.
+
+```text
+entry가 하나뿐이면 실패한다.
+통화가 비어 있으면 실패한다.
+context가 취소되었으면 실패한다.
+```
+
+## 14. 테스트 코드 해석
 
 ### `t.Run`
 
@@ -616,7 +715,7 @@ if err := svc.ValidateTransaction(context.Background(), entries); err == nil {
 검증했는데 에러가 없다면 테스트 실패
 ```
 
-## 13. 포맷 정리
+## 15. 포맷 정리
 
 Ledger 패키지 파일만 포맷합니다.
 
@@ -632,7 +731,7 @@ go fmt ./...
 
 `gofmt -w`는 Go 코드의 들여쓰기, 공백, import 정렬을 Go 표준 스타일로 고쳐서 파일에 저장합니다.
 
-## 14. 테스트 실행
+## 16. 테스트 실행
 
 Ledger 패키지만 테스트합니다.
 
@@ -663,7 +762,7 @@ go test ./...
 
 전체 테스트가 성공하면 오늘 만든 Ledger Service가 기존 기능을 깨뜨리지 않은 것입니다.
 
-## 15. 자주 만나는 오류
+## 17. 자주 만나는 오류
 
 ### `undefined: Entry`
 
@@ -701,7 +800,7 @@ if entry.Currency == "" {
 }
 ```
 
-## 16. 완성본 확인
+## 18. 완성본 확인
 
 오늘 작업 후 파일 구조는 아래처럼 보여야 합니다.
 
@@ -720,7 +819,7 @@ ValidateTransaction
 TestServiceValidateTransaction
 ```
 
-## 17. 완료 기준
+## 19. 완료 기준
 
 아래를 모두 만족하면 Day15 완료입니다.
 
@@ -732,7 +831,7 @@ go test ./...가 성공한다.
 Day15 산출물 5문항을 작성한다.
 ```
 
-## 18. 커밋 메시지
+## 20. 커밋 메시지
 
 코드 작업을 완료했다면 아래 커밋 메시지를 사용합니다.
 
@@ -748,7 +847,7 @@ git add docs/domain/07_Ledger_Core/Day15_Ledger_Service_균형검증_구현/Day1
 git commit -m "docs: Day15 Ledger 실습 산출물 정리"
 ```
 
-## 19. 다음 작업 예고
+## 21. 다음 작업 예고
 
 Day15가 끝나면 다음 단계는 Ledger 저장 구조입니다.
 
