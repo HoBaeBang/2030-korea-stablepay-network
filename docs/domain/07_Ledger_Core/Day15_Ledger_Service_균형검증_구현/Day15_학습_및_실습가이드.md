@@ -490,6 +490,35 @@ context가 취소되었으면 실패한다.
 
 수정 대상 파일이므로 먼저 어떤 테스트를 추가하는지 이해한 뒤, 필요하면 아래 전체 완성본을 펼쳐서 비교합니다.
 
+이번 완성본에서는 `Service`와 `context.Context`를 전역 변수로 두지 않습니다.
+
+대신 테스트 helper를 사용합니다.
+
+```go
+func newTestService(t *testing.T) (*Service, context.Context) {
+	t.Helper()
+
+	return NewService(), context.Background()
+}
+```
+
+이렇게 하면 각 테스트 케이스가 독립적인 `Service`와 `context`를 받습니다.
+
+지금 `Service`는 내부 상태가 거의 없지만, 나중에 `Repository`, fake DB, 설정값, 시간 함수가 들어오면 테스트끼리 상태가 섞일 수 있습니다.
+
+그래서 Go 테스트에서는 아래 흐름을 기본으로 둡니다.
+
+```text
+전역 변수로 service를 공유한다
+-> 코드가 짧아 보이지만 테스트끼리 오염될 수 있다.
+
+각 테스트마다 NewService()를 직접 쓴다
+-> 안전하지만 중복이 많다.
+
+newTestService(t) helper를 쓴다
+-> 테스트 독립성을 유지하면서 중복도 줄인다.
+```
+
 <details>
 <summary>service_test.go 최종 완성본 전체 보기</summary>
 
@@ -501,9 +530,15 @@ import (
 	"testing"
 )
 
+func newTestService(t *testing.T) (*Service, context.Context) {
+	t.Helper()
+
+	return NewService(), context.Background()
+}
+
 func TestServiceValidateTransaction(t *testing.T) {
 	t.Run("debit과 credit 합계가 같으면 성공한다", func(t *testing.T) {
-		svc := NewService()
+		svc, ctx := newTestService(t)
 
 		entries := []Entry{
 			{
@@ -519,20 +554,20 @@ func TestServiceValidateTransaction(t *testing.T) {
 				Currency:  "USDC",
 			},
 			{
-				AccountID:  "acct_platform_fee",
+				AccountID:  "acct_platform_fee_1",
 				Direction: EntryDirectionCredit,
 				Amount:    200_000,
 				Currency:  "USDC",
 			},
 		}
 
-		if err := svc.ValidateTransaction(context.Background(), entries); err != nil {
+		if err := svc.ValidateTransaction(ctx, entries); err != nil {
 			t.Fatalf("에러가 없어야 하는데 발생했습니다: %v", err)
 		}
 	})
 
 	t.Run("credit 합계가 부족하면 실패한다", func(t *testing.T) {
-		svc := NewService()
+		svc, ctx := newTestService(t)
 
 		entries := []Entry{
 			{
@@ -544,18 +579,18 @@ func TestServiceValidateTransaction(t *testing.T) {
 			{
 				AccountID:  "acct_merchant_pending_1",
 				Direction: EntryDirectionCredit,
-				Amount:    9_700_000,
+				Amount:    9_000_000,
 				Currency:  "USDC",
 			},
 		}
 
-		if err := svc.ValidateTransaction(context.Background(), entries); err == nil {
-			t.Fatal("에러가 발생해야 하는데 nil이 반환되었습니다")
+		if err := svc.ValidateTransaction(ctx, entries); err == nil {
+			t.Fatal("원장 거래의 균형이 맞지 않아야 하는데 nil이 반환되었습니다")
 		}
 	})
 
-	t.Run("entry가 하나뿐이면 실패한다", func(t *testing.T) {
-		svc := NewService()
+	t.Run("entry가 하나뿐이면 실패한다.", func(t *testing.T) {
+		svc, ctx := newTestService(t)
 
 		entries := []Entry{
 			{
@@ -566,13 +601,13 @@ func TestServiceValidateTransaction(t *testing.T) {
 			},
 		}
 
-		if err := svc.ValidateTransaction(context.Background(), entries); err == nil {
-			t.Fatal("에러가 발생해야 하는데 nil이 반환되었습니다")
+		if err := svc.ValidateTransaction(ctx, entries); err == nil {
+			t.Fatal("에러가 발생해야 하는데 nil이 반환되었습니다.")
 		}
 	})
 
 	t.Run("금액이 0이면 실패한다", func(t *testing.T) {
-		svc := NewService()
+		svc, ctx := newTestService(t)
 
 		entries := []Entry{
 			{
@@ -589,13 +624,13 @@ func TestServiceValidateTransaction(t *testing.T) {
 			},
 		}
 
-		if err := svc.ValidateTransaction(context.Background(), entries); err == nil {
-			t.Fatal("에러가 발생해야 하는데 nil이 반환되었습니다")
+		if err := svc.ValidateTransaction(ctx, entries); err == nil {
+			t.Fatal("금액이 0인 원장 항목은 실패해야 하는데 nil이 반환되었습니다")
 		}
 	})
 
-	t.Run("통화가 비어 있으면 실패한다", func(t *testing.T) {
-		svc := NewService()
+	t.Run("통화가 비어 있으면 실패한다.", func(t *testing.T) {
+		svc, ctx := newTestService(t)
 
 		entries := []Entry{
 			{
@@ -612,13 +647,13 @@ func TestServiceValidateTransaction(t *testing.T) {
 			},
 		}
 
-		if err := svc.ValidateTransaction(context.Background(), entries); err == nil {
-			t.Fatal("에러가 발생해야 하는데 nil이 반환되었습니다")
+		if err := svc.ValidateTransaction(ctx, entries); err == nil {
+			t.Fatal("통화가 비어 있으면 실패해야 하는데 nil이 반환되었습니다")
 		}
 	})
 
 	t.Run("알 수 없는 방향이면 실패한다", func(t *testing.T) {
-		svc := NewService()
+		svc, ctx := newTestService(t)
 
 		entries := []Entry{
 			{
@@ -635,13 +670,13 @@ func TestServiceValidateTransaction(t *testing.T) {
 			},
 		}
 
-		if err := svc.ValidateTransaction(context.Background(), entries); err == nil {
-			t.Fatal("에러가 발생해야 하는데 nil이 반환되었습니다")
+		if err := svc.ValidateTransaction(ctx, entries); err == nil {
+			t.Fatal("알 수 없는 방향은 실패해야 하는데 nil이 반환되었습니다")
 		}
 	})
 
 	t.Run("context가 취소되었으면 실패한다", func(t *testing.T) {
-		svc := NewService()
+		svc, _ := newTestService(t)
 
 		ctx, cancel := context.WithCancel(context.Background())
 		cancel()
@@ -662,7 +697,7 @@ func TestServiceValidateTransaction(t *testing.T) {
 		}
 
 		if err := svc.ValidateTransaction(ctx, entries); err == nil {
-			t.Fatal("에러가 발생해야 하는데 nil이 반환되었습니다")
+			t.Fatal("context가 취소되었으면 실패해야 하는데 nil이 반환되었습니다")
 		}
 	})
 }
@@ -689,8 +724,13 @@ t.Run("금액이 0이면 실패한다", func(t *testing.T) {
 테스트에서 가장 기본으로 사용할 수 있는 빈 context입니다.
 
 ```go
-svc.ValidateTransaction(context.Background(), entries)
+svc, ctx := newTestService(t)
+svc.ValidateTransaction(ctx, entries)
 ```
+
+이번 테스트에서는 `context.Background()`를 각 테스트 안에서 직접 반복하지 않고 `newTestService(t)` helper 안에서 만들어 반환합니다.
+
+그래야 나중에 테스트용 Repository나 fake DB가 생겨도 helper만 바꾸면 됩니다.
 
 ### `context.WithCancel`
 
@@ -712,7 +752,7 @@ cancel()
 따라서 아래처럼 검사합니다.
 
 ```go
-if err := svc.ValidateTransaction(context.Background(), entries); err == nil {
+if err := svc.ValidateTransaction(ctx, entries); err == nil {
 	t.Fatal("에러가 발생해야 하는데 nil이 반환되었습니다")
 }
 ```
