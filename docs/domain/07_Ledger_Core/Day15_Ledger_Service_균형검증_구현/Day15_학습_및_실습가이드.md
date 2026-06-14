@@ -282,16 +282,13 @@ internal/ledger/ledger.go
 
 Day15에서 `ledger.go`를 새로 작성하지는 않습니다.
 
-하지만 `service.go`와 `service_test.go`가 아래 타입을 사용하므로 전체 모습을 확인해야 합니다.
+따라서 전체 코드를 그대로 옮겨 적을 필요는 없습니다.
 
-완성 기준 코드:
+`service.go`와 `service_test.go`가 사용하는 타입과 상수만 확인합니다.
+
+확인할 부분:
 
 ```go
-package ledger
-
-import "time"
-
-// AccountType은 원장에서 계정의 역할을 구분한다.
 type AccountType string
 
 const (
@@ -308,25 +305,6 @@ const (
 	EntryDirectionCredit EntryDirection = "CREDIT"
 )
 
-// Account는 원장에서 돈이 기록되는 주체이다.
-type Account struct {
-	ID        string
-	Type      AccountType
-	OwnerID   string
-	Currency  string
-	CreatedAt time.Time
-}
-
-// Transaction은 여러 Entry를 하나의 원장 거래로 묶는다.
-type Transaction struct {
-	ID             string
-	ReferenceType  string
-	ReferenceID    string
-	IdempotencyKey string
-	CreatedAt      time.Time
-}
-
-// Entry는 하나의 원장 거래 안에서 발생한 돈의 이동 한 줄이다.
 type Entry struct {
 	ID            string
 	TransactionID string
@@ -338,6 +316,15 @@ type Entry struct {
 }
 ```
 
+확인 포인트:
+
+```text
+EntryDirectionDebit과 EntryDirectionCredit 상수가 있는가?
+Entry.Amount가 int64인가?
+Entry.Currency가 string인가?
+Entry.AccountID 필드명이 ID 대문자 관례를 지키는가?
+```
+
 ## Step 2. `service.go` 확인
 
 파일:
@@ -346,7 +333,7 @@ type Entry struct {
 internal/ledger/service.go
 ```
 
-Day13에서 이미 작성했다면 아래 완성본과 비교합니다.
+Day13에서 이미 작성했다면 전체 코드를 다시 옮겨 적지 않습니다.
 
 Day15에서는 이 파일이 아래 검증 조건을 모두 가지고 있는지 확인합니다.
 
@@ -360,25 +347,9 @@ Direction 검증
 debit/credit 합계 검증
 ```
 
-완성 기준 코드:
+확인할 핵심 메서드:
 
 ```go
-package ledger
-
-import (
-	"context"
-	"fmt"
-)
-
-// Service는 Ledger 도메인 규칙을 검증하고 실행한다.
-type Service struct{}
-
-// NewService는 Ledger Service 인스턴스를 만든다.
-func NewService() *Service {
-	return &Service{}
-}
-
-// ValidateTransaction은 원장 거래의 기본 규칙을 검증한다.
 func (s *Service) ValidateTransaction(ctx context.Context, entries []Entry) error {
 	if ctx == nil {
 		return fmt.Errorf("context가 필요합니다")
@@ -422,6 +393,10 @@ func (s *Service) ValidateTransaction(ctx context.Context, entries []Entry) erro
 	return nil
 }
 ```
+
+확인만 하는 파일은 이처럼 필요한 메서드만 발췌해서 봅니다.
+
+전체 파일을 다시 붙여 넣는 방식은 사용하지 않습니다.
 
 ## Step 3. `service.go` 코드 해석
 
@@ -512,6 +487,11 @@ context가 취소되었으면 실패한다.
 ```
 
 테스트 파일의 최종 완성본은 아래와 같습니다.
+
+수정 대상 파일이므로 먼저 어떤 테스트를 추가하는지 이해한 뒤, 필요하면 아래 전체 완성본을 펼쳐서 비교합니다.
+
+<details>
+<summary>service_test.go 최종 완성본 전체 보기</summary>
 
 ```go
 package ledger
@@ -687,6 +667,8 @@ func TestServiceValidateTransaction(t *testing.T) {
 	})
 }
 ```
+
+</details>
 
 ## Step 5. 테스트 코드 해석
 

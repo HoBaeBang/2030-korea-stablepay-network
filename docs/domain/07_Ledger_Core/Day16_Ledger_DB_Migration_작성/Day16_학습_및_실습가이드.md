@@ -316,7 +316,23 @@ sed -n '1,120p' migrations/000002_create_ledger_core_tables.down.sql
 migrations/000002_create_ledger_core_tables.up.sql
 ```
 
+`up.sql`은 Ledger 테이블과 조회용 인덱스를 생성하는 파일입니다.
+
+먼저 아래 순서로 어떤 테이블이 만들어지는지 이해합니다.
+
+```text
+1. ledger_accounts 생성
+2. ledger_accounts 조회용 index 생성
+3. ledger_transactions 생성
+4. ledger_transactions 조회/중복방지 index 생성
+5. ledger_entries 생성
+6. ledger_entries 조회용 index 생성
+```
+
 작성할 SQL 전체:
+
+<details>
+<summary>up.sql 최종 완성본 전체 보기</summary>
 
 ```sql
 CREATE TABLE ledger_accounts
@@ -363,6 +379,8 @@ CREATE INDEX idx_ledger_entries_transaction_id
 CREATE INDEX idx_ledger_entries_account_id
     ON ledger_entries (account_id);
 ```
+
+</details>
 
 ## Step 2. `up.sql` 코드 해석
 
@@ -425,13 +443,28 @@ reference_id   = pay_123
 migrations/000002_create_ledger_core_tables.down.sql
 ```
 
+`down.sql`은 Day16에서 만든 Ledger 테이블을 되돌리는 파일입니다.
+
+삭제는 생성 순서의 반대로 진행합니다.
+
+```text
+ledger_entries
+-> ledger_transactions
+-> ledger_accounts
+```
+
 작성할 SQL 전체:
+
+<details>
+<summary>down.sql 최종 완성본 전체 보기</summary>
 
 ```sql
 DROP TABLE IF EXISTS ledger_entries;
 DROP TABLE IF EXISTS ledger_transactions;
 DROP TABLE IF EXISTS ledger_accounts;
 ```
+
+</details>
 
 삭제 순서는 중요합니다.
 

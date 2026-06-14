@@ -14,6 +14,54 @@
 6. `amount`를 `BIGINT`로 저장하는 이유는 무엇인가?
 7. `down.sql`에서 테이블 삭제 순서가 중요한 이유는 무엇인가?
 
+## 내 답변 작성 공간
+
+아래 공간에 먼저 내 생각을 적어봅니다.
+
+정답을 바로 펼치지 말고, 최소 한 문장이라도 먼저 작성한 뒤 답변가이드를 확인합니다.
+
+### 1. Migration은 무엇이고 왜 필요한가?
+
+```text
+내 답변:
+```
+
+### 2. `up.sql`과 `down.sql`의 차이는 무엇인가?
+
+```text
+내 답변:
+```
+
+### 3. `ledger_accounts`, `ledger_transactions`, `ledger_entries`는 각각 무엇을 저장하는가?
+
+```text
+내 답변:
+```
+
+### 4. `ledger_entries.transaction_id`가 foreign key인 이유는 무엇인가?
+
+```text
+내 답변:
+```
+
+### 5. `idempotency_key`에 unique index를 두는 이유는 무엇인가?
+
+```text
+내 답변:
+```
+
+### 6. `amount`를 `BIGINT`로 저장하는 이유는 무엇인가?
+
+```text
+내 답변:
+```
+
+### 7. `down.sql`에서 테이블 삭제 순서가 중요한 이유는 무엇인가?
+
+```text
+내 답변:
+```
+
 ## 답변가이드
 
 ### 1. Migration은 무엇이고 왜 필요한가?
