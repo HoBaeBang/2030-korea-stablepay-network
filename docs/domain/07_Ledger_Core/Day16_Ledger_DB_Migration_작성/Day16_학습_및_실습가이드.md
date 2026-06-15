@@ -29,7 +29,7 @@ Ledger Core의 핵심 테이블 3개를 만드는 migration SQL을 작성한다.
 
 ## 오늘의 큰 그림
 
-![Day16 Ledger DB Migration 작성](../../../confluence/diagrams/spn33-day16-ledger-migration.png)
+![Day16 Ledger DB Migration 작성](https://raw.githubusercontent.com/HoBaeBang/2030-korea-stablepay-network/main/docs/confluence/diagrams/spn33-day16-ledger-migration.png)
 
 ## 출퇴근 학습 목표
 
