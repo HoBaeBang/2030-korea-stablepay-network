@@ -58,10 +58,14 @@ Ledger는 돈의 이동 기록입니다.
 
 ## 오늘 만들 테이블
 
+Day16에서 만드는 테이블은 단순히 SQL 파일 안에 적는 이름이 아닙니다.
+
+각 테이블은 Ledger 도메인의 서로 다른 책임을 맡습니다.
+
 | Go 타입 | DB 테이블 | 역할 |
 | --- | --- | --- |
-| `Account` | `ledger_accounts` | 원장에서 돈이 기록되는 주체 |
-| `Transaction` | `ledger_transactions` | 여러 Entry를 하나로 묶는 원장 거래 |
+| `Account` | `ledger_accounts` | 원장 안에서 돈이 기록되는 자리 |
+| `Transaction` | `ledger_transactions` | 하나의 비즈니스 사건을 원장 거래 묶음으로 표현 |
 | `Entry` | `ledger_entries` | 실제 돈의 이동 한 줄 |
 
 이 구조는 Day12의 Go 타입과 연결됩니다.
@@ -70,6 +74,168 @@ Ledger는 돈의 이동 기록입니다.
 Account      -> ledger_accounts
 Transaction  -> ledger_transactions
 Entry        -> ledger_entries
+```
+
+## 테이블별 책임을 먼저 이해하기
+
+Day16에서 가장 중요한 것은 SQL 문법을 외우는 것이 아닙니다.
+
+아래 3개 테이블이 서로 다른 질문에 답한다는 점을 이해하는 것입니다.
+
+```text
+ledger_accounts
+-> 돈이 어디에 기록되는가?
+
+ledger_transactions
+-> 이 돈의 이동은 어떤 비즈니스 사건에서 발생했는가?
+
+ledger_entries
+-> 실제로 얼마가 어느 계정에 debit/credit 되었는가?
+```
+
+예를 들어 고객이 10 USDC를 결제하고, 플랫폼 수수료가 0.2 USDC라고 해봅니다.
+
+이때 Ledger는 아래처럼 생각할 수 있습니다.
+
+```text
+비즈니스 사건:
+payment pay_123 finalized
+
+원장 거래 묶음:
+ledger_transactions row 1개
+
+돈의 이동:
+ledger_entries row 3개
+```
+
+구체적으로는 아래와 같습니다.
+
+```text
+ledger_transactions
+  id              = led_tx_123
+  reference_type  = PAYMENT
+  reference_id    = pay_123
+  idempotency_key = payment:pay_123:finalized
+
+ledger_entries
+  1. 고객 계정              DEBIT  10_000_000 USDC
+  2. 가맹점 지급 예정 계정  CREDIT  9_800_000 USDC
+  3. 플랫폼 수수료 계정      CREDIT    200_000 USDC
+```
+
+즉, `ledger_transactions`는 “왜 이 돈의 이동이 생겼는가?”를 설명하고,
+`ledger_entries`는 “돈이 실제로 어떻게 나뉘어 기록되었는가?”를 설명합니다.
+
+그리고 `ledger_accounts`는 각 Entry가 기록될 “자리”를 제공합니다.
+
+### `ledger_accounts`는 어떤 테이블인가?
+
+`ledger_accounts`는 실제 은행 계좌나 블록체인 지갑 주소를 저장하는 테이블이 아닙니다.
+
+StablePay 내부 원장에서 돈의 위치와 역할을 구분하기 위한 계정 테이블입니다.
+
+예:
+
+```text
+acct_customer_1
+-> 고객이 보유한 USDC 잔액을 기록하는 자리
+
+acct_merchant_pending_1
+-> 가맹점에게 아직 지급되기 전의 USDC 금액을 기록하는 자리
+
+acct_platform_fee_1
+-> 플랫폼 수수료로 잡힌 USDC 금액을 기록하는 자리
+```
+
+그래서 `ledger_accounts`에는 아래 정보가 필요합니다.
+
+| 컬럼 | 의미 |
+| --- | --- |
+| `id` | 원장 계정의 고유 ID |
+| `type` | 계정의 역할, 예: `CUSTOMER`, `MERCHANT_PENDING`, `PLATFORM_FEE` |
+| `owner_id` | 이 계정이 누구와 연결되는지 나타내는 ID |
+| `currency` | 이 계정이 어떤 통화의 금액을 기록하는지 |
+| `created_at` | 계정 생성 시각 |
+
+### `ledger_transactions`는 어떤 테이블인가?
+
+`ledger_transactions`는 여러 Entry를 하나로 묶는 원장 거래 테이블입니다.
+
+여기서 Transaction은 블록체인의 transaction hash와 같은 뜻이 아닙니다.
+
+StablePay 내부 Ledger에서 하나의 비즈니스 사건을 원장 거래로 묶은 기록입니다.
+
+예:
+
+```text
+Payment pay_123이 FINALIZED 되었다.
+-> 이 사건 때문에 Ledger Transaction led_tx_123이 생성된다.
+```
+
+그래서 `ledger_transactions`에는 아래 정보가 필요합니다.
+
+| 컬럼 | 의미 |
+| --- | --- |
+| `id` | Ledger Transaction의 고유 ID |
+| `reference_type` | 어떤 업무에서 발생했는지, 예: `PAYMENT`, `DEPOSIT`, `WITHDRAWAL` |
+| `reference_id` | 해당 업무의 ID, 예: `pay_123` |
+| `idempotency_key` | 같은 거래가 두 번 저장되지 않게 막는 키 |
+| `created_at` | 원장 거래 생성 시각 |
+
+### `ledger_entries`는 어떤 테이블인가?
+
+`ledger_entries`는 실제 돈의 이동 한 줄을 저장합니다.
+
+Ledger에서 가장 중요한 데이터는 이 Entry입니다.
+
+하나의 Ledger Transaction은 여러 Entry를 가질 수 있습니다.
+
+예:
+
+```text
+ledger_transactions: led_tx_123
+
+ledger_entries:
+  고객 계정             DEBIT  10_000_000 USDC
+  가맹점 지급 예정 계정 CREDIT  9_800_000 USDC
+  플랫폼 수수료 계정     CREDIT    200_000 USDC
+```
+
+그래서 `ledger_entries`에는 아래 정보가 필요합니다.
+
+| 컬럼 | 의미 |
+| --- | --- |
+| `id` | Entry의 고유 ID |
+| `transaction_id` | 이 Entry가 속한 Ledger Transaction ID |
+| `account_id` | 이 Entry가 기록되는 Ledger Account ID |
+| `direction` | `DEBIT` 또는 `CREDIT` |
+| `amount` | 최소 단위 정수 금액 |
+| `currency` | 통화 코드, 예: `USDC` |
+| `created_at` | Entry 생성 시각 |
+
+### 세 테이블의 관계
+
+아래 관계를 먼저 머릿속에 넣고 SQL을 보면 훨씬 읽기 쉽습니다.
+
+```text
+ledger_accounts
+  ↑
+  │ account_id
+  │
+ledger_entries
+  │
+  │ transaction_id
+  ↓
+ledger_transactions
+```
+
+말로 풀면 아래와 같습니다.
+
+```text
+ledger_entries는 반드시 하나의 ledger_transactions에 속한다.
+ledger_entries는 반드시 하나의 ledger_accounts에 기록된다.
+ledger_transactions는 여러 ledger_entries를 묶는다.
+ledger_accounts는 여러 ledger_entries가 기록될 수 있는 자리다.
 ```
 
 ## 오늘 하지 않는 것
@@ -322,12 +488,30 @@ migrations/000002_create_ledger_core_tables.up.sql
 
 ```text
 1. ledger_accounts 생성
+   -> Entry가 기록될 원장 계정 자리를 먼저 만든다.
+
 2. ledger_accounts 조회용 index 생성
+   -> owner_id나 type으로 계정을 빠르게 찾을 수 있게 한다.
+
 3. ledger_transactions 생성
+   -> 여러 Entry를 묶는 원장 거래 묶음을 만든다.
+
 4. ledger_transactions 조회/중복방지 index 생성
+   -> reference로 거래를 찾고, idempotency_key로 중복 저장을 막는다.
+
 5. ledger_entries 생성
+   -> 실제 debit/credit 금액 이동 한 줄을 저장한다.
+
 6. ledger_entries 조회용 index 생성
+   -> transaction_id나 account_id로 Entry를 빠르게 찾을 수 있게 한다.
 ```
+
+생성 순서도 중요합니다.
+
+`ledger_entries`는 `ledger_transactions`와 `ledger_accounts`를 참조합니다.
+
+그래서 참조당하는 테이블인 `ledger_accounts`, `ledger_transactions`를 먼저 만들고,
+마지막에 참조하는 테이블인 `ledger_entries`를 만듭니다.
 
 작성할 SQL 전체:
 
@@ -386,7 +570,9 @@ CREATE INDEX idx_ledger_entries_account_id
 
 ### `ledger_accounts`
 
-원장에서 돈이 기록되는 주체입니다.
+이 테이블은 “돈이 어디에 기록되는가?”에 답합니다.
+
+원장에서 돈이 기록되는 자리입니다.
 
 예:
 
@@ -406,7 +592,12 @@ merchant_456
 platform
 ```
 
+예를 들어 `owner_id = merchant_456`, `type = MERCHANT_PENDING`, `currency = USDC`라면
+“merchant_456 가맹점에게 지급 예정인 USDC 금액을 기록하는 원장 계정”으로 이해할 수 있습니다.
+
 ### `ledger_transactions`
+
+이 테이블은 “이 돈의 이동은 왜 발생했는가?”에 답합니다.
 
 여러 Entry를 하나의 원장 거래로 묶습니다.
 
@@ -421,7 +612,12 @@ reference_id   = pay_123
 
 `idempotency_key`는 같은 원장 거래가 두 번 저장되지 않게 막는 키입니다.
 
+예를 들어 같은 Payment finalized 이벤트가 두 번 처리되더라도,
+같은 `idempotency_key`를 가진 Ledger Transaction은 한 번만 저장되어야 합니다.
+
 ### `ledger_entries`
+
+이 테이블은 “실제로 얼마가 어느 계정에 기록되었는가?”에 답합니다.
 
 실제 돈의 이동 한 줄입니다.
 
@@ -434,6 +630,18 @@ reference_id   = pay_123
 `transaction_id`는 이 Entry가 어떤 Ledger Transaction에 속하는지 나타냅니다.
 
 `account_id`는 이 Entry가 어떤 Ledger Account에 기록되는지 나타냅니다.
+
+중요한 점은 `ledger_entries` 한 줄이 전체 거래 하나를 의미하지 않는다는 것입니다.
+
+Entry 한 줄은 거래 안의 돈 이동 한 줄입니다.
+
+하나의 결제는 보통 여러 Entry로 나뉩니다.
+
+```text
+결제 1건
+-> ledger_transactions 1 row
+-> ledger_entries 여러 row
+```
 
 ## Step 3. `down.sql` 작성
 
