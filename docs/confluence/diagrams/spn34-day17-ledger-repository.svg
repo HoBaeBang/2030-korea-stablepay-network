@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <rect width="1400" height="900" fill="#101820"/>
+  <text x="58" y="76" fill="#eef6ff" font-size="34" font-family="Apple SD Gothic Neo, Arial">Day17 Ledger Repository 초안 작성</text>
+  <text x="60" y="116" fill="#a8bbcf" font-size="22" font-family="Apple SD Gothic Neo, Arial">Service의 검증 결과를 DB에 저장할 경계를 만든다</text>
+
+  <rect x="70" y="185" width="250" height="150" rx="18" fill="#162333" stroke="#5eead4" stroke-width="2"/>
+  <text x="195" y="225" fill="#eef6ff" font-size="25" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Service</text>
+  <text x="195" y="264" fill="#d8e8f8" font-size="19" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">도메인 규칙 검증</text>
+  <text x="195" y="298" fill="#a8bbcf" font-size="17" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">debit = credit</text>
+
+  <rect x="415" y="185" width="270" height="150" rx="18" fill="#20344a" stroke="#80bfff" stroke-width="3"/>
+  <text x="550" y="225" fill="#eef6ff" font-size="25" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Repository</text>
+  <text x="550" y="264" fill="#d8e8f8" font-size="19" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">DB 접근 경계</text>
+  <text x="550" y="298" fill="#a8bbcf" font-size="17" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">*sql.DB 보관</text>
+
+  <rect x="780" y="185" width="270" height="150" rx="18" fill="#162333" stroke="#fbbf24" stroke-width="2"/>
+  <text x="915" y="225" fill="#eef6ff" font-size="25" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">PostgreSQL</text>
+  <text x="915" y="264" fill="#d8e8f8" font-size="19" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Ledger tables</text>
+  <text x="915" y="298" fill="#a8bbcf" font-size="17" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">accounts / tx / entries</text>
+
+  <rect x="1135" y="185" width="205" height="150" rx="18" fill="#162333" stroke="#86efac" stroke-width="2"/>
+  <text x="1237" y="225" fill="#eef6ff" font-size="25" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Day18</text>
+  <text x="1237" y="264" fill="#d8e8f8" font-size="19" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">저장 테스트</text>
+  <text x="1237" y="298" fill="#a8bbcf" font-size="17" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">INSERT 검증</text>
+
+  <line x1="320" y1="260" x2="415" y2="260" stroke="#80bfff" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="685" y1="260" x2="780" y2="260" stroke="#80bfff" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="1050" y1="260" x2="1135" y2="260" stroke="#80bfff" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <rect x="90" y="440" width="560" height="270" rx="18" fill="#162333" stroke="#5eead4" stroke-width="2"/>
+  <text x="130" y="492" fill="#eef6ff" font-size="25" font-family="Apple SD Gothic Neo, Arial">오늘 작성하는 것</text>
+  <circle cx="135" cy="545" r="6" fill="#5eead4"/>
+  <text x="160" y="552" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">internal/ledger/repository.go 생성</text>
+  <circle cx="135" cy="590" r="6" fill="#5eead4"/>
+  <text x="160" y="597" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">Repository 구조체 정의</text>
+  <circle cx="135" cy="635" r="6" fill="#5eead4"/>
+  <text x="160" y="642" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">NewRepository(db *sql.DB) 생성자 작성</text>
+  <circle cx="135" cy="680" r="6" fill="#5eead4"/>
+  <text x="160" y="687" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">nil DB 방어는 Day18 저장 흐름에서 확장</text>
+
+  <rect x="750" y="440" width="560" height="270" rx="18" fill="#162333" stroke="#fbbf24" stroke-width="2"/>
+  <text x="790" y="492" fill="#eef6ff" font-size="25" font-family="Apple SD Gothic Neo, Arial">오늘 하지 않는 것</text>
+  <circle cx="795" cy="545" r="6" fill="#fbbf24"/>
+  <text x="820" y="552" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">INSERT SQL 완성</text>
+  <circle cx="795" cy="590" r="6" fill="#fbbf24"/>
+  <text x="820" y="597" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">integration test 작성</text>
+  <circle cx="795" cy="635" r="6" fill="#fbbf24"/>
+  <text x="820" y="642" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">Service와 Repository 연결</text>
+  <circle cx="795" cy="680" r="6" fill="#fbbf24"/>
+  <text x="820" y="687" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">Payment FINALIZED 자동 연결</text>
+
+  <text x="70" y="815" fill="#a8bbcf" font-size="18" font-family="Apple SD Gothic Neo, Arial">Day17은 저장 기능 전체가 아니라 저장 경계의 시작점입니다. 작게 만들고 Day18에서 저장 테스트로 검증합니다.</text>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#80bfff"/>
+    </marker>
+  </defs>
+</svg>
