@@ -1,42 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
-  <rect width="1600" height="900" fill="#0b1220"/>
-  <rect x="70" y="70" width="1460" height="760" rx="28" fill="#111827" stroke="#334155" stroke-width="2"/>
-  <text x="120" y="145" fill="#e5e7eb" font-family="Arial, sans-serif" font-size="42" font-weight="700">Day18 Ledger Repository 저장 구현</text>
-  <text x="120" y="190" fill="#94a3b8" font-family="Arial, sans-serif" font-size="24">Transaction 1건과 Entry 여러 건을 하나의 DB transaction으로 저장하는 흐름</text>
-  <rect x="110" y="250" width="310" height="120" rx="18" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
-  <text x="155" y="305" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="30" font-weight="700">Service 검증 완료</text>
-  <text x="145" y="345" fill="#bae6fd" font-family="Arial, sans-serif" font-size="22">debit / credit 균형 확인</text>
-  <rect x="500" y="250" width="310" height="120" rx="18" fill="#1f2937" stroke="#22c55e" stroke-width="2"/>
-  <text x="555" y="305" fill="#e5e7eb" font-family="Arial, sans-serif" font-size="30" font-weight="700">Repository 진입</text>
-  <text x="545" y="345" fill="#bbf7d0" font-family="Arial, sans-serif" font-size="22">CreateTransaction(ctx, tx, entries)</text>
-  <rect x="890" y="250" width="310" height="120" rx="18" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
-  <text x="975" y="305" fill="#f8fafc" font-family="Arial, sans-serif" font-size="30" font-weight="700">BeginTx</text>
-  <text x="935" y="345" fill="#fde68a" font-family="Arial, sans-serif" font-size="22">성공하면 commit, 실패하면 rollback</text>
-  <rect x="1280" y="250" width="210" height="120" rx="18" fill="#1f2937" stroke="#f43f5e" stroke-width="2"/>
-  <text x="1335" y="305" fill="#f8fafc" font-family="Arial, sans-serif" font-size="30" font-weight="700">Commit</text>
-  <text x="1327" y="345" fill="#fecdd3" font-family="Arial, sans-serif" font-size="22">전체 저장 완료</text>
-  <rect x="340" y="500" width="400" height="160" rx="20" fill="#111827" stroke="#60a5fa" stroke-width="2"/>
-  <text x="390" y="555" fill="#e5e7eb" font-family="Arial, sans-serif" font-size="30" font-weight="700">1. ledger_transactions INSERT</text>
-  <text x="385" y="600" fill="#bfdbfe" font-family="Arial, sans-serif" font-size="22">비즈니스 사건 1건을 transaction row로 저장</text>
-  <text x="385" y="635" fill="#93c5fd" font-family="Arial, sans-serif" font-size="22">reference_type / reference_id / idempotency_key</text>
-  <rect x="860" y="500" width="400" height="160" rx="20" fill="#111827" stroke="#34d399" stroke-width="2"/>
-  <text x="930" y="555" fill="#ecfeff" font-family="Arial, sans-serif" font-size="30" font-weight="700">2. ledger_entries INSERT</text>
-  <text x="905" y="600" fill="#a7f3d0" font-family="Arial, sans-serif" font-size="22">돈의 이동 여러 줄을 loop로 저장</text>
-  <text x="885" y="635" fill="#6ee7b7" font-family="Arial, sans-serif" font-size="22">transaction_id / account_id / direction / amount</text>
-  <rect x="480" y="705" width="640" height="90" rx="18" fill="#172554" stroke="#818cf8" stroke-width="2"/>
-  <text x="535" y="760" fill="#e0e7ff" font-family="Arial, sans-serif" font-size="28" font-weight="700">중간 실패 시 rollback되어 transaction row와 entry row가 함께 취소된다</text>
-  <line x1="420" y1="310" x2="500" y2="310" stroke="#64748b" stroke-width="6"/>
-  <polygon points="500,310 480,298 480,322" fill="#64748b"/>
-  <line x1="810" y1="310" x2="890" y2="310" stroke="#64748b" stroke-width="6"/>
-  <polygon points="890,310 870,298 870,322" fill="#64748b"/>
-  <line x1="1200" y1="310" x2="1280" y2="310" stroke="#64748b" stroke-width="6"/>
-  <polygon points="1280,310 1260,298 1260,322" fill="#64748b"/>
-  <line x1="1045" y1="370" x2="1045" y2="500" stroke="#64748b" stroke-width="6"/>
-  <polygon points="1045,500 1033,480 1057,480" fill="#64748b"/>
-  <line x1="1045" y1="660" x2="1280" y2="660" stroke="#64748b" stroke-width="6"/>
-  <line x1="1280" y1="660" x2="1280" y2="370" stroke="#64748b" stroke-width="6"/>
-  <polygon points="1280,370 1268,390 1292,390" fill="#64748b"/>
-  <line x1="890" y1="580" x2="740" y2="580" stroke="#475569" stroke-width="4" stroke-dasharray="10 10"/>
-  <text x="695" y="565" fill="#cbd5e1" font-family="Arial, sans-serif" font-size="20">먼저 저장</text>
-  <text x="114" y="810" fill="#64748b" font-family="Arial, sans-serif" font-size="20">SPN-35  |  Ledger Repository 저장 구현</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="1500" fill="#0b1220"/>
+  <rect x="70" y="60" width="1060" height="1380" rx="28" fill="#111827" stroke="#334155" stroke-width="2"/>
+
+  <text x="130" y="135" fill="#e5e7eb" font-family="Arial, sans-serif" font-size="40" font-weight="700">Day18 Ledger Repository 저장 구현</text>
+  <text x="130" y="180" fill="#94a3b8" font-family="Arial, sans-serif" font-size="23">Transaction 1건과 Entry 여러 건을 하나의 DB transaction으로 저장하는 흐름</text>
+
+  <rect x="180" y="245" width="840" height="105" rx="18" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <text x="250" y="295" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="30" font-weight="700">1. Service 검증 완료</text>
+  <text x="250" y="328" fill="#bae6fd" font-family="Arial, sans-serif" font-size="21">debit / credit 균형 검증이 끝난 Entry를 저장 대상으로 넘긴다</text>
+
+  <line x1="600" y1="350" x2="600" y2="405" stroke="#64748b" stroke-width="5" marker-end="url(#arrow)"/>
+
+  <rect x="180" y="410" width="840" height="105" rx="18" fill="#1f2937" stroke="#22c55e" stroke-width="2"/>
+  <text x="250" y="460" fill="#e5e7eb" font-family="Arial, sans-serif" font-size="30" font-weight="700">2. Repository 진입</text>
+  <text x="250" y="493" fill="#bbf7d0" font-family="Arial, sans-serif" font-size="21">CreateTransaction(ctx, tx, entries)를 호출한다</text>
+
+  <line x1="600" y1="515" x2="600" y2="570" stroke="#64748b" stroke-width="5" marker-end="url(#arrow)"/>
+
+  <rect x="180" y="575" width="840" height="105" rx="18" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+  <text x="250" y="625" fill="#f8fafc" font-family="Arial, sans-serif" font-size="30" font-weight="700">3. BeginTx</text>
+  <text x="250" y="658" fill="#fde68a" font-family="Arial, sans-serif" font-size="21">여러 INSERT를 하나의 저장 묶음으로 시작한다</text>
+
+  <line x1="600" y1="680" x2="600" y2="735" stroke="#64748b" stroke-width="5" marker-end="url(#arrow)"/>
+
+  <rect x="180" y="740" width="840" height="125" rx="18" fill="#111827" stroke="#60a5fa" stroke-width="2"/>
+  <text x="250" y="793" fill="#e5e7eb" font-family="Arial, sans-serif" font-size="30" font-weight="700">4. ledger_transactions INSERT</text>
+  <text x="250" y="827" fill="#bfdbfe" font-family="Arial, sans-serif" font-size="21">비즈니스 사건 1건을 transaction row로 저장한다</text>
+  <text x="250" y="855" fill="#93c5fd" font-family="Arial, sans-serif" font-size="19">reference_type / reference_id / idempotency_key</text>
+
+  <line x1="600" y1="865" x2="600" y2="920" stroke="#64748b" stroke-width="5" marker-end="url(#arrow)"/>
+
+  <rect x="180" y="925" width="840" height="125" rx="18" fill="#111827" stroke="#34d399" stroke-width="2"/>
+  <text x="250" y="978" fill="#ecfeff" font-family="Arial, sans-serif" font-size="30" font-weight="700">5. ledger_entries INSERT</text>
+  <text x="250" y="1012" fill="#a7f3d0" font-family="Arial, sans-serif" font-size="21">돈의 이동 여러 줄을 loop로 저장한다</text>
+  <text x="250" y="1040" fill="#6ee7b7" font-family="Arial, sans-serif" font-size="19">transaction_id / account_id / direction / amount / currency</text>
+
+  <line x1="600" y1="1050" x2="600" y2="1105" stroke="#64748b" stroke-width="5" marker-end="url(#arrow)"/>
+
+  <rect x="180" y="1110" width="840" height="105" rx="18" fill="#1f2937" stroke="#f43f5e" stroke-width="2"/>
+  <text x="250" y="1160" fill="#f8fafc" font-family="Arial, sans-serif" font-size="30" font-weight="700">6. Commit</text>
+  <text x="250" y="1193" fill="#fecdd3" font-family="Arial, sans-serif" font-size="21">모든 INSERT가 성공하면 전체 저장을 확정한다</text>
+
+  <rect x="180" y="1265" width="840" height="95" rx="18" fill="#172554" stroke="#818cf8" stroke-width="2"/>
+  <text x="250" y="1318" fill="#e0e7ff" font-family="Arial, sans-serif" font-size="26" font-weight="700">중간 실패 시 rollback되어 transaction과 entries가 함께 취소된다</text>
+
+  <text x="130" y="1402" fill="#64748b" font-family="Arial, sans-serif" font-size="20">SPN-35  |  Ledger Repository 저장 구현</text>
 </svg>
