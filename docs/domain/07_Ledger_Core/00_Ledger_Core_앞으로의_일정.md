@@ -33,9 +33,9 @@ Day16: Ledger DB Migration 작성
 | --- | --- | --- | --- |
 | Day16 | Ledger DB Migration 작성 | `000002_create_ledger_core_tables.up/down.sql` | Ledger 타입을 DB 테이블 구조로 옮긴다 |
 | Day17 | Ledger Repository 초안 | `internal/ledger/repository.go` | 검증된 Ledger Transaction을 DB에 저장할 준비를 한다 |
-| Day18 | Repository 저장 테스트 | repository integration test 후보 | `ledger_transactions`와 `ledger_entries` 저장 흐름을 검증한다 |
-| Day19 | Ledger Service와 Repository 연결 | `CreateTransaction` 흐름 | Service 검증 후 Repository 저장으로 이어지게 만든다 |
-| Day20 | Idempotency Key 중복 방지 | 중복 저장 방지 규칙 | 같은 원장 거래가 두 번 저장되지 않게 한다 |
+| Day18 | Ledger Repository 저장 구현 | `CreateTransaction` 메서드 초안 | 원장 거래 1건과 항목 여러 건을 하나의 DB transaction으로 저장한다 |
+| Day19 | Repository 저장 검증과 Idempotency | 저장 검증과 중복 저장 방지 후보 | 저장 성공/실패 흐름과 `idempotency_key` 중복 방지를 점검한다 |
+| Day20 | Ledger Service와 Repository 연결 | `ValidateTransaction -> CreateTransaction` 흐름 | Service 검증 후 Repository 저장으로 이어지게 만든다 |
 | Day21 | Payment FINALIZED와 Ledger 연결 설계 | payment -> ledger 연결 테스트 후보 | 결제 확정이 돈의 이동 기록으로 이어지게 한다 |
 | Day22 | Ledger Core 중간 회고 | 체크리스트와 보강 | 타입, 검증, DB, 저장 흐름을 복습한다 |
 | Day23 | Settlement 도메인 타입 | settlement batch 타입 | Ledger Entry를 정산 묶음으로 계산할 준비를 한다 |
@@ -86,6 +86,8 @@ Day16은 Ledger를 DB에 처음으로 새기는 날입니다.
 Day15: 저장 전에 검증한다.
 Day16: 저장할 테이블 모양을 만든다.
 Day17: 테이블에 저장하는 repository를 만든다.
+Day18: 실제 저장 메서드를 구현한다.
+Day19: 저장 검증과 중복 방지를 점검한다.
 ```
 
 ## 일정 운영 기준
