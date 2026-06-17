@@ -21,6 +21,9 @@ Day13: Ledger 균형 검증 테스트 자료
 Day14: Ledger Core 회고와 검증
 Day15: Ledger Service 균형 검증 구현 자료
 Day16: Ledger DB Migration 작성
+Day17: Ledger Repository 초안
+Day18: Ledger Repository 저장 구현 자료 준비
+Day19: Repository 저장 검증과 Idempotency 자료 준비
 ```
 
 ## 전체 흐름
