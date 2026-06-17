@@ -1,0 +1,91 @@
+<svg width="1250" height="1250" viewBox="0 0 1250 1250" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1250" height="1250" rx="32" fill="#101318"/>
+  <text x="60" y="88" fill="#F4F7FB" font-family="Arial, sans-serif" font-size="34" font-weight="700">Day21 Payment FINALIZED와 Ledger 연결 설계</text>
+  <text x="60" y="130" fill="#AAB6C5" font-family="Arial, sans-serif" font-size="19">Payment는 결제 상태를 말하고, Ledger는 돈의 이동을 기록한다.</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2 2 L10 6 L2 10" fill="#78DCE8"/>
+    </marker>
+    <style>
+      .box { fill:#161B22; stroke:#344255; stroke-width:2; }
+      .box2 { fill:#18212B; stroke:#4A8FE7; stroke-width:2; }
+      .box3 { fill:#1D241C; stroke:#82C91E; stroke-width:2; }
+      .warn { fill:#261E22; stroke:#FFB86B; stroke-width:2; }
+      .title { fill:#F4F7FB; font-family:Arial, sans-serif; font-size:22px; font-weight:700; }
+      .body { fill:#CBD5E1; font-family:Arial, sans-serif; font-size:16px; }
+      .small { fill:#AAB6C5; font-family:Arial, sans-serif; font-size:14px; }
+      .code { fill:#D8DEE9; font-family:Menlo, Consolas, monospace; font-size:14px; }
+      .arrow { stroke:#78DCE8; stroke-width:3; marker-end:url(#arrow); }
+    </style>
+  </defs>
+
+  <rect class="box2" x="60" y="205" width="300" height="145" rx="18"/>
+  <text class="title" x="88" y="248">Payment</text>
+  <text class="body" x="88" y="286">상태와 결제 결과</text>
+  <text class="code" x="88" y="318">StatusFinalized</text>
+
+  <rect class="warn" x="475" y="195" width="300" height="165" rx="18"/>
+  <text class="title" x="503" y="238">Trigger</text>
+  <text class="body" x="503" y="276">FINALIZED가 되면</text>
+  <text class="body" x="503" y="306">돈의 이동 기록이 필요</text>
+  <text class="small" x="503" y="336">중복 실행 방지 필요</text>
+
+  <rect class="box3" x="890" y="205" width="300" height="145" rx="18"/>
+  <text class="title" x="918" y="248">Ledger</text>
+  <text class="body" x="918" y="286">원장 거래와 항목</text>
+  <text class="code" x="918" y="318">Transaction + Entries</text>
+
+  <path class="arrow" d="M375 278 H455"/>
+  <path class="arrow" d="M790 278 H870"/>
+
+  <rect class="box" x="60" y="480" width="345" height="230" rx="18"/>
+  <text class="title" x="88" y="524">Ledger Transaction</text>
+  <text class="small" x="88" y="562">결제 확정을 묶는 머리</text>
+  <text class="code" x="88" y="604">reference_type = PAYMENT</text>
+  <text class="code" x="88" y="634">reference_id = payment.ID</text>
+  <text class="code" x="88" y="664">key = payment:{id}:finalized</text>
+
+  <rect class="box" x="450" y="460" width="350" height="270" rx="18"/>
+  <text class="title" x="478" y="504">Ledger Entries</text>
+  <text class="small" x="478" y="542">돈의 이동을 나타내는 줄들</text>
+  <text class="code" x="478" y="584">DEBIT  Customer 10 USDC</text>
+  <text class="code" x="478" y="614">CREDIT Merchant 9.8 USDC</text>
+  <text class="code" x="478" y="644">CREDIT Fee      0.2 USDC</text>
+  <text class="small" x="478" y="684">debit 합계 = credit 합계</text>
+
+  <rect class="box" x="845" y="480" width="345" height="230" rx="18"/>
+  <text class="title" x="873" y="524">RecordTransaction</text>
+  <text class="small" x="873" y="562">Service가 검증 후 저장</text>
+  <text class="code" x="873" y="604">ValidateTransaction</text>
+  <text class="code" x="873" y="634">CreateTransaction</text>
+  <text class="small" x="873" y="674">Day20 이후 연결 지점</text>
+
+  <path class="arrow" d="M410 595 H430"/>
+  <path class="arrow" d="M805 595 H825"/>
+
+  <rect class="box2" x="60" y="855" width="345" height="210" rx="18"/>
+  <text class="title" x="88" y="900">중복 방지</text>
+  <text class="body" x="88" y="940">같은 FINALIZED를</text>
+  <text class="body" x="88" y="970">두 번 원장에 쓰면 안 된다.</text>
+  <text class="code" x="88" y="1016">UNIQUE(idempotency_key)</text>
+
+  <rect class="box3" x="450" y="855" width="350" height="210" rx="18"/>
+  <text class="title" x="478" y="900">돈의 의미</text>
+  <text class="body" x="478" y="940">Payment.amount를</text>
+  <text class="body" x="478" y="970">수수료와 지급 예정액으로 분리</text>
+  <text class="small" x="478" y="1016">정산은 이 Ledger를 기반으로 계산</text>
+
+  <rect class="warn" x="845" y="855" width="345" height="210" rx="18"/>
+  <text class="title" x="873" y="900">오늘 하지 않는 것</text>
+  <text class="body" x="873" y="940">실제 API 연결</text>
+  <text class="body" x="873" y="970">DB integration test</text>
+  <text class="body" x="873" y="1000">Settlement 실행</text>
+  <text class="small" x="873" y="1036">Day22 이후 후보</text>
+
+  <path class="arrow" d="M232 730 V835"/>
+  <path class="arrow" d="M625 750 V835"/>
+  <path class="arrow" d="M1018 730 V835"/>
+
+  <text x="60" y="1160" fill="#AAB6C5" font-family="Arial, sans-serif" font-size="18">핵심: FINALIZED는 결제 상태의 끝이 아니라 Ledger 기록의 시작점이다.</text>
+</svg>

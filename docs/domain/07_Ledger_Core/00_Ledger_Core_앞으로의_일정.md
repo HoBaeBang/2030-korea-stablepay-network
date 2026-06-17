@@ -25,6 +25,7 @@ Day17: Ledger Repository 초안
 Day18: Ledger Repository 저장 구현 자료 준비
 Day19: Repository 저장 검증과 Idempotency 자료 준비
 Day20: Ledger Service와 Repository 연결 자료 준비
+Day21: Payment FINALIZED와 Ledger 연결 설계 자료 준비
 ```
 
 ## 전체 흐름
