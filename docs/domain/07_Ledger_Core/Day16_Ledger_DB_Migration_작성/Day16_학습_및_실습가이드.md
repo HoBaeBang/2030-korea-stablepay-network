@@ -683,7 +683,7 @@ Entry가 Transaction과 Account를 참조하므로,
 
 ## Step 4. PostgreSQL 실행
 
-로컬 PostgreSQL을 실행합니다.
+프로젝트의 Docker Compose PostgreSQL을 실행합니다.
 
 ```bash
 docker compose up -d
@@ -697,13 +697,13 @@ docker compose ps
 먼저 payment core 테이블을 적용합니다.
 
 ```bash
-psql "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable" -f migrations/000001_create_payment_core_tables.up.sql
+docker compose exec -T postgres psql -U stablepay -d stablepay < migrations/000001_create_payment_core_tables.up.sql
 ```
 
 그 다음 Day16 Ledger migration을 적용합니다.
 
 ```bash
-psql "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable" -f migrations/000002_create_ledger_core_tables.up.sql
+docker compose exec -T postgres psql -U stablepay -d stablepay < migrations/000002_create_ledger_core_tables.up.sql
 ```
 
 이미 기존 테이블이 있어서 실패한다면, 현재 DB 상태를 확인한 뒤 로컬 실습 DB를 초기화하거나 down migration을 적용해야 합니다.
@@ -713,7 +713,7 @@ psql "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable" -
 아래 명령으로 Ledger 테이블이 만들어졌는지 확인합니다.
 
 ```bash
-psql "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable" -c "\dt ledger_*"
+docker compose exec -T postgres psql -U stablepay -d stablepay -c "\dt ledger_*"
 ```
 
 예상 결과:
@@ -729,9 +729,9 @@ ledger_entries
 각 테이블 구조를 확인합니다.
 
 ```bash
-psql "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable" -c "\d ledger_accounts"
-psql "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable" -c "\d ledger_transactions"
-psql "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable" -c "\d ledger_entries"
+docker compose exec -T postgres psql -U stablepay -d stablepay -c "\d ledger_accounts"
+docker compose exec -T postgres psql -U stablepay -d stablepay -c "\d ledger_transactions"
+docker compose exec -T postgres psql -U stablepay -d stablepay -c "\d ledger_entries"
 ```
 
 확인할 것:
@@ -750,13 +750,13 @@ idempotency_key가 unique인가?
 Day16 migration만 롤백합니다.
 
 ```bash
-psql "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable" -f migrations/000002_create_ledger_core_tables.down.sql
+docker compose exec -T postgres psql -U stablepay -d stablepay < migrations/000002_create_ledger_core_tables.down.sql
 ```
 
 다시 확인합니다.
 
 ```bash
-psql "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable" -c "\dt ledger_*"
+docker compose exec -T postgres psql -U stablepay -d stablepay -c "\dt ledger_*"
 ```
 
 Ledger 테이블이 보이지 않으면 롤백이 된 것입니다.
@@ -764,7 +764,7 @@ Ledger 테이블이 보이지 않으면 롤백이 된 것입니다.
 롤백 확인 후 다시 실습을 이어가고 싶다면 `up.sql`을 한 번 더 적용합니다.
 
 ```bash
-psql "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable" -f migrations/000002_create_ledger_core_tables.up.sql
+docker compose exec -T postgres psql -U stablepay -d stablepay < migrations/000002_create_ledger_core_tables.up.sql
 ```
 
 ## Step 9. Go 테스트 실행
@@ -823,8 +823,8 @@ func newTestService(t *testing.T) (*Service, *fakeRepository) {
 명령:
 
 ```bash
-psql "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable" -f migrations/000002_create_ledger_core_tables.down.sql
-psql "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable" -f migrations/000002_create_ledger_core_tables.up.sql
+docker compose exec -T postgres psql -U stablepay -d stablepay < migrations/000002_create_ledger_core_tables.down.sql
+docker compose exec -T postgres psql -U stablepay -d stablepay < migrations/000002_create_ledger_core_tables.up.sql
 ```
 
 ### `psql: command not found`

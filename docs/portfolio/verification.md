@@ -44,7 +44,7 @@ Rust chain prototype
 ```bash
 go test ./...
 docker compose up -d
-psql "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable" -f migrations/000001_create_payment_core_tables.up.sql
+docker compose exec -T postgres psql -U stablepay -d stablepay < migrations/000001_create_payment_core_tables.up.sql
 go run ./cmd/api
 curl http://localhost:8080/health
 ```
@@ -139,7 +139,7 @@ postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable
 명령:
 
 ```bash
-psql "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable" -f migrations/000001_create_payment_core_tables.up.sql
+docker compose exec -T postgres psql -U stablepay -d stablepay < migrations/000001_create_payment_core_tables.up.sql
 ```
 
 기대 결과:
@@ -455,7 +455,7 @@ PostgreSQL은 실행 중이지만 migration SQL이 아직 적용되지 않았다
 해결:
 
 ```bash
-psql "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable" -f migrations/000001_create_payment_core_tables.up.sql
+docker compose exec -T postgres psql -U stablepay -d stablepay < migrations/000001_create_payment_core_tables.up.sql
 ```
 
 ### `address already in use`
@@ -522,4 +522,3 @@ api/stablepay.http 상단의 변수 값
 이 한계는 정상이다.
 
 Phase 2에서 Blockchain Event Indexer, Ledger, Settlement, Deposit/Withdrawal이 추가되면 검증 문서도 함께 확장한다.
-

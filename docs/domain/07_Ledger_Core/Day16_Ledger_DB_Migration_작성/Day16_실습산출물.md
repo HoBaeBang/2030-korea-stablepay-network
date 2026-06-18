@@ -180,9 +180,9 @@ rollback에서는 참조하는 쪽인 ledger_entries를 먼저 삭제한다.
 아래 명령 실행 결과를 짧게 기록합니다.
 
 ```bash
-psql "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable" -f migrations/000002_create_ledger_core_tables.up.sql
-psql "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable" -c "\\dt ledger_*"
-psql "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable" -f migrations/000002_create_ledger_core_tables.down.sql
+docker compose exec -T postgres psql -U stablepay -d stablepay < migrations/000002_create_ledger_core_tables.up.sql
+docker compose exec -T postgres psql -U stablepay -d stablepay -c "\\dt ledger_*"
+docker compose exec -T postgres psql -U stablepay -d stablepay < migrations/000002_create_ledger_core_tables.down.sql
 go test ./...
 ```
 
@@ -379,4 +379,3 @@ ledger_accounts
 ```
 
 </details>
-

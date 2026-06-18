@@ -193,7 +193,7 @@ docker compose up -d postgres
 migration이 아직 적용되지 않았다면 아래 SQL을 적용합니다.
 
 ```bash
-psql "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable" -f migrations/000002_create_ledger_core_tables.up.sql
+docker compose exec -T postgres psql -U stablepay -d stablepay < migrations/000002_create_ledger_core_tables.up.sql
 ```
 
 이미 적용되어 있다면 중복 생성 오류가 날 수 있습니다. 그 경우에는 기존 DB에 테이블이 이미 있다는 뜻일 수 있으니, 지금 단계에서는 무리해서 다시 적용하지 않습니다.
@@ -294,28 +294,37 @@ import (
 	"testing"
 	"time"
 
+	// pgx의 init 함수가 database/sql에 "pgx" 드라이버를 등록하도록 불러온다.
 	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
+// newTestRepository는 각 통합 테스트가 사용할 Repository, DB 연결, Context를 준비한다.
+// DB 준비 코드를 테스트마다 반복하지 않고, 테스트 본문이 검증할 동작에 집중하도록 만든 helper다.
 func newTestRepository(t *testing.T) (*Repository, *sql.DB, context.Context) {
+	// helper 내부에서 실패해도 이 함수를 호출한 테스트의 위치가 오류 위치로 표시된다.
 	t.Helper()
 
+	// 테스트 DB 주소는 코드에 고정하지 않고 실행 환경에서 주입받는다.
 	dsn := os.Getenv("TEST_DATABASE_URL")
 	if dsn == "" {
 		t.Skip("TEST_DATABASE_URL이 없어서 ledger repository integration test를 건너뜁니다")
 	}
 
+	// DB 작업이 무한히 기다리지 않도록 테스트 작업에 5초 제한을 둔다.
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	// 테스트 종료 시 Context가 가진 타이머 자원을 해제한다.
 	t.Cleanup(cancel)
 
 	db, err := sql.Open("pgx", dsn)
 	if err != nil {
 		t.Fatalf("테스트 DB 연결 생성 실패: %v", err)
 	}
+	// 테스트 종료 시 DB 연결 풀을 닫아 자원이 다음 테스트에 남지 않게 한다.
 	t.Cleanup(func() {
 		_ = db.Close()
 	})
 
+	// sql.Open은 실제 연결 성공을 보장하지 않으므로 Ping으로 접속 가능 여부를 확인한다.
 	if err := db.PingContext(ctx); err != nil {
 		t.Fatalf("테스트 DB ping 실패: %v", err)
 	}
@@ -323,6 +332,8 @@ func newTestRepository(t *testing.T) (*Repository, *sql.DB, context.Context) {
 	return NewRepository(db), db, ctx
 }
 
+// seedLedgerAccount는 ledger_entries의 외래 키가 참조할 원장 계정을 미리 저장한다.
+// Repository의 거래 저장을 검증하는 테스트가 선행 계정 준비 코드로 복잡해지지 않게 분리한 helper다.
 func seedLedgerAccount(t *testing.T, ctx context.Context, db *sql.DB, account Account) {
 	t.Helper()
 
@@ -337,6 +348,8 @@ ON CONFLICT (id) DO NOTHING
 	}
 }
 
+// cleanupLedgerTransaction은 테스트를 반복 실행할 때 이전 거래 데이터가 결과에 영향을 주지 않도록 정리한다.
+// 외래 키 제약을 지키기 위해 자식인 ledger_entries를 먼저 삭제한 뒤 ledger_transactions를 삭제한다.
 func cleanupLedgerTransaction(t *testing.T, ctx context.Context, db *sql.DB, transactionID string) {
 	t.Helper()
 
@@ -344,6 +357,8 @@ func cleanupLedgerTransaction(t *testing.T, ctx context.Context, db *sql.DB, tra
 	_, _ = db.ExecContext(ctx, "DELETE FROM ledger_transactions WHERE id = $1", transactionID)
 }
 
+// countRows는 저장 또는 rollback 이후 DB에 남은 행 개수를 조회해 테스트 결과를 검증한다.
+// 조회 SQL과 조건값을 인자로 받아 여러 테이블의 행 개수 검증에 재사용한다.
 func countRows(t *testing.T, ctx context.Context, db *sql.DB, query string, args ...any) int {
 	t.Helper()
 
@@ -460,6 +475,29 @@ func Example_idempotencyKey() {
 
 </details>
 
+## 테스트 helper 코드 해설
+
+위의 helper들은 테스트 대상인 Repository의 기능을 대신 구현하는 코드가 아닙니다. 여러 테스트에서 반복되는 **준비, 정리, 결과 조회**를 한곳에 모아 테스트 본문을 읽기 쉽게 만드는 코드입니다.
+
+| helper | 담당 역할 | 별도로 분리한 이유 |
+| --- | --- | --- |
+| `newTestRepository` | 테스트 DB 연결, 제한 시간이 있는 Context, Repository를 준비한다 | 모든 테스트에서 같은 연결 준비 코드를 반복하지 않기 위해서다 |
+| `seedLedgerAccount` | Entry가 참조할 Ledger Account를 미리 INSERT한다 | 거래 저장 테스트와 선행 데이터 준비 책임을 분리하기 위해서다 |
+| `cleanupLedgerTransaction` | 테스트가 만든 Entry와 Transaction을 삭제한다 | 같은 테스트를 반복 실행해도 이전 데이터가 영향을 주지 않게 하기 위해서다 |
+| `countRows` | 조건에 맞는 DB row 개수를 조회한다 | 저장 성공과 rollback 결과를 같은 방식으로 검증하기 위해서다 |
+
+### `t.Helper()`가 필요한 이유
+
+helper 내부에서 `t.Fatal`, `t.Fatalf`, `t.Skip`이 실행될 수 있습니다. `t.Helper()`를 호출하면 실패 위치가 helper 내부 줄이 아니라 **그 helper를 호출한 실제 테스트 줄**로 표시됩니다. 그래서 어떤 테스트 케이스를 실행하다 실패했는지 더 빨리 찾을 수 있습니다.
+
+### `t.Cleanup()`이 필요한 이유
+
+`t.Cleanup()`에 등록한 함수는 테스트가 성공하거나 중간에 `t.Fatal`로 종료되더라도 실행됩니다. 여기서는 Context의 타이머와 DB 연결 풀을 정리하고, 각 테스트에서는 자신이 생성한 Ledger 거래 데이터를 삭제하는 데 사용합니다.
+
+### Account를 먼저 저장하는 이유
+
+`ledger_entries.account_id`는 `ledger_accounts.id`를 참조하는 외래 키입니다. Account가 없는 상태에서 Entry를 저장하면 외래 키 오류가 발생합니다. 정상 저장 테스트에서는 `seedLedgerAccount`로 선행 데이터를 준비하고, rollback 테스트에서는 일부러 존재하지 않는 Account ID를 사용해 전체 DB transaction이 취소되는지 확인합니다.
+
 ## 실행 명령
 
 먼저 일반 테스트를 실행합니다.
@@ -503,7 +541,7 @@ ledger migration이 DB에 적용되지 않았다.
 해결:
 
 ```bash
-psql "postgres://stablepay:stablepay@localhost:5432/stablepay?sslmode=disable" -f migrations/000002_create_ledger_core_tables.up.sql
+docker compose exec -T postgres psql -U stablepay -d stablepay < migrations/000002_create_ledger_core_tables.up.sql
 ```
 
 ### 2. `duplicate key value violates unique constraint`
