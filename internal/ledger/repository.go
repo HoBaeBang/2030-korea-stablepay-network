@@ -25,8 +25,17 @@ func (r *Repository) CreateTransaction(ctx context.Context, tx Transaction, entr
 		return err
 	}
 
-	_ = validateTransaction(tx)
-	_ = validateEntries(tx, entries)
+	if err := validateTransaction(tx); err != nil {
+		return err
+	}
+
+	if err := validateEntries(tx, entries); err != nil {
+		return err
+	}
+
+	if r.db == nil {
+		return fmt.Errorf("ledger repository db가 필요합니다")
+	}
 
 	sqlTx, err := r.db.BeginTx(ctx, nil)
 	if err != nil {
@@ -105,6 +114,10 @@ func validateTransaction(tx Transaction) error {
 }
 
 func validateEntries(tx Transaction, entries []Entry) error {
+	if len(entries) == 0 {
+		return fmt.Errorf("원장 항목이 필요합니다")
+	}
+
 	for _, entry := range entries {
 		if entry.ID == "" {
 			return fmt.Errorf("원장 항목 id가 필요합니다")

@@ -33,7 +33,8 @@ transaction 1건과 entry 여러 건을
 내 답변:
 
 ```text
-
+`CreateTransaction`은 Ledger Transaction 1건과 그 거래에 속하는 Entry 여러 건을 하나의 DB transaction 안에서 저장한다.
+모든 INSERT가 성공하면 commit하고, 하나라도 실패하면 전체를 rollback해 원장이 일부만 저장되는 것을 막는다.
 ```
 
 ## 2. 왜 `sql.Tx`가 필요한가?
@@ -47,7 +48,8 @@ transaction 1건과 entry 여러 건을
 내 답변:
 
 ```text
-
+여러 INSERT를 하나의 작업 단위로 묶기 위해 필요하다.
+Transaction 저장이나 Entry 저장 중 하나라도 실패하면 앞에서 실행한 INSERT까지 모두 rollback해야 깨진 원장이 남지 않는다.
 ```
 
 ## 3. 왜 `ledger_transactions`를 먼저 저장하고 `ledger_entries`를 나중에 저장하는가?
@@ -61,7 +63,8 @@ entry의 transaction_id가 transaction을 참조하는 foreign key라는 점을 
 내 답변:
 
 ```text
-
+`ledger_entries.transaction_id`가 `ledger_transactions.id`를 foreign key로 참조하기 때문이다.
+부모인 Transaction row를 먼저 저장해야 자식인 Entry row를 저장할 수 있다.
 ```
 
 ## 4. 왜 오늘은 `ledger_accounts` INSERT를 같이 만들지 않았는가?
@@ -76,7 +79,8 @@ account는 이미 존재한다고 가정한다는 점을 적는다.
 내 답변:
 
 ```text
-
+Day18은 이미 존재하는 Ledger Account 사이의 거래를 저장하는 경계에 집중하기 때문이다.
+Account는 있을 수도 있고 없을 수도 있는 값이 아니라, Entry를 저장하기 전에 반드시 존재해야 한다. 존재하지 않으면 foreign key 오류가 발생한다.
 ```
 
 ## 5. Day19에서 무엇을 더 검증해야 할 것 같은가?
@@ -93,7 +97,8 @@ foreign key 오류,
 내 답변:
 
 ```text
-
+정상적으로 Transaction과 Entries가 함께 저장되는지, 같은 `idempotency_key`가 중복 저장을 막는지 확인해야 한다.
+또한 존재하지 않는 Account를 참조해 Entry 저장이 실패하면 앞서 저장한 Transaction도 rollback되는지 실제 PostgreSQL에서 검증해야 한다.
 ```
 
 ## 오늘 실행 결과
@@ -108,7 +113,8 @@ go test ./...
 기록:
 
 ```text
-
+`go test ./...` 실행 결과 모든 패키지가 통과했다.
+테스트 파일이 없는 패키지는 `[no test files]`로 표시되었고, Ledger를 포함한 테스트 패키지는 `ok`로 완료되었다.
 ```
 
 ## 아직 헷갈리는 부분
@@ -127,7 +133,11 @@ Repository와 Service의 경계
 메모:
 
 ```text
+처음에는 BeginTx 직후 committed가 false라서 쿼리 실행 전에 rollback하는 것으로 이해했다.
+하지만 defer에 등록된 함수는 그 자리에서 실행되는 것이 아니라 CreateTransaction이 반환될 때 실행된다.
 
+BeginTx로 DB transaction 경계를 먼저 열고, 이후 쿼리를 r.db가 아니라 sqlTx.ExecContext로 실행하면 모든 쿼리가 그 transaction에 포함된다.
+중간에 return하면 committed가 false이므로 rollback하고, Commit이 성공한 뒤 committed를 true로 바꾸면 defer는 rollback하지 않는다.
 ```
 
 ## 정답/점검 가이드
@@ -211,6 +221,24 @@ Day19에서는 아래를 더 검증해야 합니다.
 1. Ledger 저장은 transaction row 1개와 entry row 여러 개를 함께 저장하는 일이다.
 2. 그래서 sql.Tx가 필요하다.
 ```
+
+작성한 개념은 전반적으로 맞았다. 다만 Account는 선택 사항이 아니라 Entry가 참조하기 전에 반드시 존재해야 한다.
+
+또한 코드 점검 과정에서 `validateTransaction`과 `validateEntries`의 반환 오류를 `_ =`로 버리고 있던 문제를 발견했다. 검증 오류를 즉시 반환하도록 수정하고, DB 접근 전에 검증이 끝나는 회귀 테스트를 추가했다.
+
+### `BeginTx`, `defer`, `committed` 실행 순서
+
+```text
+BeginTx로 transaction 시작
+-> sqlTx로 Transaction INSERT
+-> sqlTx로 Entries INSERT
+-> Commit 성공
+-> committed = true
+-> 함수 종료 시 defer 실행
+-> committed가 true이므로 Rollback하지 않음
+```
+
+중간 INSERT 또는 Commit 전에 오류가 반환되면 `committed`는 계속 false이므로, 함수 종료 시 defer가 Rollback을 시도한다.
 
 ### 코드 확인 포인트
 

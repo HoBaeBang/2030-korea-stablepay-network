@@ -78,6 +78,32 @@ func countRows(t *testing.T, ctx context.Context, db *sql.DB, query string, args
 	return count
 }
 
+func TestRepositoryCreateTransactionValidation(t *testing.T) {
+	t.Run("원장 거래 ID가 비어 있으면 DB 저장 전에 실패한다", func(t *testing.T) {
+		repo := NewRepository(nil)
+
+		err := repo.CreateTransaction(context.Background(), Transaction{}, []Entry{{ID: "entry_1"}})
+		if err == nil {
+			t.Fatal("원장 거래 ID가 비어 있으면 검증 오류가 발생해야 합니다")
+		}
+	})
+
+	t.Run("원장 항목이 없으면 DB 저장 전에 실패한다", func(t *testing.T) {
+		repo := NewRepository(nil)
+		tx := Transaction{
+			ID:             "led_tx_validation_1",
+			ReferenceType:  "PAYMENT",
+			ReferenceID:    "pay_validation_1",
+			IdempotencyKey: "payment:pay_validation_1:finalized",
+		}
+
+		err := repo.CreateTransaction(context.Background(), tx, nil)
+		if err == nil {
+			t.Fatal("원장 항목이 없으면 검증 오류가 발생해야 합니다")
+		}
+	})
+}
+
 func TestRepositoryCreateTransaction(t *testing.T) {
 	t.Run("transaction과 entries를 함께 저장한다.", func(t *testing.T) {
 		repo, db, ctx := newTestRepository(t)
