@@ -177,9 +177,24 @@ func TestServiceValidateTransaction(t *testing.T) {
 		svc, ctx := newTestService(t)
 
 		entries := []Entry{
-			{AccountID: "acct_customer_1", Direction: EntryDirectionDebit, Amount: 10_000_000, Currency: "USDC"},
-			{AccountID: "acct_merchant_pending_1", Direction: EntryDirectionCredit, Amount: 9_800_000, Currency: "USDC"},
-			{AccountID: "acct_platform_fee_1", Direction: EntryDirectionCredit, Amount: 200_000, Currency: "USDC"},
+			{
+				AccountID: "acct_customer_1",
+				Direction: EntryDirectionDebit,
+				Amount:    10_000_000,
+				Currency:  "USDC",
+			},
+			{
+				AccountID: "acct_merchant_pending_1",
+				Direction: EntryDirectionCredit,
+				Amount:    9_800_000,
+				Currency:  "USDC",
+			},
+			{
+				AccountID: "acct_platform_fee_1",
+				Direction: EntryDirectionCredit,
+				Amount:    200_000,
+				Currency:  "USDC",
+			},
 		}
 
 		if err := svc.ValidateTransaction(ctx, entries); err != nil {
@@ -191,8 +206,18 @@ func TestServiceValidateTransaction(t *testing.T) {
 		svc, ctx := newTestService(t)
 
 		entries := []Entry{
-			{AccountID: "acct_customer_1", Direction: EntryDirectionDebit, Amount: 10_000_000, Currency: "USDC"},
-			{AccountID: "acct_merchant_pending_1", Direction: EntryDirectionCredit, Amount: 9_000_000, Currency: "USDC"},
+			{
+				AccountID: "acct_customer_1",
+				Direction: EntryDirectionDebit,
+				Amount:    10_000_000,
+				Currency:  "USDC",
+			},
+			{
+				AccountID: "acct_merchant_pending_1",
+				Direction: EntryDirectionCredit,
+				Amount:    9_000_000,
+				Currency:  "USDC",
+			},
 		}
 
 		if err := svc.ValidateTransaction(ctx, entries); err == nil {
@@ -204,7 +229,12 @@ func TestServiceValidateTransaction(t *testing.T) {
 		svc, ctx := newTestService(t)
 
 		entries := []Entry{
-			{AccountID: "acct_customer_1", Direction: EntryDirectionDebit, Amount: 10_000_000, Currency: "USDC"},
+			{
+				AccountID: "acct_customer_1",
+				Direction: EntryDirectionDebit,
+				Amount:    10_000_000,
+				Currency:  "USDC",
+			},
 		}
 
 		if err := svc.ValidateTransaction(ctx, entries); err == nil {
@@ -216,8 +246,18 @@ func TestServiceValidateTransaction(t *testing.T) {
 		svc, ctx := newTestService(t)
 
 		entries := []Entry{
-			{AccountID: "acct_customer_1", Direction: EntryDirectionDebit, Amount: 10_000_000, Currency: ""},
-			{AccountID: "acct_merchant_pending_1", Direction: EntryDirectionCredit, Amount: 10_000_000, Currency: ""},
+			{
+				AccountID: "acct_customer_1",
+				Direction: EntryDirectionDebit,
+				Amount:    10_000_000,
+				Currency:  "",
+			},
+			{
+				AccountID: "acct_merchant_pending_1",
+				Direction: EntryDirectionCredit,
+				Amount:    10_000_000,
+				Currency:  "",
+			},
 		}
 
 		if err := svc.ValidateTransaction(ctx, entries); err == nil {
@@ -229,8 +269,18 @@ func TestServiceValidateTransaction(t *testing.T) {
 		svc, ctx := newTestService(t)
 
 		entries := []Entry{
-			{AccountID: "acct_customer_1", Direction: EntryDirectionDebit, Amount: 0, Currency: "USDC"},
-			{AccountID: "acct_merchant_pending_1", Direction: EntryDirectionCredit, Amount: 0, Currency: "USDC"},
+			{
+				AccountID: "acct_customer_1",
+				Direction: EntryDirectionDebit,
+				Amount:    0,
+				Currency:  "USDC",
+			},
+			{
+				AccountID: "acct_merchant_pending_1",
+				Direction: EntryDirectionCredit,
+				Amount:    0,
+				Currency:  "USDC",
+			},
 		}
 
 		if err := svc.ValidateTransaction(ctx, entries); err == nil {
@@ -242,8 +292,18 @@ func TestServiceValidateTransaction(t *testing.T) {
 		svc, ctx := newTestService(t)
 
 		entries := []Entry{
-			{AccountID: "acct_customer_1", Direction: EntryDirection("UNKNOWN"), Amount: 10_000_000, Currency: "USDC"},
-			{AccountID: "acct_merchant_pending_1", Direction: EntryDirectionCredit, Amount: 10_000_000, Currency: "USDC"},
+			{
+				AccountID: "acct_customer_1",
+				Direction: EntryDirection("UNKNOWN"),
+				Amount:    10_000_000,
+				Currency:  "USDC",
+			},
+			{
+				AccountID: "acct_merchant_pending_1",
+				Direction: EntryDirectionCredit,
+				Amount:    10_000_000,
+				Currency:  "USDC",
+			},
 		}
 
 		if err := svc.ValidateTransaction(ctx, entries); err == nil {
@@ -258,8 +318,18 @@ func TestServiceValidateTransaction(t *testing.T) {
 		cancel()
 
 		entries := []Entry{
-			{AccountID: "acct_customer_1", Direction: EntryDirectionDebit, Amount: 10_000_000, Currency: "USDC"},
-			{AccountID: "acct_merchant_pending_1", Direction: EntryDirectionCredit, Amount: 10_000_000, Currency: "USDC"},
+			{
+				AccountID: "acct_customer_1",
+				Direction: EntryDirectionDebit,
+				Amount:    10_000_000,
+				Currency:  "USDC",
+			},
+			{
+				AccountID: "acct_merchant_pending_1",
+				Direction: EntryDirectionCredit,
+				Amount:    10_000_000,
+				Currency:  "USDC",
+			},
 		}
 
 		if err := svc.ValidateTransaction(ctx, entries); err == nil {
@@ -273,10 +343,29 @@ func TestServiceRecordTransaction(t *testing.T) {
 		store := &fakeStore{}
 		svc, ctx := newTestServiceWithStore(t, store)
 
-		tx := Transaction{ID: "led_tx_service_1", ReferenceType: "PAYMENT", ReferenceID: "pay_service_1", IdempotencyKey: "payment:pay_service_1:finalized"}
+		tx := Transaction{
+			ID:             "led_tx_service_1",
+			ReferenceType:  "PAYMENT",
+			ReferenceID:    "pay_service_1",
+			IdempotencyKey: "payment:pay_service_1:finalized",
+		}
 		entries := []Entry{
-			{ID: "led_entry_service_1", TransactionID: tx.ID, AccountID: "acct_customer_1", Direction: EntryDirectionDebit, Amount: 10_000_000, Currency: "USDC"},
-			{ID: "led_entry_service_2", TransactionID: tx.ID, AccountID: "acct_merchant_pending_1", Direction: EntryDirectionCredit, Amount: 10_000_000, Currency: "USDC"},
+			{
+				ID:            "led_entry_service_1",
+				TransactionID: tx.ID,
+				AccountID:     "acct_customer_1",
+				Direction:     EntryDirectionDebit,
+				Amount:        10_000_000,
+				Currency:      "USDC",
+			},
+			{
+				ID:            "led_entry_service_2",
+				TransactionID: tx.ID,
+				AccountID:     "acct_merchant_pending_1",
+				Direction:     EntryDirectionCredit,
+				Amount:        10_000_000,
+				Currency:      "USDC",
+			},
 		}
 
 		if err := svc.RecordTransaction(ctx, tx, entries); err != nil {
@@ -300,10 +389,29 @@ func TestServiceRecordTransaction(t *testing.T) {
 		store := &fakeStore{}
 		svc, ctx := newTestServiceWithStore(t, store)
 
-		tx := Transaction{ID: "led_tx_service_invalid", ReferenceType: "PAYMENT", ReferenceID: "pay_service_invalid", IdempotencyKey: "payment:pay_service_invalid:finalized"}
+		tx := Transaction{
+			ID:             "led_tx_service_invalid",
+			ReferenceType:  "PAYMENT",
+			ReferenceID:    "pay_service_invalid",
+			IdempotencyKey: "payment:pay_service_invalid:finalized",
+		}
 		entries := []Entry{
-			{ID: "led_entry_service_invalid_1", TransactionID: tx.ID, AccountID: "acct_customer_1", Direction: EntryDirectionDebit, Amount: 10_000_000, Currency: "USDC"},
-			{ID: "led_entry_service_invalid_2", TransactionID: tx.ID, AccountID: "acct_merchant_pending_1", Direction: EntryDirectionCredit, Amount: 9_000_000, Currency: "USDC"},
+			{
+				ID:            "led_entry_service_invalid_1",
+				TransactionID: tx.ID,
+				AccountID:     "acct_customer_1",
+				Direction:     EntryDirectionDebit,
+				Amount:        10_000_000,
+				Currency:      "USDC",
+			},
+			{
+				ID:            "led_entry_service_invalid_2",
+				TransactionID: tx.ID,
+				AccountID:     "acct_merchant_pending_1",
+				Direction:     EntryDirectionCredit,
+				Amount:        9_000_000,
+				Currency:      "USDC",
+			},
 		}
 
 		if err := svc.RecordTransaction(ctx, tx, entries); err == nil {
@@ -320,10 +428,29 @@ func TestServiceRecordTransaction(t *testing.T) {
 		store := &fakeStore{err: storeErr}
 		svc, ctx := newTestServiceWithStore(t, store)
 
-		tx := Transaction{ID: "led_tx_service_store_error", ReferenceType: "PAYMENT", ReferenceID: "pay_service_store_error", IdempotencyKey: "payment:pay_service_store_error:finalized"}
+		tx := Transaction{
+			ID:             "led_tx_service_store_error",
+			ReferenceType:  "PAYMENT",
+			ReferenceID:    "pay_service_store_error",
+			IdempotencyKey: "payment:pay_service_store_error:finalized",
+		}
 		entries := []Entry{
-			{ID: "led_entry_service_store_error_1", TransactionID: tx.ID, AccountID: "acct_customer_1", Direction: EntryDirectionDebit, Amount: 10_000_000, Currency: "USDC"},
-			{ID: "led_entry_service_store_error_2", TransactionID: tx.ID, AccountID: "acct_merchant_pending_1", Direction: EntryDirectionCredit, Amount: 10_000_000, Currency: "USDC"},
+			{
+				ID:            "led_entry_service_store_error_1",
+				TransactionID: tx.ID,
+				AccountID:     "acct_customer_1",
+				Direction:     EntryDirectionDebit,
+				Amount:        10_000_000,
+				Currency:      "USDC",
+			},
+			{
+				ID:            "led_entry_service_store_error_2",
+				TransactionID: tx.ID,
+				AccountID:     "acct_merchant_pending_1",
+				Direction:     EntryDirectionCredit,
+				Amount:        10_000_000,
+				Currency:      "USDC",
+			},
 		}
 
 		err := svc.RecordTransaction(ctx, tx, entries)
