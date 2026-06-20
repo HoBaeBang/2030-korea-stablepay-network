@@ -40,251 +40,9 @@ fakeStore 테스트 대역
 
 오늘의 핵심은 Service가 Repository를 직접 세부 구현으로 아는 것이 아니라, `Store`라는 작은 interface를 통해 저장 기능만 알고 있게 만드는 것입니다.
 
-## 왜 이 기능이 필요한가?
+## 먼저 작성할 전체 코드
 
-Ledger 저장 흐름은 아무 값이나 DB에 넣으면 안 됩니다.
-
-먼저 Service가 도메인 규칙을 검증해야 합니다.
-
-```text
-1. entry가 2개 이상인가?
-2. amount가 0보다 큰가?
-3. currency가 비어 있지 않은가?
-4. direction이 DEBIT 또는 CREDIT인가?
-5. debit 합계와 credit 합계가 같은가?
-```
-
-이 검증을 통과한 뒤에만 Repository 저장으로 넘어가야 합니다.
-
-즉 Day20의 목표는 아래 한 문장입니다.
-
-```text
-잘못된 원장 거래는 저장하지 않고,
-올바른 원장 거래만 Repository로 넘긴다.
-```
-
-## 출퇴근 예습 포인트
-
-출퇴근 시간에는 아래 질문에 답할 수 있을 정도로 읽습니다.
-
-```text
-1. Service와 Repository의 책임 차이는 무엇인가?
-2. Service가 Repository 구조체가 아니라 Store interface에 의존하면 어떤 장점이 있는가?
-3. fakeStore는 왜 필요한가?
-4. RecordTransaction은 왜 ValidateTransaction을 먼저 호출해야 하는가?
-5. 잘못된 entries가 들어오면 저장 메서드가 호출되면 안 되는 이유는 무엇인가?
-```
-
-## 오늘의 핵심 문장
-
-```text
-Service는 "검증 후 저장"이라는 업무 흐름을 담당하고,
-Repository는 "DB에 저장"이라는 기술 세부사항을 담당한다.
-```
-
-## 핵심 용어
-
-| 용어 | 한글 의미 | 오늘 문맥에서의 의미 |
-| --- | --- | --- |
-| Use case | 사용 사례, 하나의 업무 흐름 | 원장 거래를 검증하고 저장하는 `RecordTransaction` 흐름 |
-| Dependency | 의존성 | Service가 저장을 위해 필요로 하는 Store |
-| Interface | 동작 약속 | Service가 필요로 하는 저장 동작만 정의한 `Store` |
-| Fake | 테스트 대역 | 실제 DB 대신 테스트에서 저장 호출 여부를 기록하는 객체 |
-| Boundary | 경계 | Service와 Repository의 책임을 나누는 선 |
-
-## 왜 interface를 쓰는가?
-
-Java식으로 생각하면 아래와 비슷합니다.
-
-```java
-interface LedgerStore {
-    void createTransaction(Transaction tx, List<Entry> entries);
-}
-
-class LedgerService {
-    private final LedgerStore store;
-}
-```
-
-Go에서는 이렇게 표현합니다.
-
-```go
-type Store interface {
-	CreateTransaction(ctx context.Context, tx Transaction, entries []Entry) error
-}
-```
-
-이렇게 하면 Service는 실제 구현체가 PostgreSQL Repository인지, 테스트용 fakeStore인지 알 필요가 없습니다.
-
-Service가 아는 것은 딱 하나입니다.
-
-```text
-내가 검증한 transaction과 entries를 저장할 수 있는 객체가 필요하다.
-```
-
-## 오늘 확인할 기존 파일
-
-### `internal/ledger/repository.go`
-
-확인할 메서드:
-
-```go
-func (r *Repository) CreateTransaction(ctx context.Context, tx Transaction, entries []Entry) error
-```
-
-확인 포인트:
-
-```text
-Repository는 Store interface를 따로 선언하지 않아도 자동으로 만족한다.
-Go에서는 어떤 타입이 interface의 메서드를 가지고 있으면 그 interface를 구현한 것으로 본다.
-```
-
-### `internal/ledger/service.go`
-
-현재 Service는 store를 가지고 있지 않습니다.
-
-```go
-type Service struct{}
-```
-
-Day20 이후에는 아래처럼 바뀝니다.
-
-```go
-type Service struct {
-	store Store
-}
-```
-
-## 오늘 만들 메서드의 범위
-
-오늘은 아래 범위까지만 합니다.
-
-```text
-1. Store interface 추가
-2. Service가 Store를 필드로 가지도록 변경
-3. NewService(store Store) 생성자 변경
-4. RecordTransaction 메서드 추가
-5. fakeStore를 이용한 Service 테스트 추가
-```
-
-오늘 하지 않는 것:
-
-```text
-1. HTTP API 연결
-2. Payment FINALIZED와 Ledger 자동 연결
-3. 실제 DB integration test 확장
-4. Settlement 계산
-```
-
-이 내용은 Day21 이후에 이어집니다.
-
-## Step 1. `Store` interface 추가
-
-`Service`가 필요로 하는 저장 동작을 interface로 정의합니다.
-
-```go
-type Store interface {
-	CreateTransaction(ctx context.Context, tx Transaction, entries []Entry) error
-}
-```
-
-여기서 중요한 점은 interface가 Repository를 설명하는 것이 아니라 Service의 필요를 설명한다는 것입니다.
-
-```text
-Service 입장에서는 저장소가 DB인지 fake인지 중요하지 않다.
-CreateTransaction을 할 수 있으면 된다.
-```
-
-## Step 2. `Service` 구조체 변경
-
-기존:
-
-```go
-type Service struct{}
-```
-
-변경:
-
-```go
-type Service struct {
-	store Store
-}
-```
-
-`store Store`는 Service가 저장 작업을 맡길 대상입니다.
-
-## Step 3. 생성자 변경
-
-기존:
-
-```go
-func NewService() *Service {
-	return &Service{}
-}
-```
-
-변경:
-
-```go
-func NewService(store Store) *Service {
-	return &Service{store: store}
-}
-```
-
-이제 실제 서버에서는 나중에 아래처럼 연결할 수 있습니다.
-
-```go
-repo := ledger.NewRepository(db)
-svc := ledger.NewService(repo)
-```
-
-테스트에서는 아래처럼 연결합니다.
-
-```go
-store := &fakeStore{}
-svc := NewService(store)
-```
-
-## Step 4. `RecordTransaction` 추가
-
-`RecordTransaction`은 오늘의 핵심 메서드입니다.
-
-흐름:
-
-```text
-1. ValidateTransaction으로 entries 검증
-2. store가 없으면 실패
-3. store.CreateTransaction으로 저장
-```
-
-코드:
-
-```go
-func (s *Service) RecordTransaction(ctx context.Context, tx Transaction, entries []Entry) error {
-	if err := s.ValidateTransaction(ctx, entries); err != nil {
-		return err
-	}
-
-	if s.store == nil {
-		return fmt.Errorf("ledger store가 필요합니다")
-	}
-
-	return s.store.CreateTransaction(ctx, tx, entries)
-}
-```
-
-## Step 5. fakeStore 만들기
-
-실제 DB를 쓰지 않고 Service 흐름만 테스트하기 위해 fakeStore를 만듭니다.
-
-fakeStore는 아래를 기록합니다.
-
-```text
-1. 저장 메서드가 몇 번 호출되었는가?
-2. 어떤 transaction이 넘어왔는가?
-3. 어떤 entries가 넘어왔는가?
-4. 저장소 에러를 일부러 반환할 수 있는가?
-```
+아래 두 파일의 전체 완성본을 먼저 작성합니다. 코드를 작성한 뒤 하단의 해설을 읽으면서 각 타입과 메서드가 필요한 이유를 확인합니다.
 
 ## `service.go` 최종 완성본 전체
 
@@ -581,6 +339,254 @@ func TestServiceRecordTransaction(t *testing.T) {
 ```
 
 </details>
+
+## 코드 해설과 개념 이해
+
+## 왜 이 기능이 필요한가?
+
+Ledger 저장 흐름은 아무 값이나 DB에 넣으면 안 됩니다.
+
+먼저 Service가 도메인 규칙을 검증해야 합니다.
+
+```text
+1. entry가 2개 이상인가?
+2. amount가 0보다 큰가?
+3. currency가 비어 있지 않은가?
+4. direction이 DEBIT 또는 CREDIT인가?
+5. debit 합계와 credit 합계가 같은가?
+```
+
+이 검증을 통과한 뒤에만 Repository 저장으로 넘어가야 합니다.
+
+즉 Day20의 목표는 아래 한 문장입니다.
+
+```text
+잘못된 원장 거래는 저장하지 않고,
+올바른 원장 거래만 Repository로 넘긴다.
+```
+
+## 출퇴근 예습 포인트
+
+출퇴근 시간에는 아래 질문에 답할 수 있을 정도로 읽습니다.
+
+```text
+1. Service와 Repository의 책임 차이는 무엇인가?
+2. Service가 Repository 구조체가 아니라 Store interface에 의존하면 어떤 장점이 있는가?
+3. fakeStore는 왜 필요한가?
+4. RecordTransaction은 왜 ValidateTransaction을 먼저 호출해야 하는가?
+5. 잘못된 entries가 들어오면 저장 메서드가 호출되면 안 되는 이유는 무엇인가?
+```
+
+## 오늘의 핵심 문장
+
+```text
+Service는 "검증 후 저장"이라는 업무 흐름을 담당하고,
+Repository는 "DB에 저장"이라는 기술 세부사항을 담당한다.
+```
+
+## 핵심 용어
+
+| 용어 | 한글 의미 | 오늘 문맥에서의 의미 |
+| --- | --- | --- |
+| Use case | 사용 사례, 하나의 업무 흐름 | 원장 거래를 검증하고 저장하는 `RecordTransaction` 흐름 |
+| Dependency | 의존성 | Service가 저장을 위해 필요로 하는 Store |
+| Interface | 동작 약속 | Service가 필요로 하는 저장 동작만 정의한 `Store` |
+| Fake | 테스트 대역 | 실제 DB 대신 테스트에서 저장 호출 여부를 기록하는 객체 |
+| Boundary | 경계 | Service와 Repository의 책임을 나누는 선 |
+
+## 왜 interface를 쓰는가?
+
+Java식으로 생각하면 아래와 비슷합니다.
+
+```java
+interface LedgerStore {
+    void createTransaction(Transaction tx, List<Entry> entries);
+}
+
+class LedgerService {
+    private final LedgerStore store;
+}
+```
+
+Go에서는 이렇게 표현합니다.
+
+```go
+type Store interface {
+	CreateTransaction(ctx context.Context, tx Transaction, entries []Entry) error
+}
+```
+
+이렇게 하면 Service는 실제 구현체가 PostgreSQL Repository인지, 테스트용 fakeStore인지 알 필요가 없습니다.
+
+Service가 아는 것은 딱 하나입니다.
+
+```text
+내가 검증한 transaction과 entries를 저장할 수 있는 객체가 필요하다.
+```
+
+## 오늘 확인할 기존 파일
+
+### `internal/ledger/repository.go`
+
+확인할 메서드:
+
+```go
+func (r *Repository) CreateTransaction(ctx context.Context, tx Transaction, entries []Entry) error
+```
+
+확인 포인트:
+
+```text
+Repository는 Store interface를 따로 선언하지 않아도 자동으로 만족한다.
+Go에서는 어떤 타입이 interface의 메서드를 가지고 있으면 그 interface를 구현한 것으로 본다.
+```
+
+### `internal/ledger/service.go`
+
+현재 Service는 store를 가지고 있지 않습니다.
+
+```go
+type Service struct{}
+```
+
+Day20 이후에는 아래처럼 바뀝니다.
+
+```go
+type Service struct {
+	store Store
+}
+```
+
+## 오늘 만들 메서드의 범위
+
+오늘은 아래 범위까지만 합니다.
+
+```text
+1. Store interface 추가
+2. Service가 Store를 필드로 가지도록 변경
+3. NewService(store Store) 생성자 변경
+4. RecordTransaction 메서드 추가
+5. fakeStore를 이용한 Service 테스트 추가
+```
+
+오늘 하지 않는 것:
+
+```text
+1. HTTP API 연결
+2. Payment FINALIZED와 Ledger 자동 연결
+3. 실제 DB integration test 확장
+4. Settlement 계산
+```
+
+이 내용은 Day21 이후에 이어집니다.
+
+## Step 1. `Store` interface 추가
+
+`Service`가 필요로 하는 저장 동작을 interface로 정의합니다.
+
+```go
+type Store interface {
+	CreateTransaction(ctx context.Context, tx Transaction, entries []Entry) error
+}
+```
+
+여기서 중요한 점은 interface가 Repository를 설명하는 것이 아니라 Service의 필요를 설명한다는 것입니다.
+
+```text
+Service 입장에서는 저장소가 DB인지 fake인지 중요하지 않다.
+CreateTransaction을 할 수 있으면 된다.
+```
+
+## Step 2. `Service` 구조체 변경
+
+기존:
+
+```go
+type Service struct{}
+```
+
+변경:
+
+```go
+type Service struct {
+	store Store
+}
+```
+
+`store Store`는 Service가 저장 작업을 맡길 대상입니다.
+
+## Step 3. 생성자 변경
+
+기존:
+
+```go
+func NewService() *Service {
+	return &Service{}
+}
+```
+
+변경:
+
+```go
+func NewService(store Store) *Service {
+	return &Service{store: store}
+}
+```
+
+이제 실제 서버에서는 나중에 아래처럼 연결할 수 있습니다.
+
+```go
+repo := ledger.NewRepository(db)
+svc := ledger.NewService(repo)
+```
+
+테스트에서는 아래처럼 연결합니다.
+
+```go
+store := &fakeStore{}
+svc := NewService(store)
+```
+
+## Step 4. `RecordTransaction` 추가
+
+`RecordTransaction`은 오늘의 핵심 메서드입니다.
+
+흐름:
+
+```text
+1. ValidateTransaction으로 entries 검증
+2. store가 없으면 실패
+3. store.CreateTransaction으로 저장
+```
+
+코드:
+
+```go
+func (s *Service) RecordTransaction(ctx context.Context, tx Transaction, entries []Entry) error {
+	if err := s.ValidateTransaction(ctx, entries); err != nil {
+		return err
+	}
+
+	if s.store == nil {
+		return fmt.Errorf("ledger store가 필요합니다")
+	}
+
+	return s.store.CreateTransaction(ctx, tx, entries)
+}
+```
+
+## Step 5. fakeStore 만들기
+
+실제 DB를 쓰지 않고 Service 흐름만 테스트하기 위해 fakeStore를 만듭니다.
+
+fakeStore는 아래를 기록합니다.
+
+```text
+1. 저장 메서드가 몇 번 호출되었는가?
+2. 어떤 transaction이 넘어왔는가?
+3. 어떤 entries가 넘어왔는가?
+4. 저장소 에러를 일부러 반환할 수 있는가?
+```
 
 ## 실행 명령
 
