@@ -11,7 +11,7 @@ const (
 )
 
 // Candidate는 Ledger에서 조회한 정산 대상 후보를 나타낸다.
-// 아직 Settlement에 포함된것은 아니며 Calculator검증을 통과해야 한다.
+// 아직 Settlement에 포함된 것은 아니며 Calculator 검증을 통과해야 한다.
 type Candidate struct {
 	LedgerEntryID string
 	RecipientID   string
@@ -21,7 +21,7 @@ type Candidate struct {
 	Currency      string
 }
 
-// Batch는 같은 수취인과 토오하의 정산 대상들을 하나로 묶은 결과이다.
+// Batch는 같은 수취인과 통화의 정산 대상들을 하나로 묶은 결과다.
 type Batch struct {
 	ID          string
 	RecipientID string
@@ -31,7 +31,7 @@ type Batch struct {
 	Status      Status
 }
 
-// Item은 어떤 Ledger Entry가 정산 묶음에 포함되었는지를 나타내는 근거이다.
+// Item은 어떤 Ledger Entry가 정산 묶음에 포함되었는지를 나타내는 근거다.
 type Item struct {
 	BatchID       string
 	LedgerEntryID string

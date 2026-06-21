@@ -17,6 +17,7 @@ func NewCalculator() *Calculator {
 	return &Calculator{}
 }
 
+// BuildBatch는 같은 수취인과 통화의 정산 후보를 하나의 묶음으로 계산한다.
 func (c *Calculator) BuildBatch(
 	ctx context.Context,
 	batchID string,
