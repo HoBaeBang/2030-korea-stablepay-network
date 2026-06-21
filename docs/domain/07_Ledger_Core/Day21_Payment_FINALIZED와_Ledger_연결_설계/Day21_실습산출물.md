@@ -53,7 +53,8 @@ FINALIZED는 결제 상태를 말하지만,
 내 답변:
 
 ```text
-
+FINALIZED는 결제가 온체인에서 충분히 확정되었다는 상태를 나타낼 뿐이다.
+누구의 어떤 계정에서 누구의 어떤 계정으로, 어떤 통화가 얼마만큼 왜 이동했는지는 Ledger Transaction과 Entries로 별도 기록해야 한다.
 ```
 
 ## 2. 위 예시 결제의 Ledger Transaction은 어떻게 만들어야 하는가?
@@ -67,9 +68,9 @@ reference_type, reference_id, idempotency_key를 직접 적는다.
 내 답변:
 
 ```text
-reference_type =
-reference_id =
-idempotency_key =
+reference_type = PAYMENT
+reference_id = pay_123
+idempotency_key = payment:pay_123:finalized
 ```
 
 ## 3. 위 예시 결제의 Ledger Entries를 작성해보자.
@@ -83,9 +84,9 @@ idempotency_key =
 내 답변:
 
 ```text
-1.
-2.
-3.
+1. Customer 계정 / DEBIT / 10_000_000 USDC
+2. MerchantPending 계정 / CREDIT / 9_800_000 USDC
+3. PlatformFee 계정 / CREDIT / 200_000 USDC
 ```
 
 ## 4. debit 합계와 credit 합계가 같은지 검증해보자.
@@ -99,9 +100,9 @@ DEBIT total과 CREDIT total을 숫자로 계산한다.
 내 답변:
 
 ```text
-DEBIT total =
-CREDIT total =
-검증 결과 =
+DEBIT total = 10_000_000
+CREDIT total = 9_800_000 + 200_000 = 10_000_000
+검증 결과 = 두 합계가 같으므로 통과
 ```
 
 ## 5. 같은 Payment FINALIZED가 두 번 처리되면 어떤 문제가 생기고, 무엇으로 막을 수 있는가?
@@ -116,7 +117,8 @@ CREDIT total =
 내 답변:
 
 ```text
-
+같은 FINALIZED 사건이 두 번 처리되면 고객 DEBIT, 가맹점 지급 예정 CREDIT, 플랫폼 수수료 CREDIT이 모두 중복 기록될 수 있다.
+`payment:pay_123:finalized`처럼 같은 업무 사건에 동일한 idempotency_key를 사용하고, DB unique 제약으로 두 번째 저장을 차단한다.
 ```
 
 ## 오늘 실행 결과
@@ -133,7 +135,9 @@ go test ./internal/ledger -v
 기록:
 
 ```text
-
+`go test ./internal/payment ./internal/ledger -v` 실행 결과 Payment와 Ledger 테스트가 통과했다.
+TEST_DATABASE_URL이 필요한 Repository 통합 테스트 3개는 이번 실행에서 skip되었다.
+`go test ./...` 실행 결과 전체 패키지가 통과했다.
 ```
 
 ## 아직 헷갈리는 부분
@@ -153,7 +157,9 @@ PlatformFee 계정
 메모:
 
 ```text
-
+FINALIZED는 결제가 확정된 상태이고, SETTLED는 가맹점 등 정산 대상에게 지급까지 완료된 상태다.
+현재 코드에는 Payment가 FINALIZED 될 때 LedgerService.RecordTransaction을 자동 호출하는 연결이 아직 없다.
+Day21은 그 연결에서 만들 Transaction, Entries, idempotency_key와 실패 처리 위험을 설계한 단계다.
 ```
 
 ## 정답/점검 가이드
@@ -259,6 +265,52 @@ Payment FINALIZED는 결제 상태의 확정이고,
 Ledger 기록은 그 확정된 결제를 돈의 이동으로 해석하는 과정이다.
 ```
 
+작성한 답변은 핵심 방향이 모두 맞았다. 다음 표현만 더 정확하게 구분한다.
+
+```text
+Payment.FINALIZED = 결제가 충분히 확정되었다는 상태
+Ledger Transaction = 어떤 업무 사건 때문에 돈이 이동했는지 나타내는 묶음
+Ledger Entry = 어느 계정에 어떤 방향과 금액으로 반영됐는지 나타내는 항목
+```
+
+### 압축 일정 Ledger Core 회고
+
+기존 Day22 회고를 새 Day21에 합쳐 아래 흐름을 함께 점검했다.
+
+```text
+Ledger 타입
+-> Service의 debit/credit 균형 검증
+-> DB migration
+-> Repository의 원자적 저장
+-> idempotency_key 중복 방지
+-> Service.RecordTransaction 검증 후 저장
+-> Payment FINALIZED를 Ledger 기록으로 변환하는 설계
+```
+
+이 흐름에서 각 계층의 책임은 다음과 같다.
+
+| 영역 | 책임 |
+| --- | --- |
+| Payment | 결제의 현재 상태와 온체인 확정 정보를 관리한다 |
+| Ledger Service | Entry의 금액·통화·방향·debit/credit 균형을 검증한다 |
+| Ledger Repository | Transaction과 Entries를 하나의 DB transaction으로 저장한다 |
+| idempotency_key | 같은 업무 사건의 Ledger 중복 반영을 막는다 |
+| Settlement | Ledger를 기반으로 지급 가능한 금액을 계산한다 |
+
+### 코드 검토 결과
+
+이번 Day는 연결 규칙을 설계하는 날이므로 Production 코드는 수정하지 않았다.
+
+```text
+- Payment의 ONCHAIN_DETECTED -> FINALIZED 전이가 구현되어 있다.
+- FINALIZED 시 finalized_at을 저장한다.
+- LedgerService.RecordTransaction이 구현되어 있다.
+- Payment FINALIZED -> Ledger 자동 호출은 아직 구현되지 않았다.
+- Payment와 Ledger 테스트 및 전체 테스트가 통과한다.
+```
+
+실제 연결 구현에서는 Payment 상태 변경과 Ledger 저장 사이에서 한쪽만 성공하는 문제를 반드시 다뤄야 한다. 초기 학습 구현은 동기 호출로 시작할 수 있지만, 이후에는 같은 DB transaction 또는 outbox/event 재처리 전략을 검토한다.
+
 ### 코드 확인 포인트
 
 다음 구현 전에 아래를 확인합니다.
@@ -273,14 +325,11 @@ Ledger 기록은 그 확정된 결제를 돈의 이동으로 해석하는 과정
 
 ### 다음 학습 포인트
 
-Day22에서는 Ledger Core 전체를 중간 회고합니다.
+압축 일정의 새 Day22에서는 기존 Day23~24를 합쳐 Settlement 도메인 타입과 계산 서비스를 함께 다룬다.
 
 ```text
-Day15 균형 검증
-Day16 DB migration
-Day17 Repository 초안
-Day18 저장 구현
-Day19 idempotency
-Day20 Service -> Repository
-Day21 Payment FINALIZED -> Ledger 설계
+1. Settlement Batch와 Item은 무엇을 나타내는가?
+2. MerchantPending CREDIT 중 어떤 항목이 정산 대상인가?
+3. 지급 가능 금액을 어떤 기준 시각과 통화로 묶을 것인가?
+4. 같은 Ledger Entry가 두 정산 묶음에 중복 포함되지 않게 어떻게 막을 것인가?
 ```

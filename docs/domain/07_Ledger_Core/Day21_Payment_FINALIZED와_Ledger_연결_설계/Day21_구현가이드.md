@@ -450,7 +450,7 @@ go test ./internal/ledger -v
 2. Ledger Transaction의 reference_type, reference_id, idempotency_key를 직접 만들 수 있다.
 3. 고객, 가맹점 지급 예정, 플랫폼 수수료 entry의 debit/credit 방향을 설명할 수 있다.
 4. debit 합계와 credit 합계가 같아야 하는 이유를 설명할 수 있다.
-5. Day22 이후 어떤 구현 위험을 조심해야 하는지 말할 수 있다.
+5. 다음 구현에서 어떤 원자성·중복 처리 위험을 조심해야 하는지 말할 수 있다.
 ```
 
 ## 자주 헷갈리는 부분
@@ -513,15 +513,13 @@ feat: payment finalized ledger 기록 설계 반영
 
 ## 다음 작업 예고
 
-Day22는 Ledger Core 중간 회고입니다.
+압축 일정에 따라 기존 Day22의 Ledger Core 회고는 이번 Day21 산출물에 포함합니다.
 
-Day15부터 Day21까지 이어진 흐름을 아래 순서로 다시 점검합니다.
+새 Day22에서는 기존 Day23~24를 합쳐 Settlement 도메인 타입과 계산 서비스를 함께 다룹니다.
 
 ```text
-Ledger 타입
--> 균형 검증
--> DB migration
--> Repository 저장
--> Service 연결
--> Payment FINALIZED와 Ledger 연결 설계
+Ledger의 MerchantPending CREDIT 조회
+-> Settlement Batch와 Item 구성
+-> 가맹점별·통화별 지급 가능 금액 계산
+-> 정산 대상 Entry 중복 포함 방지 기준 설계
 ```
