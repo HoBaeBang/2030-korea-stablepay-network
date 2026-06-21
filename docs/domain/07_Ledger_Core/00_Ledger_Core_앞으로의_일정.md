@@ -16,23 +16,18 @@
 ## 현재 위치
 
 ```text
-Day12: Ledger 도메인 타입 초안
-Day13: Ledger 균형 검증 테스트 자료
-Day14: Ledger Core 회고와 검증
-Day15: Ledger Service 균형 검증 구현 자료
-Day16: Ledger DB Migration 작성
-Day17: Ledger Repository 초안
-Day18: Ledger Repository 저장 구현 자료 준비
-Day19: Repository 저장 검증과 Idempotency 자료 준비
-Day20: Ledger Service와 Repository 연결 자료 준비
-Day21: Payment FINALIZED와 Ledger 연결 설계 자료 준비
+Day18: Ledger Repository 저장 구현 완료
+Day19: Repository 저장 검증과 Idempotency 완료
+Day20: Ledger Service와 Repository 연결 완료
+Day21: Payment FINALIZED와 Ledger 연결 설계 및 Ledger Core 회고 완료
+Day22: Settlement 도메인 타입과 계산 서비스 준비
 ```
 
 ## 전체 흐름
 
 ![Ledger Core 앞으로의 일정](../../confluence/diagrams/spn-ledger-core-future-plan.png)
 
-## Day16 이후 일정
+## 압축 일정
 
 | Day | 주제 | 핵심 산출물 | 목적 |
 | --- | --- | --- | --- |
@@ -41,21 +36,13 @@ Day21: Payment FINALIZED와 Ledger 연결 설계 자료 준비
 | Day18 | Ledger Repository 저장 구현 | `CreateTransaction` 메서드 초안 | 원장 거래 1건과 항목 여러 건을 하나의 DB transaction으로 저장한다 |
 | Day19 | Repository 저장 검증과 Idempotency | 저장 검증과 중복 저장 방지 후보 | 저장 성공/실패 흐름과 `idempotency_key` 중복 방지를 점검한다 |
 | Day20 | Ledger Service와 Repository 연결 | `ValidateTransaction -> CreateTransaction` 흐름 | Service 검증 후 Repository 저장으로 이어지게 만든다 |
-| Day21 | Payment FINALIZED와 Ledger 연결 설계 | payment -> ledger 연결 테스트 후보 | 결제 확정이 돈의 이동 기록으로 이어지게 한다 |
-| Day22 | Ledger Core 중간 회고 | 체크리스트와 보강 | 타입, 검증, DB, 저장 흐름을 복습한다 |
-| Day23 | Settlement 도메인 타입 | settlement batch 타입 | Ledger Entry를 정산 묶음으로 계산할 준비를 한다 |
-| Day24 | Settlement 계산 서비스 | 정산 대상 금액 계산 | 가맹점 지급 예정 금액을 계산한다 |
-| Day25 | Settlement DB Migration | settlement 테이블 | 정산 결과를 DB에 보존한다 |
-| Day26 | Settlement 상태 흐름 | requested/approved/paid 후보 | 정산 처리 상태를 설계한다 |
-| Day27 | Reconciliation 기초 | DB 상태와 원장 상태 비교 | 누락, 중복, 불일치를 찾는 흐름을 이해한다 |
-| Day28 | Ledger/Settlement 회고 | 종합 산출물 | 돈의 이동 기록과 정산 흐름을 연결해서 설명한다 |
-| Day29 | Deposit 도메인 모델 | deposit status, tx hash | 온체인 입금을 백엔드 상태로 반영하는 구조를 잡는다 |
-| Day30 | Processed Event 모델 | `processed_events` 후보 | 같은 온체인 이벤트를 두 번 처리하지 않게 한다 |
-| Day31 | Event Indexer Mock | block polling mock | 블록체인 이벤트를 읽는 백엔드 작업 구조를 만든다 |
-| Day32 | Withdrawal 도메인 모델 | withdrawal request/status | 출금 요청과 승인/서명/전송 흐름을 설계한다 |
-| Day33 | Wallet/Key Security 경계 | signer boundary | Go 백엔드와 Rust signer 역할을 분리한다 |
-| Day34 | Deposit/Withdrawal 회고 | 입출금 종합 검증 | 온체인 이벤트와 백엔드 상태 흐름을 복습한다 |
-| Day35 | Portfolio 정리 | README/API/검증문서 보강 | 채용 담당자가 이해할 수 있는 결과물로 정리한다 |
+| Day21 | Payment FINALIZED와 Ledger 연결 설계 및 회고 | payment -> ledger 규칙과 Ledger Core 점검 | 결제 확정을 돈의 이동 기록으로 해석하고 Ledger 구간을 마무리한다 |
+| Day22 | Settlement 도메인 타입과 계산 서비스 | `internal/settlement` 타입·Calculator·테스트 | 지급 예정 Ledger Entry를 정산 묶음과 항목으로 계산한다 |
+| Day23 | Settlement DB와 상태 흐름 | migration, repository, 상태 전이 | 정산 결과를 보존하고 DRAFT 이후 처리 단계를 관리한다 |
+| Day24 | Reconciliation과 Settlement 검증 | DB·Ledger 비교와 종합 테스트 | 정산 누락, 중복, 불일치를 찾는다 |
+| Day25 | Deposit과 Processed Event | 입금 모델과 중복 이벤트 방지 | 온체인 입금을 안전하게 Ledger에 반영할 준비를 한다 |
+| Day26 | Event Indexer와 Withdrawal | polling mock과 출금 모델 | 온체인 이벤트 읽기와 출금 흐름을 연결한다 |
+| Day27 | Wallet/Key Security와 포트폴리오 | Rust signer 경계, 종합 검증, README | Phase 2를 마무리하고 채용 결과물로 정리한다 |
 
 ## 구현 순서의 이유
 
@@ -70,7 +57,7 @@ Event Indexer는 블록체인에서 발생한 일을 백엔드로 가져온다.
 Wallet/Key Security는 출금과 서명의 안전 경계를 만든다.
 ```
 
-그래서 순서는 아래처럼 잡습니다.
+압축 일정에서도 구현 순서는 아래처럼 유지합니다.
 
 ```text
 Ledger
@@ -102,8 +89,9 @@ Day19: 저장 검증과 중복 방지를 점검한다.
 다만 한 번에 너무 많은 기능을 붙이지 않기 위해 아래 기준은 유지합니다.
 
 ```text
-하루에 핵심 코드 작업 하나만 한다.
+하루에 서로 연결된 기능 흐름 하나를 완성한다.
 문서는 코드 작업을 도와야 한다.
 산출물은 오늘 구현한 코드와 직접 연결한다.
-복습일은 기능을 늘리지 않고 이해도를 점검한다.
+복습은 각 Day의 마지막 검증에 포함한다.
+별도 회고일은 사용자가 특정 구간을 다시 확인하고 싶을 때만 추가한다.
 ```

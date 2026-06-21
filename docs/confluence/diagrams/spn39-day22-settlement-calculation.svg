@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1400" viewBox="0 0 1400 1400">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#5eead4"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="1400" height="1400" fill="#0b1020"/>
+  <text x="70" y="78" fill="#f8fafc" font-family="Arial, sans-serif" font-size="38" font-weight="700">Day22 Settlement Calculation Flow</text>
+  <text x="70" y="118" fill="#94a3b8" font-family="Arial, sans-serif" font-size="21">Ledger 후보를 검증해 지급 가능한 Batch와 근거 Items로 계산한다</text>
+
+  <line x1="330" y1="285" x2="400" y2="285" stroke="#5eead4" stroke-width="5" marker-end="url(#arrow)"/>
+  <line x1="650" y1="285" x2="720" y2="285" stroke="#5eead4" stroke-width="5" marker-end="url(#arrow)"/>
+  <line x1="970" y1="285" x2="1040" y2="285" stroke="#5eead4" stroke-width="5" marker-end="url(#arrow)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="70" y="190" width="260" height="190" rx="8" fill="#172033" stroke="#60a5fa" stroke-width="3"/>
+    <text x="200" y="235" text-anchor="middle" fill="#93c5fd" font-family="Arial, sans-serif" font-size="24" font-weight="700">Ledger</text>
+    <text x="95" y="280" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="19">MerchantPending</text>
+    <text x="95" y="314" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="19">CREDIT Entries</text>
+    <text x="95" y="350" fill="#94a3b8" font-family="Arial, sans-serif" font-size="17">돈 이동의 원본 기록</text>
+
+    <rect x="400" y="190" width="250" height="190" rx="8" fill="#172033" stroke="#a78bfa" stroke-width="3"/>
+    <text x="525" y="235" text-anchor="middle" fill="#c4b5fd" font-family="Arial, sans-serif" font-size="24" font-weight="700">Candidate</text>
+    <text x="425" y="278" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="18">Entry + Account JOIN</text>
+    <text x="425" y="312" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="18">Recipient ID</text>
+    <text x="425" y="346" fill="#94a3b8" font-family="Arial, sans-serif" font-size="17">아직 정산 확정 전</text>
+
+    <rect x="720" y="190" width="250" height="190" rx="8" fill="#172033" stroke="#5eead4" stroke-width="3"/>
+    <text x="845" y="235" text-anchor="middle" fill="#99f6e4" font-family="Arial, sans-serif" font-size="24" font-weight="700">Calculator</text>
+    <text x="745" y="278" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="18">검증 + 합계 계산</text>
+    <text x="745" y="312" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="18">중복 Entry 차단</text>
+    <text x="745" y="346" fill="#94a3b8" font-family="Arial, sans-serif" font-size="17">수취인·통화별 묶음</text>
+
+    <rect x="1040" y="190" width="290" height="190" rx="8" fill="#172033" stroke="#fbbf24" stroke-width="3"/>
+    <text x="1185" y="235" text-anchor="middle" fill="#fde68a" font-family="Arial, sans-serif" font-size="24" font-weight="700">Settlement Result</text>
+    <text x="1065" y="278" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="18">Batch: 총액과 상태</text>
+    <text x="1065" y="312" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="18">Items: 금액의 근거</text>
+    <text x="1065" y="346" fill="#94a3b8" font-family="Arial, sans-serif" font-size="17">Status = DRAFT</text>
+  </g>
+
+  <rect x="150" y="485" width="1100" height="300" rx="8" fill="#111827" stroke="#334155" stroke-width="2"/>
+  <text x="190" y="535" fill="#f8fafc" font-family="Arial, sans-serif" font-size="26" font-weight="700">Calculator validation gates</text>
+
+  <g font-family="Arial, sans-serif" font-size="20">
+    <circle cx="205" cy="590" r="8" fill="#5eead4"/><text x="230" y="597" fill="#e2e8f0">같은 Recipient</text>
+    <circle cx="205" cy="645" r="8" fill="#5eead4"/><text x="230" y="652" fill="#e2e8f0">MERCHANT_PENDING account</text>
+    <circle cx="205" cy="700" r="8" fill="#5eead4"/><text x="230" y="707" fill="#e2e8f0">CREDIT direction</text>
+
+    <circle cx="600" cy="590" r="8" fill="#5eead4"/><text x="625" y="597" fill="#e2e8f0">Amount &gt; 0</text>
+    <circle cx="600" cy="645" r="8" fill="#5eead4"/><text x="625" y="652" fill="#e2e8f0">같은 Currency</text>
+    <circle cx="600" cy="700" r="8" fill="#5eead4"/><text x="625" y="707" fill="#e2e8f0">중복 LedgerEntryID 차단</text>
+
+    <circle cx="965" cy="590" r="8" fill="#fbbf24"/><text x="990" y="597" fill="#e2e8f0">TotalAmount 합계</text>
+    <circle cx="965" cy="645" r="8" fill="#fbbf24"/><text x="990" y="652" fill="#e2e8f0">ItemCount 계산</text>
+    <circle cx="965" cy="700" r="8" fill="#fbbf24"/><text x="990" y="707" fill="#e2e8f0">Batch + Items 반환</text>
+  </g>
+
+  <rect x="150" y="850" width="500" height="350" rx="8" fill="#172033" stroke="#fbbf24" stroke-width="3"/>
+  <text x="190" y="905" fill="#fde68a" font-family="Arial, sans-serif" font-size="27" font-weight="700">Batch</text>
+  <text x="190" y="960" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="20">recipient = merchant_1</text>
+  <text x="190" y="1005" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="20">currency = USDC</text>
+  <text x="190" y="1050" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="20">total = 14.8 USDC</text>
+  <text x="190" y="1095" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="20">item_count = 2</text>
+  <text x="190" y="1140" fill="#94a3b8" font-family="Arial, sans-serif" font-size="20">status = DRAFT</text>
+
+  <rect x="750" y="850" width="500" height="350" rx="8" fill="#172033" stroke="#a78bfa" stroke-width="3"/>
+  <text x="790" y="905" fill="#c4b5fd" font-family="Arial, sans-serif" font-size="27" font-weight="700">Items</text>
+  <text x="790" y="970" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="20">led_entry_payment_1</text>
+  <text x="790" y="1010" fill="#94a3b8" font-family="Arial, sans-serif" font-size="19">9.8 USDC</text>
+  <line x1="790" y1="1045" x2="1200" y2="1045" stroke="#334155" stroke-width="2"/>
+  <text x="790" y="1100" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="20">led_entry_payment_2</text>
+  <text x="790" y="1140" fill="#94a3b8" font-family="Arial, sans-serif" font-size="19">5.0 USDC</text>
+
+  <text x="700" y="1340" text-anchor="middle" fill="#64748b" font-family="Arial, sans-serif" font-size="18">2030 KOREA StablePay Network · SPN-39</text>
+</svg>

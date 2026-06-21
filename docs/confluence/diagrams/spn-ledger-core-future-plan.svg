@@ -1,44 +1,57 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="950" viewBox="0 0 1500 950">
-  <rect width="1500" height="950" fill="#101820"/>
-  <text x="58" y="76" fill="#eef6ff" font-size="34" font-family="Apple SD Gothic Neo, Arial">Ledger Core 이후 일정</text>
-  <text x="60" y="116" fill="#a8bbcf" font-size="22" font-family="Apple SD Gothic Neo, Arial">Ledger 저장 구조에서 Settlement, Deposit/Withdrawal, Event Indexer까지 작은 단계로 확장한다</text>
-
-  <rect x="80" y="175" width="250" height="125" rx="18" fill="#20344a" stroke="#5eead4" stroke-width="2"/>
-  <text x="205" y="215" fill="#eef6ff" font-size="22" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Day16-22</text>
-  <text x="205" y="250" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Ledger Core</text>
-  <text x="205" y="280" fill="#a8bbcf" font-size="17" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">migration / repository</text>
-
-  <rect x="420" y="175" width="250" height="125" rx="18" fill="#20344a" stroke="#80bfff" stroke-width="2"/>
-  <text x="545" y="215" fill="#eef6ff" font-size="22" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Day23-28</text>
-  <text x="545" y="250" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Settlement</text>
-  <text x="545" y="280" fill="#a8bbcf" font-size="17" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">batch / payout candidate</text>
-
-  <rect x="760" y="175" width="270" height="125" rx="18" fill="#20344a" stroke="#fbbf24" stroke-width="2"/>
-  <text x="895" y="215" fill="#eef6ff" font-size="22" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Day29-34</text>
-  <text x="895" y="250" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Deposit / Withdrawal</text>
-  <text x="895" y="280" fill="#a8bbcf" font-size="17" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">onchain event / signer boundary</text>
-
-  <rect x="1120" y="175" width="280" height="125" rx="18" fill="#20344a" stroke="#86efac" stroke-width="2"/>
-  <text x="1260" y="215" fill="#eef6ff" font-size="22" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Day35+</text>
-  <text x="1260" y="250" fill="#eef6ff" font-size="20" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">Portfolio / Rust</text>
-  <text x="1260" y="280" fill="#a8bbcf" font-size="17" text-anchor="middle" font-family="Apple SD Gothic Neo, Arial">README / signer lab</text>
-
-  <line x1="330" y1="237" x2="420" y2="237" stroke="#80bfff" stroke-width="4" marker-end="url(#arrow)"/>
-  <line x1="670" y1="237" x2="760" y2="237" stroke="#80bfff" stroke-width="4" marker-end="url(#arrow)"/>
-  <line x1="1030" y1="237" x2="1120" y2="237" stroke="#80bfff" stroke-width="4" marker-end="url(#arrow)"/>
-
-  <rect x="90" y="410" width="1320" height="360" rx="18" fill="#162333" stroke="#3b82f6" stroke-width="2"/>
-  <text x="130" y="462" fill="#eef6ff" font-size="25" font-family="Apple SD Gothic Neo, Arial">구현 확장 순서</text>
-  <text x="150" y="520" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">1. Ledger는 돈의 이동 기록을 안전하게 저장한다.</text>
-  <text x="150" y="566" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">2. Settlement는 Ledger를 기반으로 지급 가능 금액을 계산한다.</text>
-  <text x="150" y="612" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">3. Deposit/Withdrawal은 온체인 이벤트와 내부 원장을 연결한다.</text>
-  <text x="150" y="658" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">4. Event Indexer는 블록체인에서 발생한 이벤트를 안전하게 읽는다.</text>
-  <text x="150" y="704" fill="#eef6ff" font-size="20" font-family="Apple SD Gothic Neo, Arial">5. Wallet/Key Security는 출금과 서명 책임을 분리한다.</text>
-
-  <text x="70" y="845" fill="#a8bbcf" font-size="17" font-family="Apple SD Gothic Neo, Arial">일정은 학습 속도에 따라 조정한다. 다만 하루에 핵심 코드 작업 하나만 완성하는 리듬은 유지한다.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1400" viewBox="0 0 1400 1400">
   <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L9,3 z" fill="#80bfff"/>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#78A9FF"/>
     </marker>
+    <style>
+      .title{font:700 48px -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;fill:#F4F7FB}
+      .sub{font:400 22px -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;fill:#A9B4C4}
+      .day{font:700 26px -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;fill:#F4F7FB}
+      .topic{font:600 23px -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;fill:#DDE6F3}
+      .desc{font:400 19px -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;fill:#A9B4C4}
+      .label{font:700 20px -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;fill:#7DD3FC}
+    </style>
   </defs>
+  <rect width="1400" height="1400" fill="#0B1018"/>
+  <rect x="56" y="48" width="1288" height="1304" rx="28" fill="#111926" stroke="#263448" stroke-width="2"/>
+
+  <text x="100" y="125" class="title">Ledger Core 압축 일정</text>
+  <text x="100" y="168" class="sub">구현 흐름은 유지하고, 복습은 각 Day의 마지막 검증에 포함합니다.</text>
+
+  <text x="100" y="235" class="label">완료된 기반</text>
+  <g filter="url(#shadow)">
+    <rect x="100" y="265" width="280" height="160" rx="16" fill="#172233" stroke="#3B82F6" stroke-width="2"/>
+    <rect x="405" y="265" width="280" height="160" rx="16" fill="#172233" stroke="#3B82F6" stroke-width="2"/>
+    <rect x="710" y="265" width="280" height="160" rx="16" fill="#172233" stroke="#3B82F6" stroke-width="2"/>
+    <rect x="1015" y="265" width="280" height="160" rx="16" fill="#172233" stroke="#3B82F6" stroke-width="2"/>
+  </g>
+  <text x="130" y="310" class="day">Day18</text><text x="130" y="350" class="topic">Repository 저장</text><text x="130" y="385" class="desc">Transaction + Entries</text>
+  <text x="435" y="310" class="day">Day19</text><text x="435" y="350" class="topic">저장 안전성</text><text x="435" y="385" class="desc">Idempotency · Rollback</text>
+  <text x="740" y="310" class="day">Day20</text><text x="740" y="350" class="topic">Service 연결</text><text x="740" y="385" class="desc">검증 후 Repository 저장</text>
+  <text x="1045" y="310" class="day">Day21</text><text x="1045" y="350" class="topic">Payment 연결</text><text x="1045" y="385" class="desc">FINALIZED → Ledger</text>
+  <path d="M380 345 H395 M685 345 H700 M990 345 H1005" stroke="#78A9FF" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <text x="100" y="500" class="label">현재 작업</text>
+  <g filter="url(#shadow)"><rect x="100" y="530" width="1195" height="190" rx="18" fill="#172C2A" stroke="#34D399" stroke-width="3"/></g>
+  <text x="145" y="580" class="day">Day22</text>
+  <text x="145" y="625" class="topic">Settlement 도메인 타입과 계산 서비스</text>
+  <text x="145" y="667" class="desc">MerchantPending CREDIT 후보 → Batch + Items 계산 · 검증 · 단위 테스트</text>
+
+  <text x="100" y="795" class="label">다음 구현 흐름</text>
+  <g filter="url(#shadow)">
+    <rect x="100" y="825" width="350" height="180" rx="16" fill="#1A2230" stroke="#A78BFA" stroke-width="2"/>
+    <rect x="525" y="825" width="350" height="180" rx="16" fill="#1A2230" stroke="#A78BFA" stroke-width="2"/>
+    <rect x="950" y="825" width="345" height="180" rx="16" fill="#1A2230" stroke="#A78BFA" stroke-width="2"/>
+    <rect x="310" y="1080" width="350" height="180" rx="16" fill="#1A2230" stroke="#A78BFA" stroke-width="2"/>
+    <rect x="740" y="1080" width="350" height="180" rx="16" fill="#1A2230" stroke="#A78BFA" stroke-width="2"/>
+  </g>
+  <text x="130" y="875" class="day">Day23</text><text x="130" y="917" class="topic">Settlement DB · 상태</text><text x="130" y="955" class="desc">Migration · Repository · 전이</text>
+  <text x="555" y="875" class="day">Day24</text><text x="555" y="917" class="topic">Reconciliation</text><text x="555" y="955" class="desc">DB · Ledger 비교와 검증</text>
+  <text x="980" y="875" class="day">Day25</text><text x="980" y="917" class="topic">Deposit · Event</text><text x="980" y="955" class="desc">입금과 중복 이벤트 방지</text>
+  <text x="340" y="1130" class="day">Day26</text><text x="340" y="1172" class="topic">Indexer · Withdrawal</text><text x="340" y="1210" class="desc">Polling과 출금 흐름</text>
+  <text x="770" y="1130" class="day">Day27</text><text x="770" y="1172" class="topic">Signer · Portfolio</text><text x="770" y="1210" class="desc">보안 경계와 Phase 2 정리</text>
+  <path d="M450 915 H515 M875 915 H940 M1122 1005 V1040 H660 V1070 M660 1170 H730" fill="none" stroke="#78A9FF" stroke-width="4" marker-end="url(#arrow)"/>
 </svg>
