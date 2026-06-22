@@ -37,7 +37,7 @@ func (r *Repository) FindCandidates(
 		return nil, fmt.Errorf("정산 통화가 필요합니다.")
 	}
 	if r.db == nil {
-		return nil, fmt.Errorf("settlement repository db 가 필요합니다.")
+		return nil, fmt.Errorf("settlement repository db가 필요합니다.")
 	}
 
 	const query = `
@@ -82,7 +82,7 @@ func (r *Repository) FindCandidates(
 	}
 
 	if err := rows.Err(); err != nil {
-		return nil, fmt.Errorf("정산 후보 순회 실패 : %w", err)
+		return nil, fmt.Errorf("정산 후보 순회 실패: %w", err)
 	}
 	return candidates, nil
 }
@@ -156,6 +156,7 @@ func (r *Repository) CreateBatch(ctx context.Context, batch Batch, items []Item)
 	return nil
 }
 
+// UpdateBatchStatus는 DB 상태가 예상한 현재 상태와 같을 때만 다음 상태로 변경한다.
 func (r *Repository) UpdateBatchStatus(
 	ctx context.Context,
 	batchID string,
@@ -195,7 +196,7 @@ func (r *Repository) UpdateBatchStatus(
 	return nil
 }
 
-// 컨텍스트 확인
+// validateContext는 context가 존재하고 아직 취소되거나 만료되지 않았는지 확인한다.
 func validateContext(ctx context.Context) error {
 	if ctx == nil {
 		return fmt.Errorf("context가 필요합니다")
