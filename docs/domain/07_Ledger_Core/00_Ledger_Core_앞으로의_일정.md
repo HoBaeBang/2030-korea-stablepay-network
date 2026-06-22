@@ -20,7 +20,8 @@ Day18: Ledger Repository 저장 구현 완료
 Day19: Repository 저장 검증과 Idempotency 완료
 Day20: Ledger Service와 Repository 연결 완료
 Day21: Payment FINALIZED와 Ledger 연결 설계 및 Ledger Core 회고 완료
-Day22: Settlement 도메인 타입과 계산 서비스 준비
+Day22: Settlement 도메인 타입과 계산 서비스 완료
+Day23: Settlement DB 저장과 상태 전이 자료 준비
 ```
 
 ## 전체 흐름

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1400" viewBox="0 0 1400 1400">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 Z" fill="#78A9FF"/>
+    </marker>
+    <style>
+      .title{font:700 46px -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;fill:#F4F7FB}
+      .sub{font:400 21px -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;fill:#AAB6C6}
+      .head{font:700 25px -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;fill:#F4F7FB}
+      .body{font:400 19px -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;fill:#C7D2E1}
+      .small{font:400 17px -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;fill:#AAB6C6}
+      .label{font:700 20px -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;fill:#7DD3FC}
+      .state{font:700 18px -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;fill:#F4F7FB}
+    </style>
+  </defs>
+  <rect width="1400" height="1400" fill="#0B1018"/>
+  <rect x="55" y="45" width="1290" height="1310" rx="28" fill="#111926" stroke="#29374C" stroke-width="2"/>
+
+  <text x="95" y="120" class="title">Day23 · Settlement DB 저장과 상태 전이</text>
+  <text x="95" y="163" class="sub">Ledger 후보를 조회해 계산하고, Batch와 Items를 원자적으로 저장합니다.</text>
+
+  <text x="95" y="230" class="label">생성 및 저장 흐름</text>
+  <g filter="url(#shadow)">
+    <rect x="95" y="265" width="250" height="155" rx="16" fill="#172233" stroke="#3B82F6" stroke-width="2"/>
+    <rect x="395" y="265" width="250" height="155" rx="16" fill="#172233" stroke="#3B82F6" stroke-width="2"/>
+    <rect x="695" y="265" width="250" height="155" rx="16" fill="#172C2A" stroke="#34D399" stroke-width="2"/>
+    <rect x="995" y="265" width="300" height="155" rx="16" fill="#1E2433" stroke="#A78BFA" stroke-width="2"/>
+  </g>
+  <text x="125" y="315" class="head">Service</text><text x="125" y="350" class="body">실행 순서 조정</text><text x="125" y="382" class="small">조회 → 계산 → 저장</text>
+  <text x="425" y="315" class="head">Repository</text><text x="425" y="350" class="body">미정산 후보 조회</text><text x="425" y="382" class="small">DB 접근 경계</text>
+  <text x="725" y="315" class="head">Calculator</text><text x="725" y="350" class="body">검증과 합산</text><text x="725" y="382" class="small">Batch + Items 생성</text>
+  <text x="1025" y="315" class="head">Repository</text><text x="1025" y="350" class="body">하나의 DB transaction</text><text x="1025" y="382" class="small">Batch + Items 저장</text>
+  <path d="M345 343 H385 M645 343 H685 M945 343 H985" stroke="#78A9FF" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <text x="95" y="500" class="label">PostgreSQL 테이블 관계</text>
+  <g filter="url(#shadow)">
+    <rect x="95" y="535" width="360" height="210" rx="16" fill="#172233" stroke="#4F8EF7" stroke-width="2"/>
+    <rect x="520" y="535" width="360" height="210" rx="16" fill="#172C2A" stroke="#34D399" stroke-width="2"/>
+    <rect x="945" y="535" width="350" height="210" rx="16" fill="#1E2433" stroke="#A78BFA" stroke-width="2"/>
+  </g>
+  <text x="125" y="580" class="head">ledger_entries</text>
+  <text x="125" y="620" class="body">정산 금액의 원본 근거</text>
+  <text x="125" y="656" class="small">MERCHANT_PENDING · CREDIT</text>
+  <text x="125" y="690" class="small">아직 settlement_items에 없음</text>
+  <text x="550" y="580" class="head">settlement_batches</text>
+  <text x="550" y="620" class="body">정산 묶음 요약</text>
+  <text x="550" y="656" class="small">recipient · currency · total</text>
+  <text x="550" y="690" class="small">item_count · status</text>
+  <text x="975" y="580" class="head">settlement_items</text>
+  <text x="975" y="620" class="body">Batch 금액의 상세 근거</text>
+  <text x="975" y="656" class="small">batch_id → batches</text>
+  <text x="975" y="690" class="small">ledger_entry_id → entries</text>
+  <path d="M455 640 H510" stroke="#78A9FF" stroke-width="4" marker-end="url(#arrow)"/>
+  <path d="M880 640 H935" stroke="#78A9FF" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="925" y="720" text-anchor="middle" class="small">ledger_entry_id UNIQUE → 중복 정산 차단</text>
+
+  <text x="95" y="830" class="label">상태 전이</text>
+  <g filter="url(#shadow)">
+    <rect x="95" y="875" width="150" height="80" rx="14" fill="#263346" stroke="#7DD3FC" stroke-width="2"/>
+    <rect x="300" y="875" width="150" height="80" rx="14" fill="#263346" stroke="#7DD3FC" stroke-width="2"/>
+    <rect x="505" y="875" width="170" height="80" rx="14" fill="#263346" stroke="#7DD3FC" stroke-width="2"/>
+    <rect x="730" y="875" width="190" height="80" rx="14" fill="#263346" stroke="#FBBF24" stroke-width="2"/>
+    <rect x="1000" y="835" width="150" height="80" rx="14" fill="#173329" stroke="#34D399" stroke-width="2"/>
+    <rect x="1000" y="955" width="150" height="80" rx="14" fill="#372329" stroke="#FB7185" stroke-width="2"/>
+    <rect x="505" y="1075" width="170" height="80" rx="14" fill="#2D283A" stroke="#A78BFA" stroke-width="2"/>
+  </g>
+  <text x="170" y="925" text-anchor="middle" class="state">DRAFT</text>
+  <text x="375" y="925" text-anchor="middle" class="state">READY</text>
+  <text x="590" y="925" text-anchor="middle" class="state">APPROVED</text>
+  <text x="825" y="925" text-anchor="middle" class="state">PROCESSING</text>
+  <text x="1075" y="885" text-anchor="middle" class="state">PAID</text>
+  <text x="1075" y="1005" text-anchor="middle" class="state">FAILED</text>
+  <text x="590" y="1125" text-anchor="middle" class="state">CANCELED</text>
+  <path d="M245 915 H290 M450 915 H495 M675 915 H720" stroke="#78A9FF" stroke-width="4" marker-end="url(#arrow)"/>
+  <path d="M920 900 H965 V875 H990" fill="none" stroke="#34D399" stroke-width="4" marker-end="url(#arrow)"/>
+  <path d="M920 930 H965 V995 H990" fill="none" stroke="#FB7185" stroke-width="4" marker-end="url(#arrow)"/>
+  <path d="M1000 1015 H950 V1050 H825 V965" fill="none" stroke="#FBBF24" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="705" y="1120" class="small">DRAFT · READY · APPROVED · FAILED에서 취소 가능</text>
+  <text x="95" y="1235" class="body">핵심 안전장치</text>
+  <text x="95" y="1272" class="small">1. Batch와 Items는 함께 commit하거나 함께 rollback합니다.</text>
+  <text x="95" y="1306" class="small">2. UNIQUE(ledger_entry_id)는 같은 돈 이동의 중복 정산을 DB에서 차단합니다.</text>
+  <text x="730" y="1272" class="small">3. UPDATE ... WHERE status = current는 동시 상태 변경을 방어합니다.</text>
+</svg>
