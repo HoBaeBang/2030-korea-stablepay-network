@@ -6,8 +6,20 @@ import "github.com/HoBaeBang/2030-korea-stablepay-network/internal/ledger"
 type Status string
 
 const (
-	// StatusDraft는 지급 가능 금액을 계산해 정산 묶음을 처음 만든 상태다.
+	// StatusDraft는 정산 후보를 계산해 묶음을 처음 만든 상태다.
 	StatusDraft Status = "DRAFT"
+	// StatusReady는 정산 항목 검증이 끝나 승인할 수 있는 상태다.
+	StatusReady Status = "READY"
+	// StatusApproved는 내부 정책이나 관리자의 지급 승인이 끝난 상태다.
+	StatusApproved Status = "APPROVED"
+	// StatusProcessing은 실제 지급 요청을 처리 중인 상태다.
+	StatusProcessing Status = "PROCESSING"
+	// StatusPaid는 지급 완료가 확인된 최종 상태다.
+	StatusPaid Status = "PAID"
+	// StatusFailed는 지급 시도가 실패해 재시도나 취소가 필요한 상태다.
+	StatusFailed Status = "FAILED"
+	// StatusCanceled는 지급 전에 정산 처리를 취소한 최종 상태다.
+	StatusCanceled Status = "CANCELED"
 )
 
 // Candidate는 Ledger에서 조회한 정산 대상 후보를 나타낸다.
