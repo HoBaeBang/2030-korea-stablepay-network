@@ -29,6 +29,7 @@
 | 포트폴리오 | [docs/portfolio/project-scope.md](portfolio/project-scope.md) | [포트폴리오 프로젝트 범위](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/4947994) |
 | 아키텍처 | [docs/architecture/target-architecture.md](architecture/target-architecture.md) | [목표 아키텍처](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5046592) |
 | 로드맵 | [docs/roadmap/phase-2-roadmap.md](roadmap/phase-2-roadmap.md) | [Phase 2 구현 로드맵](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/4948017) |
+| 로드맵 | [docs/roadmap/Phase_3-6_블록체인_인프라_확장_로드맵.md](roadmap/Phase_3-6_블록체인_인프라_확장_로드맵.md) | [Phase 3~6 블록체인 인프라 확장 로드맵](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/13107283) |
 | 도메인 | [docs/domain/01_Phase2_전체지도/Phase_2_도메인_전체지도.md](domain/01_Phase2_전체지도/Phase_2_도메인_전체지도.md) | [Phase 2 전체 도메인 지도](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5046569) |
 | 도메인 학습 | [docs/domain/01_Phase2_전체지도/Phase_2_도메인_학습_시작가이드.md](domain/01_Phase2_전체지도/Phase_2_도메인_학습_시작가이드.md) | [Phase 2 도메인 학습 시작 가이드](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5013561) |
 | 도메인 학습 | [docs/domain/02_원장과_정산/Ledger와_Settlement_기초학습.md](domain/02_원장과_정산/Ledger와_Settlement_기초학습.md) | [Ledger와 Settlement 기초 학습](https://aslan0.atlassian.net/wiki/spaces/SPN/pages/5013611) |

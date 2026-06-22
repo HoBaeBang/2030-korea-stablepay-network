@@ -5,7 +5,7 @@
 중요한 기준은 두 가지다.
 
 1. 현재 구현된 Phase 1 범위를 명확히 설명한다.
-2. 앞으로 확장할 Phase 2, Phase 3 범위를 현재 구현과 분리해서 설명한다.
+2. 앞으로 확장할 Phase 2~6 범위를 현재 구현과 분리해서 설명한다.
 
 즉, 이 문서는 "이미 다 만들었다"는 문서가 아니라 "지금은 어디까지 만들었고, 다음에는 어떤 구조로 확장할 것인가"를 보여주는 문서다.
 
@@ -19,9 +19,12 @@
 flowchart LR
     P1["Phase 1<br/>Stablecoin Payment Gateway Backend<br/>스테이블코인 결제 백엔드"]
     P2["Phase 2<br/>Blockchain Finance Backend<br/>원장, 정산, 입출금, 인덱서"]
-    P3["Phase 3<br/>Rust Signer, Chain Prototype, Devnet<br/>서명기, 체인 프로토타입, 개발 네트워크"]
+    P3["Phase 3<br/>Real-chain Indexer<br/>실제 Ethereum 체인 연결"]
+    P4["Phase 4<br/>Data Pipeline & RPC Proxy<br/>대용량 처리와 RPC 안정화"]
+    P5["Phase 5<br/>Non-EVM & Operations<br/>Solana와 Kubernetes 운영"]
+    P6["Phase 6<br/>Rust Signer & Chain Core<br/>서명기와 체인 프로토타입"]
 
-    P1 --> P2 --> P3
+    P1 --> P2 --> P3 --> P4 --> P5 --> P6
 ```
 
 각 단계의 의미:
@@ -34,7 +37,16 @@ Phase 2
 = 온체인 이벤트 인덱싱, 원장, 정산, 입출금, 지갑 보안을 다루는 블록체인 금융 백엔드
 
 Phase 3
-= Rust로 서명기, 체인 프로토타입, 개발 네트워크를 실험하는 네트워크/코인 영역
+= 실제 Ethereum RPC에서 블록, 트랜잭션, 이벤트를 읽고 재시작과 체인 재구성에 대응하는 인덱서
+
+Phase 4
+= Kafka, Redis, Elasticsearch, RPC Proxy를 이용해 대용량 처리와 장애 복구·성능을 검증하는 인프라
+
+Phase 5
+= Solana 같은 Non-EVM 체인과 Kubernetes/AWS 운영 환경으로 확장하는 단계
+
+Phase 6
+= Rust로 독립 서명기, 체인 프로토타입, 개발 네트워크를 실험하는 보안·네트워크 영역
 ```
 
 ## 현재 구현된 구조
@@ -242,9 +254,56 @@ flowchart LR
     Current --> Future
 ```
 
-## Phase 3 Target Architecture
+## Phase 3~5 Blockchain Infrastructure Architecture
 
-Phase 3에서는 Rust를 이용해 블록체인에 더 가까운 영역을 다룬다. Go 백엔드는 운영 백엔드의 중심으로 두고, Rust는 서명기와 체인 실험 영역에 붙이는 방향이다.
+Phase 3부터는 Phase 2에서 만든 Event Indexer 초안을 실제 퍼블릭 체인과 연결한다. 이후 이벤트 수집과 처리를 분리하고, 여러 RPC 노드의 장애와 트래픽을 다루며, Non-EVM 체인과 운영 환경으로 확장한다.
+
+```mermaid
+flowchart LR
+    Client["Client / Merchant"] --> API["StablePay Go API"]
+    API --> Redis["Redis<br/>cache, rate limit"]
+    API --> DB[("PostgreSQL<br/>payment, ledger, settlement")]
+
+    Ethereum["Ethereum RPC"] --> Proxy["RPC Proxy<br/>health check, routing, retry"]
+    Solana["Solana RPC"] --> Proxy
+    Proxy --> Indexer["Multi-chain Indexer"]
+    Indexer --> Kafka["Kafka<br/>chain event stream"]
+    Kafka --> Processor["Deposit / Payment Processor"]
+    Processor --> DB
+    Processor --> Search["Elasticsearch<br/>transaction and event search"]
+
+    K8s["Kubernetes / AWS / ArgoCD"] -.-> API
+    K8s -.-> Proxy
+    K8s -.-> Indexer
+    K8s -.-> Processor
+```
+
+기술별 책임:
+
+```text
+Kafka
+= Indexer의 데이터 수집과 도메인 처리를 분리하고 이벤트 재처리를 가능하게 한다.
+
+Redis
+= Rate Limit, 짧은 RPC 응답 캐시, 공유 상태가 필요한 경계에 사용한다.
+
+Elasticsearch
+= 대량의 transaction과 event를 여러 조건으로 검색한다.
+
+RPC Proxy
+= 복수 upstream RPC의 health를 확인하고 요청을 분산하며 장애 노드를 우회한다.
+
+Kubernetes
+= API, Indexer, Processor를 독립적으로 배포하고 처리량에 따라 확장한다.
+```
+
+이 기술들은 동시에 추가하지 않는다. 먼저 단일 프로세스와 PostgreSQL로 동작을 완성하고, 처리량·복구·검색 문제를 측정한 뒤 필요한 컴포넌트를 단계적으로 도입한다.
+
+상세 일정과 완료 기준은 [Phase 3~6 블록체인 인프라 확장 로드맵](../roadmap/Phase_3-6_블록체인_인프라_확장_로드맵.md)을 따른다.
+
+## Phase 6 Target Architecture
+
+Phase 6에서는 Rust를 이용해 블록체인에 더 가까운 영역을 다룬다. Go 백엔드는 운영 백엔드의 중심으로 두고, Rust는 서명기와 체인 실험 영역에 붙이는 방향이다.
 
 ```mermaid
 flowchart TD

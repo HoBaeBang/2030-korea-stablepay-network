@@ -24,9 +24,10 @@ flowchart LR
     Ledger["Ledger & Settlement<br/>원장과 정산"]
     Chain["Blockchain Event Indexer<br/>온체인 이벤트 감지"]
     Wallet["Deposit, Withdrawal, Wallet Security<br/>입출금과 키 보안"]
+    Infra["Production Blockchain Infrastructure<br/>실제 체인, 데이터 파이프라인, RPC Proxy"]
     Rust["Rust Signer / Chain Track<br/>서명기와 체인 실험"]
 
-    P1 --> Core --> Ledger --> Chain --> Wallet --> Rust
+    P1 --> Core --> Ledger --> Chain --> Wallet --> Infra --> Rust
 ```
 
 ## 큰 방향
@@ -65,6 +66,10 @@ Rust로 서명기와 체인 코어 이해를 쌓는다.
 둘을 연결해 "블록체인을 이용한 백엔드 개발자" 포트폴리오를 만든다.
 ```
 
+Phase 2를 완료한 뒤에는 Event Indexer 초안을 실제 Ethereum RPC에 연결하고, 대용량 데이터 처리와 RPC 안정화 영역으로 확장한다. Kafka, Redis, Elasticsearch, RPC Proxy, Solana, Kubernetes는 Phase 2에 한꺼번에 넣지 않고 해결할 문제가 확인되는 순서대로 도입한다.
+
+상세한 Phase 3~6 계획은 [블록체인 인프라 확장 로드맵](Phase_3-6_블록체인_인프라_확장_로드맵.md)을 따른다.
+
 ## 에픽별 구현 순서
 
 Jira 에픽과 Phase 2 로드맵은 다음 순서로 연결한다.
@@ -77,9 +82,11 @@ Jira 에픽과 Phase 2 로드맵은 다음 순서로 연결한다.
 | 4 | Blockchain Event Indexer | 온체인 이벤트 감지 | 사람이 상태를 바꾸는 MVP에서 자동 감지 구조로 넘어간다 |
 | 5 | Deposit and Withdrawal | 입금과 출금 상태 관리 | 실제 월렛/거래소 백엔드에 가까운 기능이다 |
 | 6 | Wallet and Key Security | 지갑 주소, 키, 서명 경계 설계 | 출금과 서명은 보안 경계가 가장 중요하다 |
-| 7 | Rust Signer Lab | Rust로 transaction signer 실험 | Rust의 강점을 작은 핵심 컴포넌트로 보여준다 |
-| 8 | Rust Chain Prototype | 작은 자체 체인/코인 실험 | 장기 목표인 자체 네트워크 이해로 넘어간다 |
-| 9 | Devnet and Operations | 로컬 네트워크, 배포, 모니터링 | 실제 운영 가능한 프로젝트처럼 완성도를 올린다 |
+| 7 | Real-chain Ethereum Indexer | 실제 RPC와 재시작 가능한 인덱서 | 개념 수준의 인덱서를 실제 체인 데이터 처리 경험으로 바꾼다 |
+| 8 | Data Pipeline and RPC Proxy | Kafka 기반 처리와 RPC 안정화 | 대용량 데이터, 동시성, 장애 복구 역량을 증명한다 |
+| 9 | Non-EVM and Operations | Solana, Kubernetes, AWS 운영 | 멀티체인 차이와 운영 환경을 경험한다 |
+| 10 | Rust Signer Lab | Rust로 transaction signer 실험 | Rust의 강점을 작은 보안 컴포넌트로 보여준다 |
+| 11 | Rust Chain Prototype | 작은 자체 체인/코인 실험 | 장기 목표인 자체 네트워크 이해로 넘어간다 |
 
 ## Sprint 1 이후 우선순위
 
@@ -96,11 +103,12 @@ flowchart TD
     S5["Sprint 5<br/>Blockchain Event Indexer 초안"]
     S6["Sprint 6<br/>Deposit / Withdrawal 모델"]
     S7["Sprint 7<br/>Wallet & Key Security 설계"]
-    S8["Sprint 8<br/>Rust Signer Lab"]
-    S9["Sprint 9<br/>Rust Chain Prototype"]
-    S10["Sprint 10<br/>Devnet & Operations"]
+    S8["Phase 3<br/>Real-chain Ethereum Indexer"]
+    S9["Phase 4<br/>Data Pipeline & RPC Proxy"]
+    S10["Phase 5<br/>Non-EVM & Operations"]
+    S11["Phase 6<br/>Rust Signer & Chain Prototype"]
 
-    S1 --> S2 --> S3 --> S4 --> S5 --> S6 --> S7 --> S8 --> S9 --> S10
+    S1 --> S2 --> S3 --> S4 --> S5 --> S6 --> S7 --> S8 --> S9 --> S10 --> S11
 ```
 
 ## Sprint 2: Backend Core
@@ -358,7 +366,7 @@ stateDiagram-v2
 Rust signer와 연결할 인터페이스가 문서화된다.
 ```
 
-## Sprint 8: Rust Signer Lab
+## Phase 6 후보: Rust Signer Lab
 
 목표:
 
@@ -400,7 +408,7 @@ Go backend에서 호출할 수 있는 API 계약이 생긴다.
 실제 private key를 노출하지 않는 원칙이 문서화된다.
 ```
 
-## Sprint 9: Rust Chain Prototype
+## Phase 6 후보: Rust Chain Prototype
 
 목표:
 
@@ -439,7 +447,7 @@ node가 서로 데이터를 교환하는 방식
 Go 백엔드와는 별도의 학습 트랙임이 분명하다.
 ```
 
-## Sprint 10: Devnet and Operations
+## Phase 5 후보: Devnet and Operations
 
 목표:
 
@@ -519,4 +527,3 @@ SPN-14 이후 바로 이어가기 좋은 작업은 다음 순서다.
 추천 순서는 `SPN-15`와 `SPN-16`을 먼저 끝내는 것이다.
 
 이유는 Phase 2 구현에 들어가기 전에 public repo가 채용자에게 설명 가능한 상태가 되어야 하기 때문이다.
-
