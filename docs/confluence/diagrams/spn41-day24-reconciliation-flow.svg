@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#94a3b8"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#020617" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="#0b1220"/>
+  <text x="80" y="78" fill="#f8fafc" font-size="38" font-family="Arial, sans-serif" font-weight="700">Day24 Reconciliation: Settlement와 Ledger 다시 맞추기</text>
+  <text x="80" y="120" fill="#94a3b8" font-size="22" font-family="Arial, sans-serif">불일치를 자동 수정하지 않고, 원본과 결과를 비교해 Issue Report로 발견한다.</text>
+
+  <rect x="80" y="180" width="300" height="130" rx="8" fill="#172033" stroke="#38bdf8" stroke-width="2" filter="url(#shadow)"/>
+  <text x="230" y="228" text-anchor="middle" fill="#7dd3fc" font-size="25" font-family="Arial, sans-serif" font-weight="700">실행 주체</text>
+  <text x="230" y="268" text-anchor="middle" fill="#e2e8f0" font-size="20" font-family="Arial, sans-serif">운영자 · Scheduler · 테스트</text>
+
+  <rect x="500" y="180" width="300" height="130" rx="8" fill="#172033" stroke="#2dd4bf" stroke-width="2" filter="url(#shadow)"/>
+  <text x="650" y="228" text-anchor="middle" fill="#5eead4" font-size="25" font-family="Arial, sans-serif" font-weight="700">Reconciler.Check</text>
+  <text x="650" y="268" text-anchor="middle" fill="#e2e8f0" font-size="20" font-family="Arial, sans-serif">비교 규칙과 Issue 수집</text>
+
+  <rect x="920" y="180" width="310" height="130" rx="8" fill="#172033" stroke="#a78bfa" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1075" y="228" text-anchor="middle" fill="#c4b5fd" font-size="25" font-family="Arial, sans-serif" font-weight="700">Repository</text>
+  <text x="1075" y="268" text-anchor="middle" fill="#e2e8f0" font-size="20" font-family="Arial, sans-serif">Snapshot JOIN 조회</text>
+
+  <path d="M380 245 H490" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M800 245 H910" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="210" y="410" width="350" height="165" rx="8" fill="#172033" stroke="#f59e0b" stroke-width="2" filter="url(#shadow)"/>
+  <text x="385" y="454" text-anchor="middle" fill="#fbbf24" font-size="25" font-family="Arial, sans-serif" font-weight="700">Settlement 기준</text>
+  <text x="385" y="495" text-anchor="middle" fill="#e2e8f0" font-size="20" font-family="Arial, sans-serif">Batch: recipient · total · count</text>
+  <text x="385" y="530" text-anchor="middle" fill="#e2e8f0" font-size="20" font-family="Arial, sans-serif">Item: entry · amount · currency</text>
+
+  <rect x="670" y="410" width="350" height="165" rx="8" fill="#172033" stroke="#22c55e" stroke-width="2" filter="url(#shadow)"/>
+  <text x="845" y="454" text-anchor="middle" fill="#86efac" font-size="25" font-family="Arial, sans-serif" font-weight="700">Ledger 원본</text>
+  <text x="845" y="495" text-anchor="middle" fill="#e2e8f0" font-size="20" font-family="Arial, sans-serif">Entry: amount · currency · direction</text>
+  <text x="845" y="530" text-anchor="middle" fill="#e2e8f0" font-size="20" font-family="Arial, sans-serif">Account: owner · account type</text>
+
+  <rect x="1130" y="410" width="350" height="165" rx="8" fill="#172033" stroke="#ef4444" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1305" y="454" text-anchor="middle" fill="#fca5a5" font-size="25" font-family="Arial, sans-serif" font-weight="700">비교 항목</text>
+  <text x="1305" y="495" text-anchor="middle" fill="#e2e8f0" font-size="19" font-family="Arial, sans-serif">금액 · 통화 · 수취인 · 개수</text>
+  <text x="1305" y="530" text-anchor="middle" fill="#e2e8f0" font-size="19" font-family="Arial, sans-serif">계정 역할 · CREDIT 방향 · 누락</text>
+
+  <path d="M1075 310 V360 H385 V400" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M1075 310 V360 H845 V400" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M1020 492 H1120" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M560 492 H660" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="280" y="690" width="390" height="125" rx="8" fill="#10251f" stroke="#22c55e" stroke-width="2" filter="url(#shadow)"/>
+  <text x="475" y="738" text-anchor="middle" fill="#86efac" font-size="27" font-family="Arial, sans-serif" font-weight="700">Healthy Report</text>
+  <text x="475" y="778" text-anchor="middle" fill="#d1fae5" font-size="20" font-family="Arial, sans-serif">Issues = 0 · 자동 변경 없음</text>
+
+  <rect x="930" y="690" width="390" height="125" rx="8" fill="#30191d" stroke="#ef4444" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1125" y="738" text-anchor="middle" fill="#fca5a5" font-size="27" font-family="Arial, sans-serif" font-weight="700">Mismatch Report</text>
+  <text x="1125" y="778" text-anchor="middle" fill="#fee2e2" font-size="20" font-family="Arial, sans-serif">Issue 기록 · 알림 · 운영자 판단</text>
+
+  <path d="M1305 575 V630 H475 V680" fill="none" stroke="#22c55e" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M1305 575 V680" fill="none" stroke="#ef4444" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="735" y="660" fill="#86efac" font-size="18" font-family="Arial, sans-serif">일치</text>
+  <text x="1322" y="638" fill="#fca5a5" font-size="18" font-family="Arial, sans-serif">불일치</text>
+</svg>
