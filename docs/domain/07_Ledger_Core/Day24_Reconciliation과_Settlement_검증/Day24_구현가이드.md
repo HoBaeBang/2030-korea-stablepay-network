@@ -70,7 +70,7 @@ Reconciliation
 
 ## 전체 흐름
 
-![Day24 Reconciliation 흐름](https://raw.githubusercontent.com/HoBaeBang/2030-korea-stablepay-network/main/docs/confluence/diagrams/spn41-day24-reconciliation-flow.png)
+![Day24 Reconciliation 흐름](https://raw.githubusercontent.com/HoBaeBang/2030-korea-stablepay-network/main/docs/confluence/diagrams/spn41-day24-reconciliation-flow.png?v=d302f65)
 
 ```text
 운영자·Scheduler·테스트
